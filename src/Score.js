@@ -9,12 +9,11 @@ class Score extends Component {
     
     super(props, context);
     this.state = {
-      match: 16,
-      score: "",
+      score: this.props.match,
     };
   this.onChange = this.onChange.bind(this)
   // Subscribe any client to a match subscription
-  var socket = io.connect('http://localhost:3100?match=' + this.state.match);
+  var socket = io.connect('http://localhost:3100?match=' + this.props.match);
     socket.on('score-change', this.onChange)
   }
 
