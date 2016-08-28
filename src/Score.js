@@ -9,8 +9,15 @@ class Score extends Component {
     
     super(props, context);
     this.state = {
-      score: this.props.match,
-    };
+      score: {"over": 0, 
+              "ball": 0, 
+              "runs": 0, 
+              "wickets": 0,
+              "bowlingTeam": {"id": 0, "name": "-"},
+              "battingTeam": {"id": 0, "name": "-"}
+            },
+      innings: this.props.innings
+  };
   this.onChange = this.onChange.bind(this)
   // Subscribe any client to a match subscription
   var socket = io.connect('http://localhost:3100?match=' + this.props.match);
@@ -18,23 +25,22 @@ class Score extends Component {
   }
 
  onChange(data) {
-   console.log(data);
-   this.setState({score: data.score.innings[1]});
-   console.log(this.state.score)
+  if(data.score.innings[this.state.innings]) {
+    this.setState(
+      {score: data.score.innings[this.state.innings]},
+      );
+    }
  }
-
-
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <h2>Current score</h2>
+        <div className="Score">
+          <h2>Innings: {this.state.innings}</h2>
+          <h3> {this.state.score.battingTeam.name} </h3>  
           <p> {this.state.score.runs} / {this.state.score.wickets} off  {this.state.score.over}.{this.state.score.ball}  </p>
         </div>
-      </div>
     );
   }
-}
+  }
 
 export default Score;
 

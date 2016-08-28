@@ -28,9 +28,17 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Cricd</h2>
         </div>
+        
+        <div className="scoreContainer">
         <Score 
           match={this.state.match}
+          innings={1}
           />
+        <Score 
+          match={this.state.match}
+          innings={2}
+          />
+        </div>
       </div>
     );
   }
