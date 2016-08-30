@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Score from './Score'
-import logo from './logo.svg';
+import Score from '../Score/Score'
+import logo from '../logo.svg';
 import './App.css';
 
 function getParameterByName(name, url) {
