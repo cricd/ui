@@ -6,10 +6,10 @@ class App extends Component {
     render() {
         return (
             <div>
-                <h2>Cricd</h2>
+                <h2>Cricd UI</h2>
                 <ul>
-                    <li><Link to="/matches">Matches</Link></li>
-                    <li><Link to="/score">Score</Link></li>
+                    <li><Link to="/matches">View Match</Link></li>
+                    <li><Link to="/score">Score Match</Link></li>
                 </ul>
                 {this.props.children}
             </div>
