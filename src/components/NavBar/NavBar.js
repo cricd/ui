@@ -4,10 +4,10 @@ import './NavBar.css';
 class NavBar extends Component {
   render() {
     return (
-            <div className="navBar">
-                <h1> Cricd </h1>
-            </div>
-        );
+      <div className="navBar">
+        <h1> Cricd </h1>
+      </div>
+    );
   }
 }
 

@@ -4,9 +4,9 @@ import './Score.css';
 class Score extends Component {
   render() {
     return (
-        <div>
-          <h2>Score</h2>
-        </div>
+      <div>
+        <h2>Score</h2>
+      </div>
     );
   }
 }

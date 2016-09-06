@@ -9,14 +9,14 @@ import './index.css';
 
 
 render((
-        <Router history={hashHistory}>
-            <Route path="/" component={App}>
-                <Route path="/matches" component={Matches}>
-                    <Route path="/matches/:matchID" component={Match}/>
-                </Route>
-                <Route path="/score" component={Score}/>
+    <Router history={hashHistory}>
+        <Route path="/" component={App}>
+            <Route path="/matches" component={Matches}>
+                <Route path="/matches/:matchID" component={Match}/>
             </Route>
-        </Router>
+            <Route path="/score" component={Score}/>
+        </Route>
+    </Router>
 ), document.getElementById('app'))
 
 

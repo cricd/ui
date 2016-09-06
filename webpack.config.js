@@ -1,4 +1,3 @@
-const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
@@ -21,7 +20,6 @@ module.exports = {
       test: /(\.scss|\.css)$/,
       loaders: ['style', 'css', 'scss'],
     },
-
-        ],
+    ],
   },
 };
