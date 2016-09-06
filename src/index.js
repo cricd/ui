@@ -5,7 +5,7 @@ import App from './components/App/App';
 import Matches from './components/Matches/Matches';
 import Match from './components/Match/Match';
 import Score from './components/Score/Score';
-import './index.css';
+import './index.scss';
 
 
 render((

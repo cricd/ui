@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import NavBar from '../NavBar/NavBar.js';
-import './App.css';
+import './App.scss';
 
 class App extends Component {
     render() {

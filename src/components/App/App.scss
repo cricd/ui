@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+$color1: rgba(80, 81, 79, 1);
+$lightGrey: rgba(240,240,240,0.8);
+$headerText: rgba(242, 95, 92, 1);
+$color3: rgba(255, 224, 102, 1);
+$color4: rgba(36, 123, 160, 1);
+$color5: rgba(112, 193, 179, 1);
+
+
+h1 {
+  font-family:  'Lato', sans-serif;
+  font-size: 2em;
+  color: $headerText;
+  padding: 5px;
+}
+
+
+h2 {
+  font-family:  'Lato', sans-serif;
+  font-size: 1.2em;
+  color: $color1;
+  padding: 5px;
+}
+
+li {
+  font-family:  'Lato', sans-serif;
+  font-size: 1em;
+  color: $color1;
+  list-style: none;
+}

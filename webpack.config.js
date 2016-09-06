@@ -18,7 +18,7 @@ module.exports = {
       loader: 'babel-loader?presets[]=es2015&presets[]=react',
     }, {
       test: /(\.scss|\.css)$/,
-      loaders: ['style', 'css', 'scss'],
+      loaders: ['style', 'css', 'sass'],
     },
     ],
   },
