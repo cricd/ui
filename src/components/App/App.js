@@ -3,8 +3,8 @@ import './App.css';
 import { Link } from 'react-router';
 
 class App extends Component {
-    render() {
-        return (
+  render() {
+    return (
             <div>
                 <h2>Cricd UI</h2>
                 <ul>
