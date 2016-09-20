@@ -8,7 +8,8 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      '__API_URL__': JSON.stringify('localhost'),
+      '__SCOREPROCESSOR_URL__': JSON.stringify(process.env.SCOREPROCESSOR_URL) || JSON.stringify('score-processor:3002'),
+      '__CHANGEPUBLISHER_URL__': JSON.stringify(process.env.CHANGEPUBLISHER_URL) || JSON.stringify('change-publisher:3100'),
     }),
   ],
   module: {

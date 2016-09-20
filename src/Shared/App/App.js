@@ -7,14 +7,8 @@ class App extends Component {
     render() {
         return (
             <div>
+                <NavBar />
                 <div>
-                    <NavBar />
-                </div>
-                <div>
-                    <ul>
-                        <li><Link to="/view/1">View Match</Link></li>
-                        <li><Link to="/score">Score Match</Link></li>
-                    </ul>
                     {this.props.children}
                 </div>
             </div>
