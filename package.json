@@ -9,9 +9,9 @@
     "babel-preset-react": "^6.11.1",
     "css-loader": "^0.24.0",
     "jsx-loader": "^0.13.2",
-    "react-scripts": "0.2.1",
     "sass-loader": "^4.0.1",
-    "style-loader": "^0.13.1"
+    "style-loader": "^0.13.1",
+    "webpack-dev-server": "^1.16.1"
   },
   "dependencies": {
     "babel-preset-react": "^6.11.1",
@@ -24,8 +24,7 @@
     "webpack": "^1.13.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "start": "webpack-dev-server --host 0.0.0.0 --port 8080",
+    "build": "webpack --build --progress --color --watch"
   }
 }

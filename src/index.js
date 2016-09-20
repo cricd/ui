@@ -1,20 +1,15 @@
 import { Router, Route, hashHistory} from 'react-router';
 import React from 'react';
 import { render } from 'react-dom';
-import App from './components/App/App';
-import Matches from './components/Matches/Matches';
-import Match from './components/Match/Match';
-import Score from './components/Score/Score';
+import App from './Shared/App/App';
+import View from './ViewScore/View';
 import './index.scss';
 
 
 render((
     <Router history={hashHistory}>
         <Route path="/" component={App}>
-            <Route path="/matches" component={Matches}>
-                <Route path="/matches/:matchID" component={Match}/>
-            </Route>
-            <Route path="/score" component={Score}/>
+                <Route path="/view/:matchID" component={View} />
         </Route>
     </Router>
 ), document.getElementById('app'))
