@@ -12,7 +12,7 @@ class App extends Component {
                 </div>
                 <div>
                     <ul>
-                        <li><Link to="/matches">View Match</Link></li>
+                        <li><Link to="/view/1">View Match</Link></li>
                         <li><Link to="/score">Score Match</Link></li>
                     </ul>
                     {this.props.children}
