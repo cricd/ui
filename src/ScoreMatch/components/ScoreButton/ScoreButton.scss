@@ -1,0 +1,18 @@
+@import "../../../Shared/App/App.scss";
+
+
+.scoreButton {
+    padding: 10px 20px 10px 20px;
+    background-color: $buttonColour;
+    color: white;
+    text-decoration: none;
+    border: 1px solid $buttonColour;
+   &:hover {
+        background-color: white;
+        color: $buttonColour;
+        border: 1px solid $buttonColour;
+    }
+    &.large{
+        padding: 10px 30px 10px 30px;
+    }
+}
