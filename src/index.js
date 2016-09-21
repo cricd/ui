@@ -8,7 +8,7 @@ import ViewMatch from './ViewMatch/ViewMatch';
 render((
     <Router history={hashHistory}>
         <Route path="/" component={App}>
-                <Route path="/view/:matchID" component={ViewMatch} />
+                <Route path="/view/:matchId" component={ViewMatch} />
         </Route>
     </Router>
 ), document.getElementById('app'))
