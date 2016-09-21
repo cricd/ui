@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import io from 'socket.io-client';
 import './ViewMatch.scss';
+import MatchEvent from './components/MatchEvent/MatchEvent';
 
 class ViewMatch extends Component {
     constructor() {
