@@ -14,15 +14,20 @@ class Innings extends Component {
       "runs": 191
     }
     */
+    constructor(){
+        super();
+        this.state = {};
+    }
+    
     render() {
         return (
             <div>
-                <h1>{this.props.score.battingTeam.name}</h1>
-                <h2>{this.props.innings} </h2>
+                <div>{this.props.battingTeam.name}</div>
+                <div>{this.props.innings}</div>
                 <p>
-                    <span>{this.props.score.runs}</span>
+                    <span>{this.props.runs}</span>
                     <span>/</span>
-                    <span>{this.props.score.wickets}</span>
+                    <span>{this.props.wickets}</span>
                 </p>
             </div>
         );
