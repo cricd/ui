@@ -41,8 +41,8 @@ class MatchResult extends Component {
         var team = this.props.team ? this.props.team.name : '';
         return (
             <div>
-                <span>{team}</span>
-                <span>{this.props.result}</span>
+                <span className="teamName">{team}</span>
+                <span className="result">{this.props.result}</span>
             </div>
         );
     }
