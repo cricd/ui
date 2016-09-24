@@ -49,7 +49,7 @@ class ViewMatch extends Component {
         var matchEvents; 
         if(this.state.matchEvents) matchEvents = this.state.matchEvents.map((e, i) => {
             return (<MatchEvent {...e} key={i} />);
-        });
+        }).reverse();
 
         return (
             <div>

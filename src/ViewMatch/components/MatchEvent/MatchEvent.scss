@@ -1,14 +1,16 @@
 @import '../../../Shared/App/App.scss';
 
-.teamName {
+.text {
   font-family:  'Lato', sans-serif;
-  font-size: 3ex;
   color: $color1;
+}
+
+.overAndBall {
+  font-size: 1.5ex;
   margin-right: 5px
 }
 
-.result {
-  font-family:  'Lato', sans-serif;
-  font-size: 3ex;
-  color: $color1;
+.bowlerToBatsman {
+  font-size: 1.5ex;
+  margin-right: 5px
 }
