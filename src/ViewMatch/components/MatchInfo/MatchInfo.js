@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import './MatchInfo.scss';
 import moment from 'moment';
-import Heading from 'grommet/components/Heading';
-import Label from 'grommet/components/Label';
-
 
 class MatchInfo extends Component {
     /*
@@ -43,12 +40,12 @@ class MatchInfo extends Component {
 
         return (
             <div>
-                <Heading margin="none">
+                <div>
                     <span>{homeTeamName}</span>
                     <span className="vs">vs</span>
                     <span>{awayTeamName}</span>
-                </Heading>
-                <Heading tag="h2">{typeOfMatch}</Heading>
+                </div>
+                <div tag="h2">{typeOfMatch}</div>
                 <p className="date">{moment(this.props.startDate).format("dddd, MMMM Do YYYY")}</p>
             </div>
         );

@@ -8,11 +8,9 @@ import Box from 'grommet/components/Box';
 class NavBar extends Component {
   render() {
     return (
-      <Box colorIndex="neutral-1">
-        <Headline size="small">
-          cricd
-        </Headline >
-      </Box>
+      <div className="navBar">
+        <h1>cricd</h1>
+      </div>
     );
   }
 }
