@@ -3,14 +3,21 @@
 .text {
   font-family:  'Lato', sans-serif;
   color: $color1;
+  font-size: 1.5ex;
 }
 
 .overAndBall {
-  font-size: 1.5ex;
-  margin-right: 5px
+  @extend .text;
+  margin-right: 5px;
 }
 
 .bowlerToBatsman {
+  @extend .text;
   font-size: 1.5ex;
-  margin-right: 5px
+  margin-left: 10px;
+}
+
+.commentary {
+  @extend .text;
+  margin-left: 10px;
 }

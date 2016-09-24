@@ -37,65 +37,53 @@ class MatchEvent extends Component {
     }
     }
     */
-    getCommentary() {
-        return {
-            delivery: function(e) {
+    getCommentary(e) {
+        switch(e.eventType) {
+            case "delivery":
                 if(e.runs == 0) return 'Dot ball';
+                if(e.runs == 1) return '1 run';
                 else return e.runs + ' runs';
-            },
-            noBall: function(e) {
-                if(e.runs > 0) return 'No ball and the batsmen have run ' + e.runs;
+            case "noBall":
+                if(e.runs > 1) return 'No ball and ' + e.runs + ' runs';
                 else return 'No ball';
-            },
-            wide: function(e){
+            case "wide":
                 if(e.runs > 0) return 'Wide and the batsmen have run ' + e.runs;
                 else return 'Wide';
-            },
-            bye: function(e){
+            case "bye":
                 return e.runs + ' byes';
-            },
-            legBye: function(e){
+            case "legBye":
                 return e.runs + ' leg byes';
-            },
-            bowled: function(e){
+            case "bowled":
                 return e.batsmen.striker.name + ' has been bowled';
-            },
-            timedOut: function(e){
+            case "timedOut":
                 return e.batsman.name + ' was timed out';
-            },
-            handledBall: function(e){
+            case "handledBall":
                 return e.batsmen.striker.name + ' has been dismissed for handled ball';
-            },
-            doubleHit: function(e){
+            case "doubleHit":
                 return e.batsmen.striker.name + ' has been dismissed for a double hit';
-            },
-            hitWicket: function(e){
+            case "hitWicket":
                 return e.batsmen.striker.name + ' has hit his wickets';
-            },        
-            lbw: function(e){
+            case "lbw":
                 return e.batsmen.striker.name + ' out leg before wicket';
-            },         
-            ostruction: function(e){
+            case "obstruction":
                 return e.batsman.name + ' has been dismissed for obstructing a fielder';
-            },
-            runs: function(e){
+            case "runOut":
                 return e.batsman.name + ' has been runout attempting to run ' + e.runs;
-            },
-            stumped: function(e){
+            case "stumped":
                 return e.batsmen.striker.name + ' has been stumped';
-            },         
-        };
+            default: return '';
+        }
     }
 
     render() {
         var overAndBall = this.props.ball ? this.props.ball.over + '.' + this.props.ball.ball : '0.0';
         var bowlerToBatsman = (this.props.bowler && this.props.batsmen) ? this.props.bowler.name + ' to ' + this.props.batsmen.striker.name : '';
-        var commentary = this.props.eventType ? this.getCommentary()[this.props.eventType](this.props) : '';
+        var commentary = this.props.eventType ? this.getCommentary(this.props) : '';
         return (
             <div>
                 <span className="overAndBall">{overAndBall}</span>
                 <span className="bowlerToBatsman">{bowlerToBatsman}</span>
-                {commentary}
+                <span className="commentary">{commentary}</span>
             </div>
         );
     }
