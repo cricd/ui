@@ -17,11 +17,8 @@
   "dependencies": {
     "babel-preset-react": "^6.11.1",
     "eslint": "^3.4.0",
-<<<<<<< Updated upstream
     "moment": "^2.15.1",
-=======
     "grommet": "^0.6.12",
->>>>>>> Stashed changes
     "node-sass": "^3.9.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
