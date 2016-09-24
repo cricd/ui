@@ -4,6 +4,13 @@ import NavBar from '../NavBar/NavBar.js';
 import './App.scss';
 
 class App extends Component {
+    getChildContext() {
+        return {
+            rebass: {
+            }
+        }
+    }
+
     render() {
         return (
             <div>
@@ -14,6 +21,10 @@ class App extends Component {
             </div>
         );
     }
+}
+
+App.childContextTypes = {
+    rebass: React.PropTypes.object
 }
 
 export default App;
