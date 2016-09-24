@@ -18,19 +18,18 @@ module.exports = {
       test: /\.js$/,
       exclude: /node_modules/,
       loader: 'babel-loader',
-    query: {
+      query: {
         presets: ['es2015', 'react'],
-    }
+      }
     }, {
-      test: /(\.scss|\.css)$/,
-      loaders: ['style', 'css', 'sass'],
-    },
+        test: /(\.scss|\.css)$/,
+        loaders: ['style', 'css', 'sass'],
+      },
     ],
   },
   sassLoader: {
-  includePaths: [
-    './node_modules',
-    './node_modules/grommet/node_modules'
-  ]
-}
+    includePaths: [
+      './node_modules'
+    ]
+  }
 };

@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import './ScoreMatch.scss';
-import ScoreButton from './components/ScoreButton/ScoreButton.js'
-
+import ScoreButton from './components/ScoreButton/ScoreButton.js';
 
 class ScoreMatch extends Component {
-
-
 
     render() {
         return (

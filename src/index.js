@@ -5,7 +5,6 @@ import App from './Shared/App/App';
 import ViewMatch from './ViewMatch/ViewMatch';
 import ScoreMatch from './ScoreMatch/ScoreMatch';
 
-
 render((
     <div>
     <Router history={hashHistory}>

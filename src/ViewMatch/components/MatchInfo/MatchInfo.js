@@ -45,7 +45,7 @@ class MatchInfo extends Component {
                     <span className="vs">vs</span>
                     <span>{awayTeamName}</span>
                 </div>
-                <div tag="h2">{typeOfMatch}</div>
+                <div>{typeOfMatch}</div>
                 <p className="date">{moment(this.props.startDate).format("dddd, MMMM Do YYYY")}</p>
             </div>
         );
