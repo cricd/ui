@@ -1,0 +1,28 @@
+@import "../App/App.scss";
+
+
+.cricdButton {
+    display: block;
+    height: 40px;
+    width: 60px;
+    margin: 2px 2px 2px 2px;
+
+    text-align: center;
+    line-height: 36px;
+    font-size: 1em;
+    color:  $primaryColour;
+    text-decoration: none;
+   
+    border-radius: 8px;
+    border: 2px solid $primaryColour;
+   &:hover {
+        background-color: $primaryColour;
+        color: white;
+    }
+}
+
+
+.cricdButton-large {
+    @extend .cricdButton;
+    width: 100px;
+}

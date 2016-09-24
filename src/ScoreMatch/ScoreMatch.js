@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import './ScoreMatch.scss';
-import ScoreButton from './components/ScoreButton/ScoreButton.js';
+import ScoreButton from '../Shared/CricdButton/CricdButton.js';
 
 class ScoreMatch extends Component {
 
@@ -21,9 +21,11 @@ class ScoreMatch extends Component {
                 </div>
                 <div>
                     <h3> Dismissals </h3>
-                    <ScoreButton buttonText={"Caught"} />
-                    <ScoreButton buttonText={"Bowled"} />
-                    <ScoreButton buttonText={"LBW"} />
+                <div className="runsContainer">
+                    <ScoreButton buttonText={"Caught"} className="cricdButton-large"/>
+                    <ScoreButton buttonText={"Bowled"} className="cricdButton-large"/>
+                    <ScoreButton buttonText={"LBW"} className="cricdButton-large"/>
+                </div>
                 </div>
             </div>
         );
