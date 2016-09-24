@@ -5,6 +5,7 @@ import './ViewMatch.scss';
 import MatchEvent from './components/MatchEvent/MatchEvent';
 import Innings from './components/Innings/Innings';
 import MatchResult from './components/MatchResult/MatchResult';
+import MatchInfo from './components/MatchInfo/MatchInfo';
 
 class ViewMatch extends Component {
     constructor() {
@@ -17,7 +18,7 @@ class ViewMatch extends Component {
         var scoreProcessorUrl = 'http://' + __SCOREPROCESSOR_URL__;
         fetch(scoreProcessorUrl + '?match=' + matchId)
             .then(response => { return response.json(); })
-            .then(json => { this.setState({ innings: json.innings, matchEvents: json.matchEvents, result: json.result }); })
+            .then(json => { this.setState(json) })
             .catch(error => { console.log(error); });
     }
 
@@ -52,9 +53,11 @@ class ViewMatch extends Component {
 
         return (
             <div>
-                <div>This is a score</div>
-                <MatchResult {...this.state.result}/>
+                <MatchInfo {...this.state.matchInfo} />
+                <MatchResult {...this.state.result} />
+                <hr />
                 <div>{innings}</div>
+                <hr />
                 <div>{matchEvents}</div>
             </div>
         );

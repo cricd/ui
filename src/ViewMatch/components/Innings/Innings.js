@@ -14,11 +14,6 @@ class Innings extends Component {
       "runs": 191
     }
     */
-    constructor(){
-        super();
-        this.state = {};
-    }
-    
     render() {
         return (
             <div>
