@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './MatchResult.scss';
+import Text from 'rebass';
 
 class MatchResult extends Component {
 
@@ -40,10 +41,10 @@ class MatchResult extends Component {
     render() {
         var team = this.props.team ? this.props.team.name : '';
         return (
-            <div>
+            <strong>
                 <span className="teamName">{team}</span>
-                <span className="result">{this.props.result}</span>
-            </div>
+                <span>{this.props.result}</span>
+            </strong>
         );
     }
 }

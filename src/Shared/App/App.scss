@@ -1,13 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Lato');
-
-$color1: rgba(80, 81, 79, 1);
-$lightGrey: rgba(240,240,240,0.8);
-$headerText: rgba(242, 95, 92, 1);
-$buttonColour: rgba(242, 95, 92, 1); 
-$color3: rgba(255, 224, 102, 1);
-$color4: rgba(36, 123, 160, 1);
-$color5: rgba(112, 193, 179, 1);
-
 * { box-sizing: border-box}
 
 body {
@@ -15,4 +5,11 @@ body {
   line-height: 1.5;
   color: #111;
   background-color: #fff;
+  margin: 0px auto;
+  margin-top: 50px;
+}
+
+.container {
+  margin:10px;
+  margin-top:60px;
 }

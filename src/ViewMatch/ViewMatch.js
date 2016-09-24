@@ -7,6 +7,7 @@ import Innings from './components/Innings/Innings';
 import MatchResult from './components/MatchResult/MatchResult';
 import MatchInfo from './components/MatchInfo/MatchInfo';
 import MatchEvents from './components/MatchEvents/MatchEvents';
+import { Divider } from 'rebass';
 
 class ViewMatch extends Component {
     constructor() {
@@ -50,10 +51,10 @@ class ViewMatch extends Component {
         return (
             <div>
                 <MatchInfo {...this.state.matchInfo} />
+                <Divider />
                 <MatchResult {...this.state.result} />
-                <hr />
                 <div>{innings}</div>
-                <hr />
+                <Divider />
                 <MatchEvents events={this.state.matchEvents} />
             </div>
         );

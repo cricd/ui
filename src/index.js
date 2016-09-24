@@ -2,6 +2,7 @@ import { Router, Route, hashHistory} from 'react-router';
 import React from 'react';
 import { render } from 'react-dom';
 import App from './Shared/App/App';
+import Home from './Shared/Home/Home';
 import ViewMatch from './ViewMatch/ViewMatch';
 import ScoreMatch from './ScoreMatch/ScoreMatch';
 
