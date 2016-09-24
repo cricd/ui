@@ -3,16 +3,19 @@
 
 .scoreButton {
     padding: 10px 20px 10px 20px;
+    margin: 5px;
     background-color: $buttonColour;
     color: white;
     text-decoration: none;
     border: 1px solid $buttonColour;
+    //border-radius: 8px;
    &:hover {
         background-color: white;
         color: $buttonColour;
         border: 1px solid $buttonColour;
+        //border-radius: 5px;
     }
-    &.large{
+    .large{
         padding: 10px 30px 10px 30px;
     }
 }

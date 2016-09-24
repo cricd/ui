@@ -1,2 +1,8 @@
-@import "../Shared/App/App.scss"
+@import "../Shared/App/App.scss";
 
+.runsContainer {
+    display:flex;
+    padding: 10px;
+    flex-direction: row
+
+}

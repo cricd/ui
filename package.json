@@ -9,6 +9,7 @@
     "babel-preset-react": "^6.11.1",
     "css-loader": "^0.24.0",
     "jsx-loader": "^0.13.2",
+    "react-hot-loader": "^3.0.0-beta.5",
     "sass-loader": "^4.0.1",
     "style-loader": "^0.13.1",
     "webpack-dev-server": "^1.16.1"
@@ -16,7 +17,11 @@
   "dependencies": {
     "babel-preset-react": "^6.11.1",
     "eslint": "^3.4.0",
+<<<<<<< Updated upstream
     "moment": "^2.15.1",
+=======
+    "grommet": "^0.6.12",
+>>>>>>> Stashed changes
     "node-sass": "^3.9.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",

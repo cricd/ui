@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import Button from 'grommet/components/Button';
 import './ScoreButton.scss';
+
 
 class ScoreButton extends Component {
     render() {
         return (
-            <a href="" className="scoreButton"> {this.props.buttonText} </a>
+            <Button label={this.props.buttonText} />
         );
     }
 }
