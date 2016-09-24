@@ -6,6 +6,7 @@ import MatchEvent from './components/MatchEvent/MatchEvent';
 import Innings from './components/Innings/Innings';
 import MatchResult from './components/MatchResult/MatchResult';
 import MatchInfo from './components/MatchInfo/MatchInfo';
+import MatchEvents from './components/MatchEvents/MatchEvents';
 
 class ViewMatch extends Component {
     constructor() {
@@ -45,12 +46,7 @@ class ViewMatch extends Component {
             innings.push((<Innings {...this.state.innings[i]} key={i} innings={i} />)); 
             i++;
         }
-
-        var matchEvents; 
-        if(this.state.matchEvents) matchEvents = this.state.matchEvents.map((e, i) => {
-            return (<MatchEvent {...e} key={i} />);
-        }).reverse();
-
+        
         return (
             <div>
                 <MatchInfo {...this.state.matchInfo} />
@@ -58,7 +54,7 @@ class ViewMatch extends Component {
                 <hr />
                 <div>{innings}</div>
                 <hr />
-                <div>{matchEvents}</div>
+                <MatchEvents events={this.state.matchEvents} />
             </div>
         );
     }
