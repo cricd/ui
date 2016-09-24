@@ -7,12 +7,14 @@ import ScoreMatch from './ScoreMatch/ScoreMatch';
 
 
 render((
+    <div>
     <Router history={hashHistory}>
         <Route path="/" component={App}>
                 <Route path="/view/:matchId" component={ViewMatch} />
                 <Route path="/score/:matchID" component={ScoreMatch} />
         </Route>
     </Router>
+    </div>
 ), document.getElementById('app'))
 
 

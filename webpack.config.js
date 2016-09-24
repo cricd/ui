@@ -3,6 +3,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: './src/index.js',
   output: {
+    publicPath: '/build/',
     path: './build/',
     filename: 'index.js',
   },
@@ -16,11 +17,20 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: 'babel-loader?presets[]=es2015&presets[]=react',
+      loader: 'babel-loader',
+    query: {
+        presets: ['es2015', 'react'],
+    }
     }, {
       test: /(\.scss|\.css)$/,
       loaders: ['style', 'css', 'sass'],
     },
     ],
   },
+  sassLoader: {
+  includePaths: [
+    './node_modules',
+    './node_modules/grommet/node_modules'
+  ]
+}
 };
