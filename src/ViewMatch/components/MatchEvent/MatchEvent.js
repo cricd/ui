@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './MatchEvent.scss';
+import ordinal from 'ordinal-number-suffix';
+import { Flex } from 'reflexbox';
+import { Text } from 'rebass';
 
 class MatchEvent extends Component {
     /*
@@ -41,8 +44,8 @@ class MatchEvent extends Component {
         switch(e.eventType) {
             case "delivery":
                 if(e.runs == 0) return 'Dot ball';
-                if(e.runs == 1) return '1 run';
-                else return e.runs + ' runs';
+                if(e.runs == 1) return '1 run to ' + e.batsmen.striker.name;
+                else return e.runs + ' runs to ' + e.batsmen.striker.name;
             case "noBall":
                 if(e.runs > 1) return 'No ball and ' + e.runs + ' runs';
                 else return 'No ball';
@@ -67,10 +70,15 @@ class MatchEvent extends Component {
                 return e.batsmen.striker.name + ' out leg before wicket';
             case "obstruction":
                 return e.batsman.name + ' has been dismissed for obstructing a fielder';
+            case "caught":
+                if(e.fielder) return e.batsmen.striker.name + ' has been caught by ' +  e.fielder.name;
+                else return e.batsmen.striker.name + ' has been caught out';
             case "runOut":
-                return e.batsman.name + ' has been runout attempting to run ' + e.runs;
+                if(e.fielder) return e.batsman.name + ' has been run out by ' +  e.fielder.name + ' attempting to run the ' + ordinal(e.runs + 1);
+                else return e.batsman.name + ' has been run out attempting to run the ' + ordinal(e.runs + 1);
             case "stumped":
-                return e.batsmen.striker.name + ' has been stumped';
+                if(e.fielder) return e.batsmen.striker.name + ' has been stumped by ' +  e.fielder.name;
+                else return e.batsmen.striker.name + ' has been stumped';
             default: return '';
         }
     }
@@ -79,12 +87,16 @@ class MatchEvent extends Component {
         var overAndBall = this.props.ball ? this.props.ball.over + '.' + this.props.ball.ball : '0.0';
         var bowlerToBatsman = (this.props.bowler && this.props.batsmen) ? this.props.bowler.name + ' to ' + this.props.batsmen.striker.name : '';
         var commentary = this.props.eventType ? this.getCommentary(this.props) : '';
+        var innings = this.props.ball ? ordinal(this.props.ball.innings) + ' innings' : '';
         return (
-            <div>
-                <span className="overAndBall">{overAndBall}</span>
-                <span className="bowlerToBatsman">{bowlerToBatsman}</span>
-                <span className="commentary">{commentary}</span>
-            </div>
+            <li>
+                <Flex align="baseline">
+                <span className="overAndBall"><Text color="secondary">{overAndBall}</Text></span>
+                <span className="bowlerToBatsman"><Text>{bowlerToBatsman}</Text></span>
+                <span className="commentary"><Text bold>{commentary}</Text></span>
+                <span className="innings"><Text small color="secondary">{innings}</Text></span>
+                </Flex>
+            </li>
         );
     }
 }

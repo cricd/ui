@@ -11,7 +11,7 @@ class MatchEvents extends Component {
         }).reverse();
 
         return (
-            <div>{items}</div>
+            <ul>{items}</ul>
         );
     }
 }

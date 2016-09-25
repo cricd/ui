@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Innings.scss';
-import { Stat, Block, Flex, Heading } from 'rebass';
+import { Stat, Block, Heading } from 'rebass';
 import ordinal from 'ordinal-number-suffix';
 
 class Innings extends Component {
