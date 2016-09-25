@@ -1,21 +1,21 @@
 @import '../../../Shared/App/App.scss';
 
-.text {
-  font-size: 1.5ex;
-}
-
 .overAndBall {
-  @extend .text;
   margin-right: 5px;
 }
 
 .bowlerToBatsman {
-  @extend .text;
-  font-size: 1.5ex;
-  margin-left: 10px;
+  min-width: 15%;
+  max-width: 350px;
+  margin-left: 10px;  
+  @media(max-width: 30em) { display: none; }
 }
 
 .commentary {
-  @extend .text;
   margin-left: 10px;
+  flex: 1 1 auto;
+}
+
+.innings {
+  @media(max-width: 48em) { display: none; }
 }

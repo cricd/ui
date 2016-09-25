@@ -8,6 +8,7 @@ import MatchResult from './components/MatchResult/MatchResult';
 import MatchInfo from './components/MatchInfo/MatchInfo';
 import MatchEvents from './components/MatchEvents/MatchEvents';
 import { Divider } from 'rebass';
+import { Flex } from 'reflexbox';
 
 class ViewMatch extends Component {
     constructor() {
@@ -44,7 +45,7 @@ class ViewMatch extends Component {
     render() {
         var i = 1, innings = [];
         while(this.state.innings && this.state.innings[i]) { 
-            innings.push((<Innings {...this.state.innings[i]} key={i} innings={i} />)); 
+            innings.push((<Innings  sm={12} md={6} {...this.state.innings[i]} key={i} innings={i} />)); 
             i++;
         }
         
@@ -53,7 +54,7 @@ class ViewMatch extends Component {
                 <MatchInfo {...this.state.matchInfo} />
                 <Divider />
                 <MatchResult {...this.state.result} />
-                <div>{innings}</div>
+                <Flex wrap col={12}>{innings}</Flex>
                 <Divider />
                 <MatchEvents events={this.state.matchEvents} />
             </div>
