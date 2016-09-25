@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import './CricdButton.scss';
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class CricdButton extends Component {
     render() {
         return (
             <div>
-                <a className={this.props.className ? this.props.className : "cricdButton"}>
-                    {this.props.buttonText}
-                </a>
+                <MuiThemeProvider>
+                    <RaisedButton label={this.props.btnText} />
+                </MuiThemeProvider>
             </div>
         )
     }

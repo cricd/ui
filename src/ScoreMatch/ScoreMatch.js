@@ -15,21 +15,21 @@ class ScoreMatch extends Component {
                 <Divider />
                 <h3> Runs </h3>
                 <div className="runsContainer">
-                    <ScoreButton buttonText={1} />
-                    <ScoreButton buttonText={2} />
-                    <ScoreButton buttonText={3} />
-                    <ScoreButton buttonText={5} />
+                    <ScoreButton btnText={1} />
+                    <ScoreButton btnText={2} />
+                    <ScoreButton btnText={3} />
+                    <ScoreButton btnText={5} />
                 </div>
                 <div className="runsContainer">
-                    <ScoreButton buttonText={4} className="cricdButton-large"/>
-                    <ScoreButton buttonText={6} className="cricdButton-large"/>
+                    <ScoreButton btnText={4} btnStyle="large"/>
+                    <ScoreButton btnText={6} btnStyle="large"/>
                 </div>
                 <div>
                     <h3> Dismissals </h3>
                     <div className="runsContainer">
-                        <ScoreButton buttonText={"Caught"} className="cricdButton-inverse-large"/>
-                        <ScoreButton buttonText={"Bowled"} className="cricdButton-large"/>
-                        <ScoreButton buttonText={"LBW"} className="cricdButton-large"/>
+                        <ScoreButton btnText={"caught"} btnStyle="inverse-large"/>
+                        <ScoreButton btnText={"bowled"} btnStyle="large"/>
+                        <ScoreButton btnText={"lbw"} btnStyle="large"/>
                     </div>
                 </div>
             </div>

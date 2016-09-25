@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import NavBar from '../NavBar/NavBar.js';
 import './App.scss';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 class App extends Component {
     getChildContext() {
@@ -12,6 +13,7 @@ class App extends Component {
     }
 
     render() {
+        injectTapEventPlugin();
         return (
             <div>
                 <NavBar />
