@@ -26,3 +26,25 @@
     @extend .cricdButton;
     width: 100px;
 }
+
+
+.cricdButton-inverse {
+    @extend .cricdButton;
+    color:  white;
+    text-decoration: none;
+    background-color: $primaryColour;
+   
+    border-radius: 8px;
+    border: 2px solid white;
+   &:hover {
+        background-color: white;
+        color: $primaryColour;
+        border: 2px solid $primaryColour;
+    }
+}
+
+
+.cricdButton-inverse-large {
+    @extend .cricdButton-inverse;
+    width: 100px;
+}
