@@ -70,13 +70,13 @@ class MatchEvent extends Component {
             case "obstruction":
                 return e.batsman.name + ' has been dismissed for obstructing a fielder';
             case "caught":
-                if(e.fielder) return e.batsmen.striker.name + ' has been caught by ' +  e.fielder.name;
+                if(e.fielder) return e.batsmen.striker.name + ' has been caught by ' + e.fielder.name;
                 else return e.batsmen.striker.name + ' has been caught out';
             case "runOut":
-                if(e.fielder) return e.batsman.name + ' has been run out by ' +  e.fielder.name + ' attempting to run the ' + ordinal(e.runs + 1);
+                if(e.fielder) return e.batsman.name + ' has been run out by ' + e.fielder.name + ' attempting to run the ' + ordinal(e.runs + 1);
                 else return e.batsman.name + ' has been run out attempting to run the ' + ordinal(e.runs + 1);
             case "stumped":
-                if(e.fielder) return e.batsmen.striker.name + ' has been stumped by ' +  e.fielder.name;
+                if(e.fielder) return e.batsmen.striker.name + ' has been stumped by ' + e.fielder.name;
                 else return e.batsmen.striker.name + ' has been stumped';
             default: return '';
         }
@@ -91,9 +91,11 @@ class MatchEvent extends Component {
             <li>
                 <Flex align="baseline">
                     <span className="overAndBall">{overAndBall}</span>
-                    <span className="bowlerToBatsman">{bowlerToBatsman}></span>
-                    <span className="commentary"><strong>{commentary}</strong></span>
-                    <span className="innings">{innings}></span>
+                    <span className="bowlerToBatsman">{bowlerToBatsman}</span>
+                    <span className="commentary">
+                        <strong>{commentary}</strong>
+                    </span>
+                    <span className="innings">{innings}</span>
                 </Flex>
             </li>
         );

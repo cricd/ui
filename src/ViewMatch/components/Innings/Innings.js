@@ -24,7 +24,7 @@ class Innings extends Component {
                 <div>{innings} innings</div>
                 <div>
                     <span className="stat">
-                        <span>{this.props.runs} unit="runs"></span>
+                        <span>{this.props.runs}</span>
                         <span>runs</span>
                     </span>
                     <span className="stat">
