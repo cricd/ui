@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Innings.scss';
-import { Stat, Block, Heading } from 'rebass';
 import ordinal from 'ordinal-number-suffix';
 
 class Innings extends Component {
@@ -20,15 +19,24 @@ class Innings extends Component {
         var innings = ordinal(this.props.innings);
 
         return (
-            <Block borderLeft px={2}>
-                <Heading>{this.props.battingTeam.name}</Heading>
-                <Heading alt>{innings} innings</Heading>
+            <div>
+                <div>{this.props.battingTeam.name}</div>
+                <div>{innings} innings</div>
                 <div>
-                    <span className="stat"><Stat value={this.props.runs} unit="runs" /></span>
-                    <span className="stat"><Stat value={this.props.wickets} unit="wickets" /></span>
-                    <span className="stat"><Stat value={this.props.over + '.' + this.props.ball } unit="overs" /></span>
+                    <span className="stat">
+                        <span>{this.props.runs} unit="runs"></span>
+                        <span>runs</span>
+                    </span>
+                    <span className="stat">
+                        <span>{this.props.wickets}</span>
+                        <span>wickets</span>
+                    </span>
+                    <span className="stat">
+                        <span>{this.props.over + '.' + this.props.ball}</span>
+                        <span>overs</span>
+                    </span>
                 </div>
-            </Block>
+            </div>
         );
     }
 }

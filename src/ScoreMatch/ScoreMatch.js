@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import './ScoreMatch.scss';
 import ScoreButton from '../Shared/CricdButton/CricdButton.js';
-import { Divider, Heading } from 'rebass';
+import Divider from 'material-ui/Divider';
 
 class ScoreMatch extends Component {
 
     render() {
         return (
             <div>
-                <Heading level={2}>
+                <h1>
                     Score Game
-                </Heading>
+                </h1>
                 <Divider />
                 <h3> Runs </h3>
                 <div className="runsContainer">

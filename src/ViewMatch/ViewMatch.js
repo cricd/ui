@@ -7,7 +7,7 @@ import Innings from './components/Innings/Innings';
 import MatchResult from './components/MatchResult/MatchResult';
 import MatchInfo from './components/MatchInfo/MatchInfo';
 import MatchEvents from './components/MatchEvents/MatchEvents';
-import { Divider } from 'rebass';
+import Divider from 'material-ui/Divider';
 import { Flex } from 'reflexbox';
 
 class ViewMatch extends Component {

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './MatchEvent.scss';
 import ordinal from 'ordinal-number-suffix';
 import { Flex } from 'reflexbox';
-import { Text } from 'rebass';
 
 class MatchEvent extends Component {
     /*
@@ -91,10 +90,10 @@ class MatchEvent extends Component {
         return (
             <li>
                 <Flex align="baseline">
-                <span className="overAndBall"><Text color="secondary">{overAndBall}</Text></span>
-                <span className="bowlerToBatsman"><Text>{bowlerToBatsman}</Text></span>
-                <span className="commentary"><Text bold>{commentary}</Text></span>
-                <span className="innings"><Text small color="secondary">{innings}</Text></span>
+                    <span className="overAndBall">{overAndBall}</span>
+                    <span className="bowlerToBatsman">{bowlerToBatsman}></span>
+                    <span className="commentary"><strong>{commentary}</strong></span>
+                    <span className="innings">{innings}></span>
                 </Flex>
             </li>
         );

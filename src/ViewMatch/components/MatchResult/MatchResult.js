@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './MatchResult.scss';
-import Text from 'rebass';
 
 class MatchResult extends Component {
 

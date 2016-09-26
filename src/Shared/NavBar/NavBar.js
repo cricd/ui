@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import { Toolbar, Heading } from 'rebass';
 import './NavBar.scss';
+import AppBar from 'material-ui/AppBar';
 
 class NavBar extends Component {
   render() {
     return (
-      <div className="navbar">
-        <Toolbar>
-          <Heading size={1}>cricd</Heading>
-          <span className="subtitle">
-            <Heading size={3} alt>Open platform for cricket scoring</Heading>
-          </span>
-        </Toolbar>
-      </div>
+        <AppBar
+          title="cricd"
+          iconElementRight={<span>Open platform for cricket scoring</span>}
+        />
     );
   }
 }

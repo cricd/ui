@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './MatchInfo.scss';
 import moment from 'moment';
-import { Block, Heading, Text } from 'rebass';
 
 class MatchInfo extends Component {
     /*
@@ -40,15 +39,15 @@ class MatchInfo extends Component {
         else typeOfMatch = numberOfInnings = " innings each side. Restricted to " + limitedOvers + " overs";
 
         return (
-            <Block>
-                <Heading>
+            <div>
+                <div>
                     <span>{homeTeamName}</span>
                     <span className="vs">vs</span>
                     <span>{awayTeamName}</span>
-                </Heading>
-                <Heading alt>{typeOfMatch}</Heading>
-                <Text>{moment(this.props.startDate).format("dddd, MMMM Do YYYY")}</Text>
-            </Block>
+                </div>
+                <div>{typeOfMatch}</div>
+                <div>{moment(this.props.startDate).format("dddd, MMMM Do YYYY")}</div>
+            </div>
         );
     }
 }
