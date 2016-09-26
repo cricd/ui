@@ -14,6 +14,7 @@ class ViewMatch extends Component {
     constructor() {
         super();
         this.state = {};
+        this.onMatchEvent = this.onMatchEvent.bind(this);
     }
 
     getScore() {
@@ -33,8 +34,7 @@ class ViewMatch extends Component {
     }
 
     onMatchEvent(matchEvent) {
-        if(!this.state.matchEvents) this.setState({ matchEvents: [] });
-        this.setState({ matchEvents: matchEvents.push(matchEvent) });
+        this.setState(newScore.score);
     }
 
     componentDidMount() {
