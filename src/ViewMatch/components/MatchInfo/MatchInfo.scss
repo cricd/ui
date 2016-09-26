@@ -1,9 +1,17 @@
-@import '../../../Shared/App/App.scss';
+.matchInfo {
+  margin: 5px;
+  
+  .teamNames {
+    margin: 0px;
+  }
 
-.vs {
-  margin: 7px
-}
+  .vs {
+    margin-left: 7px;
+    margin-right: 7px;
+  }
 
-.date {
-  margin-top: -15px;
+  .typeOfMatch {
+    font-size: 1.5em;
+    margin-top: -10px;
+  }
 }

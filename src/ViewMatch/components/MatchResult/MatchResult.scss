@@ -1,5 +1,9 @@
-@import '../../../Shared/App/App.scss';
-
-.teamName {
-  margin-right: 5px
-}
+.matchResult {
+  margin: 5px;
+  font-weight: bold;
+  font-size: 1.1em;
+  
+  .teamName {
+    margin-right: 5px
+  }
+};

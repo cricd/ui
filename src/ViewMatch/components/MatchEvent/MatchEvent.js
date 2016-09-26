@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './MatchEvent.scss';
 import ordinal from 'ordinal-number-suffix';
 import { Flex } from 'reflexbox';
+import {ListItem} from 'material-ui/List';
 
 class MatchEvent extends Component {
     /*
@@ -88,14 +89,14 @@ class MatchEvent extends Component {
         var commentary = this.props.eventType ? this.getCommentary(this.props) : '';
         var innings = this.props.ball ? ordinal(this.props.ball.innings) + ' innings' : '';
         return (
-            <li>
+            <li className="matchEvent">
                 <Flex align="baseline">
                     <span className="overAndBall">{overAndBall}</span>
                     <span className="bowlerToBatsman">{bowlerToBatsman}</span>
                     <span className="commentary">
                         <strong>{commentary}</strong>
                     </span>
-                    <span className="innings">{innings}</span>
+                    <span className="matchEvent-innings">{innings}</span>
                 </Flex>
             </li>
         );

@@ -40,10 +40,10 @@ class MatchResult extends Component {
     render() {
         var team = this.props.team ? this.props.team.name : '';
         return (
-            <strong>
+            <div className="matchResult">
                 <span className="teamName">{team}</span>
                 <span>{this.props.result}</span>
-            </strong>
+            </div>
         );
     }
 }

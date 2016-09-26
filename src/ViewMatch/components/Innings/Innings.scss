@@ -1,3 +1,16 @@
-.stat {
-    margin-right:10px
+.innings {
+    border-left-color: lightblue;
+    border-left-width: 5pt;
+    border-left-style: solid;
+    padding-left: 10px;
+    margin: 5px;
+
+    .teamName {
+        font-weight: bold;
+        font-size: 1.5em;
+    }
+
+    .label {
+        margin-top: -10px;
+    }
 }

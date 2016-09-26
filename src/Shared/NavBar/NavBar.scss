@@ -1,13 +1,9 @@
-.subtitle {
-    margin-left: 10px;
-    position: absolute;
-    right: 10px
-}
-
-.navbar {
-    width: 100%;
-    position: fixed;
-    top: 0px;
-    height: 50px;
-    margin:0px auto;
+.navBar {
+    .subtitle {
+        color: white;
+        font-weight: 500;
+        font-size: 1em;
+        margin: auto;   
+        @media(max-width: 30em) { display: none; }
+    }
 }

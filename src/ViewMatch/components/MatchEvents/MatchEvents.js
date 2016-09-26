@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './MatchEvents.scss';
 import MatchEvent from '../MatchEvent/MatchEvent';
+import {List} from 'material-ui/List';
 
 class MatchEvents extends Component {
 
