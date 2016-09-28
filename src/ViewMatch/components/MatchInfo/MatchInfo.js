@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './MatchInfo.scss';
 import moment from 'moment';
+import { Flex } from 'reflexbox';
 
 class MatchInfo extends Component {
     /*
@@ -31,7 +32,7 @@ class MatchInfo extends Component {
         var limitedOvers = this.props.limitedOvers ? this.props.limitedOvers : 20;
         var homeTeamName = this.props.homeTeam ? this.props.homeTeam.name : 'New Zealand';
         var awayTeamName = this.props.awayTeam ? this.props.awayTeam.name : 'Australia';
-        
+
         if(numberOfInnings == 2 && !limitedOvers) typeOfMatch = "Test match";
         else if(numberOfInnings == 1 && limitedOvers == 50) typeOfMatch = "50 Over match";
         else if(numberOfInnings == 1 && limitedOvers == 20) typeOfMatch = "Twenty20";
@@ -39,14 +40,16 @@ class MatchInfo extends Component {
         else typeOfMatch = numberOfInnings = " innings each side. Restricted to " + limitedOvers + " overs";
 
         return (
-            <div>
-                <div>
-                    <span>{homeTeamName}</span>
-                    <span className="vs">vs</span>
-                    <span>{awayTeamName}</span>
-                </div>
-                <div>{typeOfMatch}</div>
-                <div>{moment(this.props.startDate).format("dddd, MMMM Do YYYY")}</div>
+            <div className="matchInfo">
+                <h1 className="teamNames">
+                    <Flex wrap>
+                        <span>{homeTeamName}</span>
+                        <span className="vs">vs</span>
+                        <span>{awayTeamName}</span>
+                    </Flex>
+                </h1>
+                <div className="typeOfMatch">{typeOfMatch}</div>
+                <div>{moment(this.props.startDate).format("dddd, MMMM Do YYYY") }</div>
             </div>
         );
     }

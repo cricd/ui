@@ -1,11 +1,6 @@
 * { box-sizing: border-box}
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
-
-$primaryColour: rgb(0, 136, 238);
-// $secondaryColour: 
-// $tertiaryColour: 
-
 body {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.5;
@@ -15,4 +10,7 @@ body {
 }
 
 .container {
+  margin: 5px;
+  margin-left: 10px;
+  margin-right: 10px
 }

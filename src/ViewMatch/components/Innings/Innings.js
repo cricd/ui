@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Innings.scss';
 import ordinal from 'ordinal-number-suffix';
+import Stat from '../Stat/Stat';
+import { Flex } from 'reflexbox';
 
 class Innings extends Component {
     /*
@@ -19,23 +21,15 @@ class Innings extends Component {
         var innings = ordinal(this.props.innings);
 
         return (
-            <div>
-                <div>{this.props.battingTeam.name}</div>
-                <div>{innings} innings</div>
-                <div>
-                    <span className="stat">
-                        <span>{this.props.runs}</span>
-                        <span>runs</span>
-                    </span>
-                    <span className="stat">
-                        <span>{this.props.wickets}</span>
-                        <span>wickets</span>
-                    </span>
-                    <span className="stat">
-                        <span>{this.props.over + '.' + this.props.ball}</span>
-                        <span>overs</span>
-                    </span>
-                </div>
+            
+            <div className="innings">
+                <div className="teamName">{this.props.battingTeam.name}</div>
+                <div className="label">{innings} innings</div>
+                <Flex wrap>
+                    <Stat units="runs">{this.props.runs}</Stat>
+                    <Stat units="wickets">{this.props.wickets}</Stat>
+                    <Stat units="overs">{this.props.over + '.' + this.props.ball}</Stat>
+                </Flex>
             </div>
         );
     }
