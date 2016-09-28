@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import './CreateMatch.scss';
 import DatePicker from 'material-ui/DatePicker';
-import Paper from 'material-ui/Paper';
+import { Card, CardTitle } from 'material-ui/Card';
 import AutoComplete from 'material-ui/AutoComplete';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Snackbar from 'material-ui/Snackbar';
+import Subheader from 'material-ui/Subheader';
 import {red500} from 'material-ui/styles/colors';
 
 const styles = {
@@ -20,21 +22,30 @@ const teams = []
 class CreateMatch extends Component {
     constructor(props) {
         super(props)
-        fetch("http://localhost:1337/teams").then(
-            function (response) {
+        fetch("http://localhost:1337/teams")
+            .then(function (response) {
+                if (!response.ok) {
+                    console.log("Failed to get teams: " + response.statusText)
+                    return nil
+                }
                 return response.json();
             }).then(function (res) {
                 for (var i = 0; i < res.length; i++) {
                     teams.push(res[i]["name"])
                 }
+            }).catch(function (error) {
+                console.log(error)
             });
+
         this.state = {
             homeTeam: "",
             awayTeam: "",
             startDate: new Date(),
             matchType: "",
             limitedOvers: 0,
-            numberOfInnings: 0
+            numberOfInnings: 0,
+            notificationOpen: false,
+            notificationMessage: "Match created"
         }
 
         this.handleHomeTeam = this.handleHomeTeam.bind(this)
@@ -46,28 +57,38 @@ class CreateMatch extends Component {
     }
 
     handleHomeTeam(input) {
-        // TODO: Handle failures here
-        fetch("http://localhost:1337/teams/?name=".concat(input)).then(
-            function (response) {
+        console.log(input)
+        fetch("http://localhost:1337/teams/?name=".concat(input))
+            .then(function (response) {
+                if (!response.ok) {
+                    console.log("Failed to get teams: " + response.statusText)
+                    return nil
+                }
                 return response.json();
             }).then(function (res) {
-                var team = {id: res[0]["id"], name: res[0]["name"]}
-                console.log(team);
+                var team = { id: res[0]["id"], name: res[0]["name"] }
                 this.setState({ homeTeam: team })
-            }.bind(this))
+            }.bind(this)
+            ).catch(function (error) {
+                console.log("Failed to get teams: " + error)
+            });
     };
 
     handleAwayTeam(input) {
-        // TODO: Handle failures here
-        fetch("http://localhost:1337/teams/?name=".concat(input)).then(
-            function (response) {
+        fetch("http://localhost:1337/teams/?name=".concat(input))
+            .then(function (response) {
+                if (!response.ok) {
+                    console.log("Failed to get teams: " + response.statusText)
+                    return nil
+                }
                 return response.json();
             }).then(function (res) {
-                var team = {id: res[0]["id"], name: res[0]["name"]}
-                console.log(team);
+                var team = { id: res[0]["id"], name: res[0]["name"] }
                 this.setState({ awayTeam: team })
-            }.bind(this))
-   }
+            }.bind(this)).catch(function (error) {
+                console.log(error)
+            });
+    };
 
     handleMatchTypeChange(event, index, value) {
         switch (value) {
@@ -101,28 +122,44 @@ class CreateMatch extends Component {
 
     createMatch(index) {
         var payload = JSON.stringify(this.state);
+        // TODO: Refactor this to have an "internal state"
         delete payload["matchType"]
-        console.log(payload)
+        delete payload["notificationOpen"]
+        delete payload["notificationMessage"]
         fetch("http://localhost:1337/matches",
             {
                 method: "POST",
                 body: payload
             })
-            .then(function (res) { return res.json(); })
-            .then(function (data) { 
-            //TODO: Handle the failure here
-                console.log(JSON.stringify(data)) 
-            })
+            .then(function (response) {
+                if (!response.ok) {
+                    console.log(response)
+                    console.log("Failed to create match: " + response.statusText)
+                    return nil
+                }
+                console.log("Created match")
+                this.setState({
+                    notificationMessage: "Match created",
+                    notificationOpen: true
+                })
+                return response.json();
+            }.bind(this))
+            .catch(function (data) {
+                //TODO: Handle the failure here
+                console.log("Failed to create match: " + data)
+                this.setState({
+                    notificationMessage: "Failed to create match",
+                    notificationOpen: true
+                })
+            }.bind(this))
     }
 
     render() {
         return (
             <div>
-                <Paper>
-                    <h2>
-                        Create Match
-                    </h2>
-                    <h3> Home team </h3>
+                <Card className="createContainer">
+                  <CardTitle title="Create Match" />
+                    <h4> Home team </h4>
                     <AutoComplete
                         name="homeTeam"
                         hintText="Select the home team"
@@ -132,24 +169,24 @@ class CreateMatch extends Component {
                         errorText="This field is required."
                         errorStyle={styles.errorStyle}
                         />
-                    <h3> Away team </h3>
+                    <h4> Away team </h4>
                     <AutoComplete
                         name="awayTeam"
                         hintText="Select the away team"
                         dataSource={teams}
                         filter={AutoComplete.fuzzyFilter}
-                        onNewRequest={this.handleAwayTeam}
+                        onNewRequest={this.handleAwayTeam} 
                         errorText="This field is required."
                         errorStyle={styles.errorStyle}
                         />
-                    <h3> Match date </h3>
+                    <h4> Match date </h4>
                     <DatePicker
                         autoOk={true}
                         onChange={this.handleStartDate}
                         defaultDate={new Date() }
                         />
                     <div>
-                        <h3> Match type </h3>
+                        <h4> Match type </h4>
                         <SelectField value={this.state.matchType} onChange={this.handleMatchTypeChange}>
                             <MenuItem value={"t20"} primaryText="T20" />
                             <MenuItem value={"oneDay"} primaryText="One Day" />
@@ -161,7 +198,13 @@ class CreateMatch extends Component {
                         onClick={this.createMatch}
                         disabled={(this.state.awayTeam.length === "") || (this.state.homeTeam === "") }
                         />
-                </Paper>
+                </Card>
+                <Snackbar
+                    open={this.state.notificationOpen}
+                    message={this.state.notificationMessage}
+                    autoHideDuration={4000}
+                    onRequestClose={this.handleRequestClose}
+                    />
             </div>
         );
     }
