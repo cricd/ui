@@ -89,14 +89,16 @@ class MatchEvent extends Component {
         var commentary = this.props.eventType ? this.getCommentary(this.props) : '';
         var innings = this.props.ball ? ordinal(this.props.ball.innings) + ' innings' : '';
         return (
-            <li className="matchEvent">
+            <li className="cricd-matchEvent">
                 <Flex align="baseline">
-                    <span className="overAndBall">{overAndBall}</span>
-                    <span className="bowlerToBatsman">{bowlerToBatsman}</span>
-                    <span className="commentary">
+                    <span className="cricd-matchEvent-overAndBall">{overAndBall}</span>
+                    <span className="cricd-matchEvent-bowlerToBatsman">{bowlerToBatsman}</span>
+                    <span className="cricd-matchEvent-commentary">
                         <strong>{commentary}</strong>
                     </span>
-                    <span className="matchEvent-innings">{innings}</span>
+                    <Flex flexColumn>
+                        <span className="cricd-matchEvent-innings">{innings}</span>
+                    </Flex>
                 </Flex>
             </li>
         );

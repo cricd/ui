@@ -40,8 +40,8 @@ class MatchResult extends Component {
     render() {
         var team = this.props.team ? this.props.team.name : '';
         return (
-            <div className="matchResult">
-                <span className="teamName">{team}</span>
+            <div className="cricd-matchResult">
+                <span className="cricd-matchResult-teamName">{team}</span>
                 <span>{this.props.result}</span>
             </div>
         );

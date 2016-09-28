@@ -22,9 +22,9 @@ class Innings extends Component {
 
         return (
             
-            <div className="innings">
-                <div className="teamName">{this.props.battingTeam.name}</div>
-                <div className="label">{innings} innings</div>
+            <div className="cricd-innings">
+                <div className="cricd-innings-teamName">{this.props.battingTeam.name}</div>
+                <div className="cricd-innings-label">{innings} innings</div>
                 <Flex wrap>
                     <Stat units="runs">{this.props.runs}</Stat>
                     <Stat units="wickets">{this.props.wickets}</Stat>

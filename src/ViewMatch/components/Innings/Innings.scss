@@ -1,16 +1,17 @@
-.innings {
+.cricd-innings {
     border-left-color: lightblue;
     border-left-width: 5pt;
     border-left-style: solid;
     padding-left: 10px;
-    margin: 5px;
+    padding-right: 10px;
+    margin: 10px;
+}
 
-    .teamName {
-        font-weight: bold;
-        font-size: 1.5em;
-    }
+.cricd-innings-teamName {
+    font-weight: bold;
+    font-size: 1.5em;
+}
 
-    .label {
-        margin-top: -10px;
-    }
+.cricd-innings-label {
+    margin-top: -10px;
 }
