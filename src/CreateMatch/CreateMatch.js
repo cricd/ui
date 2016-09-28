@@ -13,6 +13,9 @@ import {red500} from 'material-ui/styles/colors';
 const styles = {
     errorStyle: {
         color: red500,
+    },
+    buttonStyle: {
+        width: '100%',
     }
 };
 
@@ -48,7 +51,8 @@ class CreateMatch extends Component {
             notificationMessage: "Match created"
         }
 
-        this.handleHomeTeam = this.handleHomeTeam.bind(this)
+        this.handleHomeTeamRequest = this.handleHomeTeamRequest.bind(this)
+        this.handleHomeTeamUpdate = this.handleHomeTeamUpdate.bind(this)
         this.handleAwayTeam = this.handleAwayTeam.bind(this)
         this.handleMatchTypeChange = this.handleMatchTypeChange.bind(this)
         this.handleStartDate = this.handleStartDate.bind(this)
@@ -56,7 +60,12 @@ class CreateMatch extends Component {
 
     }
 
-    handleHomeTeam(input) {
+
+    handleHomeTeamUpdate(input) {
+        console.log("input: " + input);
+    }
+
+    handleHomeTeamRequest(input) {
         console.log(input)
         fetch("http://localhost:1337/teams/?name=".concat(input))
             .then(function (response) {
@@ -165,7 +174,8 @@ class CreateMatch extends Component {
                         hintText="Select the home team"
                         dataSource={teams}
                         filter={AutoComplete.fuzzyFilter}
-                        onNewRequest={this.handleHomeTeam}
+                        onNewRequest={this.handleHomeTeamRequest}
+                        onUpdateInput={this.handleHomeTeamUpdate}
                         errorText="This field is required."
                         errorStyle={styles.errorStyle}
                         />
@@ -175,7 +185,7 @@ class CreateMatch extends Component {
                         hintText="Select the away team"
                         dataSource={teams}
                         filter={AutoComplete.fuzzyFilter}
-                        onNewRequest={this.handleAwayTeam} 
+                        onNewRequest={this.handleAwayTeam}
                         errorText="This field is required."
                         errorStyle={styles.errorStyle}
                         />
@@ -187,16 +197,22 @@ class CreateMatch extends Component {
                         />
                     <div>
                         <h4> Match type </h4>
-                        <SelectField value={this.state.matchType} onChange={this.handleMatchTypeChange}>
+                        <SelectField 
+                        value={this.state.matchType} 
+                        onChange={this.handleMatchTypeChange}
+                        style={{marginBottom: 20}}
+                        >
                             <MenuItem value={"t20"} primaryText="T20" />
                             <MenuItem value={"oneDay"} primaryText="One Day" />
                             <MenuItem value={"testMatch"} primaryText="Test Match" />
                         </SelectField>
                     </div>
+                    //TODO: Add styles
                     <RaisedButton
                         label="Create"
                         onClick={this.createMatch}
-                        disabled={(this.state.awayTeam.length === "") || (this.state.homeTeam === "") }
+                        disabled={(this.state.awayTeam.length === "") || (this.state.homeTeam === "")}
+                        style={styles.buttonStyle}
                         />
                 </Card>
                 <Snackbar
