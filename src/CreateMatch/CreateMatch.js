@@ -46,6 +46,7 @@ class CreateMatch extends Component {
     }
 
     handleHomeTeam(input) {
+        // TODO: Handle failures here
         fetch("http://localhost:1337/teams/?name=".concat(input)).then(
             function (response) {
                 return response.json();
@@ -57,6 +58,7 @@ class CreateMatch extends Component {
     };
 
     handleAwayTeam(input) {
+        // TODO: Handle failures here
         fetch("http://localhost:1337/teams/?name=".concat(input)).then(
             function (response) {
                 return response.json();
