@@ -9,6 +9,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Snackbar from 'material-ui/Snackbar';
 import Subheader from 'material-ui/Subheader';
 import {red500, grey200} from 'material-ui/styles/colors';
+import { browserHistory, withRouter } from 'react-router'
 
 const styles = {
     errorStyle: {
@@ -19,12 +20,18 @@ const styles = {
     }
 };
 
+const scorePath = '/score/${matchId}'
+
+// TODO: 
+//  - Handle teams that don't exist
+//  - Redirect to score page on successful creation
 
 const teams = []
 
 class CreateMatch extends Component {
     constructor(props) {
         super(props)
+        console.log(props)
         fetch("http://localhost:1337/teams")
             .then(function (response) {
                 if (!response.ok) {
@@ -151,7 +158,13 @@ class CreateMatch extends Component {
                     notificationMessage: "Match created",
                     notificationOpen: true
                 })
-                return response.json();
+            return response.json();
+            }.bind(this)).then(function (response) {
+                // Redirect to the match page
+                var matchId = response["id"]
+                const path = `/#/score/${matchId}`
+                console.log(path);
+                browserHistory.push(path)
             }.bind(this))
             .catch(function (data) {
                 //TODO: Handle the failure here
@@ -177,7 +190,6 @@ class CreateMatch extends Component {
                         dataSource={teams}
                         filter={AutoComplete.fuzzyFilter}
                         onNewRequest={this.handleHomeTeamRequest}
-                        onUpdateInput={this.handleHomeTeamUpdate}
                         errorText="This field is required."
                         errorStyle={styles.errorStyle}
                         />

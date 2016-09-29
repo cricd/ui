@@ -48,7 +48,7 @@ class ViewMatch extends Component {
             innings.push((<Innings  sm={12} md={6} {...this.state.innings[i]} key={i} innings={i} />)); 
             i++;
         }
-        
+
         return (
             <div>
                 <MatchInfo {...this.state.matchInfo} />
