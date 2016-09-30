@@ -11,6 +11,7 @@ module.exports = {
     new webpack.DefinePlugin({
       '__SCOREPROCESSOR_URL__': JSON.stringify(process.env.SCOREPROCESSOR_URL) || JSON.stringify('score-processor:3002'),
       '__CHANGEPUBLISHER_URL__': JSON.stringify(process.env.CHANGEPUBLISHER_URL) || JSON.stringify('change-publisher:3100'),
+      '__ENTITYSTORE_URL__': JSON.stringify(process.env.ENTITY_STORE_URL) || JSON.stringify('localhost:1337'),
     }),
   ],
   module: {
