@@ -1,9 +1,7 @@
-.navBar {
-    .subtitle {
-        color: white;
-        font-weight: 500;
-        font-size: 1em;
-        margin: auto;   
-        @media(max-width: 30em) { display: none; }
-    }
+.cricd-navbar-subtitle {
+    color: white;
+    font-weight: 500;
+    font-size: 1em;
+    margin: auto;   
+    @media(max-width: 30em) { display: none; }
 }
