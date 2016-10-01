@@ -9,7 +9,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Snackbar from 'material-ui/Snackbar';
 import Subheader from 'material-ui/Subheader';
 import {red500, grey200} from 'material-ui/styles/colors';
-import { browserHistory, withRouter } from 'react-router'
+import { hashHistory, withRouter } from 'react-router'
 
 const styles = {
     errorStyle: {
@@ -51,9 +51,9 @@ class CreateMatch extends Component {
             homeTeam: "",
             awayTeam: "",
             startDate: new Date(),
-            matchType: "",
-            limitedOvers: 0,
-            numberOfInnings: 0,
+            matchType: "t20",
+            limitedOvers: 20,
+            numberOfInnings: 1,
             notificationOpen: false,
             notificationMessage: "Match created"
         }
@@ -73,7 +73,6 @@ class CreateMatch extends Component {
     }
 
     handleHomeTeamRequest(input) {
-        console.log(input)
         fetch("http://localhost:1337/teams/?name=".concat(input))
             .then(function (response) {
                 if (!response.ok) {
@@ -142,6 +141,7 @@ class CreateMatch extends Component {
         delete payload["matchType"]
         delete payload["notificationOpen"]
         delete payload["notificationMessage"]
+        console.log(payload)
         fetch("http://localhost:1337/matches",
             {
                 method: "POST",
@@ -162,9 +162,9 @@ class CreateMatch extends Component {
             }.bind(this)).then(function (response) {
                 // Redirect to the match page
                 var matchId = response["id"]
-                const path = `/#/score/${matchId}`
+                const path = `/score/${matchId}`
                 console.log(path);
-                browserHistory.push(path)
+                hashHistory.push(path)
             }.bind(this))
             .catch(function (data) {
                 //TODO: Handle the failure here
@@ -183,7 +183,6 @@ class CreateMatch extends Component {
                     <CardTitle
                         title="Create Match"
                         />
-                    <h4> Home team </h4>
                     <AutoComplete
                         name="homeTeam"
                         hintText="Select the home team"
@@ -193,7 +192,6 @@ class CreateMatch extends Component {
                         errorText="This field is required."
                         errorStyle={styles.errorStyle}
                         />
-                    <h4> Away team </h4>
                     <AutoComplete
                         name="awayTeam"
                         hintText="Select the away team"
@@ -203,18 +201,18 @@ class CreateMatch extends Component {
                         errorText="This field is required."
                         errorStyle={styles.errorStyle}
                         />
-                    <h4> Match date </h4>
                     <DatePicker
                         autoOk={true}
                         onChange={this.handleStartDate}
                         defaultDate={new Date() }
+                        floatingLabelText="Match date"
                         />
                     <div>
-                        <h4> Match type </h4>
                         <SelectField
                             value={this.state.matchType}
                             onChange={this.handleMatchTypeChange}
                             style={{ marginBottom: 20 }}
+                            floatingLabelText="Match type"
                             >
                             <MenuItem value={"t20"} primaryText="T20" />
                             <MenuItem value={"oneDay"} primaryText="One Day" />
