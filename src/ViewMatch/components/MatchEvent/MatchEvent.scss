@@ -1,20 +1,28 @@
+.cricd-matchEvent {
+  font-size: 13px;
+  padding: 5px
+}
 .cricd-matchEvent-overAndBall {
+  @extend .cricd-matchEvent;
   margin-left: 10px;
   margin-right: 15px;
   color: slategray;
 }
 
 .cricd-matchEvent-bowlerToBatsman {
+  @extend .cricd-matchEvent;
   min-width: 250px;
   margin-right: 10px;
   @media(max-width: 30em) { display: none; }
 }
 
 .cricd-matchEvent-commentary {
+  @extend .cricd-matchEvent;
   flex: 1 1 auto;
 }
 
 .cricd-matchEvent-innings {
+  @extend .cricd-matchEvent;
   @media(max-width: 48em) { display: none; }
   margin-right: 10px;
   color: slategray;

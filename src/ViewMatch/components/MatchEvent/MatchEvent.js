@@ -3,6 +3,7 @@ import './MatchEvent.scss';
 import ordinal from 'ordinal-number-suffix';
 import { Flex } from 'reflexbox';
 import {ListItem} from 'material-ui/List';
+import Divider from 'material-ui/Divider';
 
 class MatchEvent extends Component {
     /*
@@ -47,14 +48,17 @@ class MatchEvent extends Component {
                 if(e.runs == 1) return '1 run to ' + e.batsmen.striker.name;
                 else return e.runs + ' runs to ' + e.batsmen.striker.name;
             case "noBall":
+                if(e.runs == 1) return 'No ball and ' + e.runs + ' run';
                 if(e.runs > 1) return 'No ball and ' + e.runs + ' runs';
                 else return 'No ball';
             case "wide":
                 if(e.runs > 0) return 'Wide and the batsmen have run ' + e.runs;
                 else return 'Wide';
             case "bye":
+                if(e.runs == 1) return '1 bye';
                 return e.runs + ' byes';
             case "legBye":
+                if(e.runs == 1) return '1 leg bye';
                 return e.runs + ' leg byes';
             case "bowled":
                 return e.batsmen.striker.name + ' has been bowled';
@@ -89,18 +93,19 @@ class MatchEvent extends Component {
         var commentary = this.props.eventType ? this.getCommentary(this.props) : '';
         var innings = this.props.ball ? ordinal(this.props.ball.innings) + ' innings' : '';
         return (
-            <li className="cricd-matchEvent">
-                <Flex align="baseline">
-                    <span className="cricd-matchEvent-overAndBall">{overAndBall}</span>
-                    <span className="cricd-matchEvent-bowlerToBatsman">{bowlerToBatsman}</span>
-                    <span className="cricd-matchEvent-commentary">
-                        <strong>{commentary}</strong>
-                    </span>
-                    <Flex flexColumn>
-                        <span className="cricd-matchEvent-innings">{innings}</span>
+            <div>
+                <li className="cricd-matchEvent">
+                    <Flex align="baseline">
+                        <span className="cricd-matchEvent-overAndBall">{overAndBall}</span>
+                        <span className="cricd-matchEvent-bowlerToBatsman">{bowlerToBatsman}</span>
+                        <span className="cricd-matchEvent-commentary">{commentary}</span>
+                        <Flex flexColumn>
+                            <span className="cricd-matchEvent-innings">{innings}</span>
+                        </Flex>
                     </Flex>
-                </Flex>
-            </li>
+                </li>
+                <Divider />
+            </div>
         );
     }
 }
