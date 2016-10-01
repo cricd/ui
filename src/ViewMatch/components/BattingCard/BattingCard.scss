@@ -1,0 +1,29 @@
+.cricd-battingCard-batsman {
+    width: 20%;
+    @media(max-width: 48em) { width: 30%; }
+
+}
+
+.cricd-battingCard-dismissal {
+    width: 40%;
+    @media(max-width: 48em) { width: 50%; }
+    @media(max-width: 30em) { 
+        width: 0px;
+        display: none; 
+    }}
+
+.cricd-battingCard-runs {
+    @media(max-width: 48em) { width: 20%; }
+}
+
+.cricd-battingCard-collapsible {
+    @media(max-width: 48em) { display: none; }
+}
+
+.cricd-battingCard-strikeRate {
+    width: 15%;
+    @media(max-width: 48em) { 
+        width: 0px;
+        display: none; 
+    }
+}

@@ -7,6 +7,7 @@ import Innings from './components/Innings/Innings';
 import MatchResult from './components/MatchResult/MatchResult';
 import MatchInfo from './components/MatchInfo/MatchInfo';
 import MatchEvents from './components/MatchEvents/MatchEvents';
+import BattingCard from './components/BattingCard/BattingCard';
 import Divider from 'material-ui/Divider';
 import { Flex } from 'reflexbox';
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -28,6 +29,15 @@ class ViewMatch extends Component {
             .catch(error => { console.log(error); });
     }
 
+    getBatsmenStats() {
+        var matchId = this.props.params.matchId;
+        var batsmanProcessorUrl = 'http://' + __BATSMANINNINGSPROCESSOR_URL__;
+        fetch(batsmanProcessorUrl + '?match=' + matchId)
+            .then(response => { return response.json(); })
+            .then(json => { this.setState( { batsmen: json } ) })
+            .catch(error => { console.log(error); });       
+    }
+
     subscribeToMatchEvents() {
         var matchId = this.props.params.matchId;
         var changePublisherUrl = 'http://' + __CHANGEPUBLISHER_URL__;
@@ -37,18 +47,22 @@ class ViewMatch extends Component {
 
     onMatchEvent(matchEvent) {
         this.setState(newScore.score);
+        this.getBatsmenStats();
     }
 
     componentDidMount() {
         this.getScore();
+        this.getBatsmenStats();
         this.subscribeToMatchEvents();
     }
 
     render() {
         var i = 1, innings = [];
-        for(var i = 0; i < this.state.length; i++) {
+        var numberOfInnings = this.state.innings ? this.state.innings.length : 0;
+        for(var i = 0; i < numberOfInnings; i++) {
             innings.push((<Innings  sm={12} md={6} {...this.state.innings[i]} key={i} innings={i} />));
         }
+        var batsmen = this.state.batsmen ? this.state.batsmen[0] : [];
 
         return (
             <div>
@@ -57,14 +71,15 @@ class ViewMatch extends Component {
                 <MatchResult {...this.state.result} />
                 <Flex wrap col={12}>{innings}</Flex>
                 <Divider />
-                <Paper zDepth={2}>
+                <Paper zDepth={2} className="cricd-viewMatch-statsTab">
                     <Tabs>
                         <Tab label="Ball by ball">
                             <MatchEvents events={this.state.matchEvents} />
                         </Tab>
-                        <Tab label="Batsmen">
+                        <Tab label="Batting">
+                            <BattingCard batsmen={batsmen} />
                         </Tab>
-                        <Tab label="Bowlers">
+                        <Tab label="Bowling">
                         </Tab>
                     </Tabs>
                 </Paper>
