@@ -18,7 +18,7 @@ class Innings extends Component {
     }
     */
     render() {
-        var innings = ordinal(this.props.innings);
+        var innings = ordinal(this.props.innings + 1);
 
         return (
             
