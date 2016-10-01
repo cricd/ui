@@ -9,6 +9,8 @@ import MatchInfo from './components/MatchInfo/MatchInfo';
 import MatchEvents from './components/MatchEvents/MatchEvents';
 import Divider from 'material-ui/Divider';
 import { Flex } from 'reflexbox';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import Paper from 'material-ui/Paper';
 
 class ViewMatch extends Component {
     constructor() {
@@ -44,9 +46,8 @@ class ViewMatch extends Component {
 
     render() {
         var i = 1, innings = [];
-        while(this.state.innings && this.state.innings[i]) { 
-            innings.push((<Innings  sm={12} md={6} {...this.state.innings[i]} key={i} innings={i} />)); 
-            i++;
+        for(var i = 0; i < this.state.length; i++) {
+            innings.push((<Innings  sm={12} md={6} {...this.state.innings[i]} key={i} innings={i} />));
         }
 
         return (
@@ -56,7 +57,17 @@ class ViewMatch extends Component {
                 <MatchResult {...this.state.result} />
                 <Flex wrap col={12}>{innings}</Flex>
                 <Divider />
-                <MatchEvents events={this.state.matchEvents} />
+                <Paper zDepth={2}>
+                    <Tabs>
+                        <Tab label="Ball by ball">
+                            <MatchEvents events={this.state.matchEvents} />
+                        </Tab>
+                        <Tab label="Batsmen">
+                        </Tab>
+                        <Tab label="Bowlers">
+                        </Tab>
+                    </Tabs>
+                </Paper>
             </div>
         );
     }

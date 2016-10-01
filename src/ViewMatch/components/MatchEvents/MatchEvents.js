@@ -6,10 +6,6 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
 class MatchEvents extends Component {
-    constructor(){
-        super();
-        this.state = { value: 1 };
-    }
 
     render() {
         var items;
