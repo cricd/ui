@@ -179,7 +179,7 @@ class CreateMatch extends Component {
     render() {
         return (
             <div>
-                <Card className="createContainer">
+                <Card className="cricd-createMatch-container">
                     <CardTitle
                         title="Create Match"
                         />
