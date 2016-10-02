@@ -29,15 +29,6 @@ class ViewMatch extends Component {
             .catch(error => { console.log(error); });
     }
 
-    getBatsmenStats() {
-        var matchId = this.props.params.matchId;
-        var batsmanProcessorUrl = 'http://' + __BATSMANINNINGSPROCESSOR_URL__;
-        fetch(batsmanProcessorUrl + '?match=' + matchId)
-            .then(response => { return response.json(); })
-            .then(json => { this.setState( { batsmen: json } ) })
-            .catch(error => { console.log(error); });       
-    }
-
     subscribeToMatchEvents() {
         var matchId = this.props.params.matchId;
         var changePublisherUrl = 'http://' + __CHANGEPUBLISHER_URL__;
@@ -52,7 +43,6 @@ class ViewMatch extends Component {
 
     componentDidMount() {
         this.getScore();
-        this.getBatsmenStats();
         this.subscribeToMatchEvents();
     }
 
@@ -62,7 +52,7 @@ class ViewMatch extends Component {
         for(var i = 0; i < numberOfInnings; i++) {
             innings.push((<Innings  sm={12} md={6} {...this.state.innings[i]} key={i} innings={i} />));
         }
-        var batsmen = this.state.batsmen ? this.state.batsmen[0] : [];
+        var batsmen = this.state.innings ? this.state.innings[0].batting : [];
 
         return (
             <div>
