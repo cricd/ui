@@ -17,9 +17,9 @@ class ScoreMatch extends Component {
         var scoreProcessorUrl = 'http://' + __SCOREPROCESSOR_URL__;
         fetch(scoreProcessorUrl + '?match=' + matchId)
             .then(response => { return response.json(); })
-            .then(json => { 
+            .then(json => {
                 console.log(json)
-                this.setState(json) 
+                this.setState(json)
             })
             .catch(error => { console.log(error); });
     }
@@ -42,10 +42,16 @@ class ScoreMatch extends Component {
 
 
     render() {
+        var innings;
+        if (this.state.innings) {
+            var lastInnings  = this.state.innings.length
+            innings =  <Innings  sm={12} md={6} {...this.state.innings[lastInnings - 1]} key={lastInnings} innings={lastInnings} />;
+        }
         return (
             <div>
                 <MatchInfo  {...this.state.matchInfo} />
                 <Divider/>
+                {innings}
                 <h3> Runs </h3>
                 <div className="cricd-scoreMatch-runsContainer">
                 </div>
