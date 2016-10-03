@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './ScoreMatch.scss';
 import Divider from 'material-ui/Divider';
 import MatchInfo from '../ViewMatch/components/MatchInfo/MatchInfo.js'
-import Innings from '../ViewMatch/components/Innings/Innings.js'
+import InningsStats from '../ViewMatch/components/InningsStats/InningsStats.js'
 import io from 'socket.io-client';
 
 class ScoreMatch extends Component {
@@ -45,7 +45,7 @@ class ScoreMatch extends Component {
         var innings;
         if (this.state.innings) {
             var lastInnings  = this.state.innings.length
-            innings =  <Innings  sm={12} md={6} {...this.state.innings[lastInnings - 1]} key={lastInnings} innings={lastInnings} />;
+            innings =  <InningsStats  sm={12} md={6} {...this.state.innings[lastInnings - 1]} key={lastInnings} innings={lastInnings} />;
         }
         return (
             <div>

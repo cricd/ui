@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import io from 'socket.io-client';
 import './ViewMatch.scss';
-import MatchEvent from './components/MatchEvent/MatchEvent';
-import InningsStats from './components/InningsStats/InningsStats';
+import InningsStats from '../Shared/InningsStats/InningsStats';
 import MatchResult from './components/MatchResult/MatchResult';
-import MatchInfo from './components/MatchInfo/MatchInfo';
-import MatchEvents from './components/MatchEvents/MatchEvents';
+import MatchInfo from '../Shared/MatchInfo/MatchInfo';
+import MatchEventList from './components/MatchEventList/MatchEventList';
 import BattingCard from './components/BattingCard/BattingCard';
 import BowlingCard from './components/BowlingCard/BowlingCard';
 import Divider from 'material-ui/Divider';
@@ -66,7 +65,7 @@ class ViewMatch extends Component {
                 <Paper zDepth={2} className="cricd-viewMatch-statsTab">
                     <Tabs>
                         <Tab label="Ball by ball">
-                            <MatchEvents events={this.state.matchEvents} />
+                            <MatchEventList events={this.state.matchEvents} />
                         </Tab>
                         <Tab label="Batting">
                             <BattingCard batsmen={batsmen} />
