@@ -65,7 +65,7 @@ class ViewMatch extends Component {
                 <Paper zDepth={2} className="cricd-viewMatch-statsTab">
                     <Tabs>
                         <Tab label="Ball by ball">
-                            <MatchEventList events={this.state.matchEvents} />
+                            <MatchEventList events={this.state.matchEvents} innings={this.state.innings} />
                         </Tab>
                         <Tab label="Batting">
                             <BattingCard batsmen={batsmen} />

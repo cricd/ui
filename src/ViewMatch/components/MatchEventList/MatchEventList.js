@@ -4,6 +4,7 @@ import MatchEvent from '../MatchEvent/MatchEvent';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import InningsDropdown from '../InningsDropdown/InningsDropdown';
 
 class MatchEventList extends Component {
 
@@ -15,6 +16,7 @@ class MatchEventList extends Component {
 
         return (
             <div className="cricd-matchEventList">
+                <InningsDropdown innings={this.props.innings} />
                 <ul>{items}</ul>
             </div>
         );

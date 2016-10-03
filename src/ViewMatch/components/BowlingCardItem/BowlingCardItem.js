@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './BowlingCardItem.scss';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 class BowlingCardItem extends Component {
