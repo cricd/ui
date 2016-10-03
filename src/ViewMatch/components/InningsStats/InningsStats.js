@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import './Innings.scss';
+import './InningsStats.scss';
 import ordinal from 'ordinal-number-suffix';
 import Stat from '../Stat/Stat';
 import { Flex } from 'reflexbox';
 
-class Innings extends Component {
+class InningsStats extends Component {
     /*
     {
       "over": 20,
@@ -22,9 +22,9 @@ class Innings extends Component {
 
         return (
             
-            <div className="cricd-innings">
-                <div className="cricd-innings-teamName">{this.props.battingTeam.name}</div>
-                <div className="cricd-innings-label">{innings} innings</div>
+            <div className="cricd-inningsStats">
+                <div className="cricd-inningsStats-teamName">{this.props.battingTeam.name}</div>
+                <div className="cricd-inningsStats-label">{innings} innings</div>
                 <Flex wrap>
                     <Stat units="runs">{this.props.runs}</Stat>
                     <Stat units="wickets">{this.props.wickets}</Stat>
@@ -35,4 +35,4 @@ class Innings extends Component {
     }
 }
 
-export default Innings;
+export default InningsStats;

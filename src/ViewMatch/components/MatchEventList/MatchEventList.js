@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import './MatchEvents.scss';
+import './MatchEventList.scss';
 import MatchEvent from '../MatchEvent/MatchEvent';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
-class MatchEvents extends Component {
+class MatchEventList extends Component {
 
     render() {
         var items;
@@ -14,11 +14,11 @@ class MatchEvents extends Component {
         }).reverse();
 
         return (
-            <div className="cricd-matchEvents">
+            <div className="cricd-matchEventList">
                 <ul>{items}</ul>
             </div>
         );
     }
 }
 
-export default MatchEvents;
+export default MatchEventList;
