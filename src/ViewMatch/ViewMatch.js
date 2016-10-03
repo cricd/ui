@@ -8,6 +8,7 @@ import MatchResult from './components/MatchResult/MatchResult';
 import MatchInfo from './components/MatchInfo/MatchInfo';
 import MatchEvents from './components/MatchEvents/MatchEvents';
 import BattingCard from './components/BattingCard/BattingCard';
+import BowlingCard from './components/BowlingCard/BowlingCard';
 import Divider from 'material-ui/Divider';
 import { Flex } from 'reflexbox';
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -53,6 +54,7 @@ class ViewMatch extends Component {
             innings.push((<Innings  sm={12} md={6} {...this.state.innings[i]} key={i} innings={i} />));
         }
         var batsmen = this.state.innings ? this.state.innings[0].batting : [];
+        var bowlers = this.state.innings ? this.state.innings[0].bowling : [];
 
         return (
             <div>
@@ -70,6 +72,7 @@ class ViewMatch extends Component {
                             <BattingCard batsmen={batsmen} />
                         </Tab>
                         <Tab label="Bowling">
+                            <BowlingCard bowlers={bowlers} />
                         </Tab>
                     </Tabs>
                 </Paper>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './BatsmansInnings.scss';
+import './BattingCardItem.scss';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
-class BatsmansInnings extends Component {
+class BattingCardItem extends Component {
 
 /*
 {
@@ -81,26 +81,13 @@ describeDismissal(e) {
     }
   }
 
-  getBatsmanName(e) {
-    let name = 'John Smith'; 
-    if(e.dismissal) {
-      name = e.batsman ? e.batsman.name : e.batsmen.striker.name;
-    }
-    else if(e.events && e.events.length > 0) {
-      const firstEvent = e.events[0];
-      name = firstEvent.batsman ? firstEvent.batsman.name : firstEvent.batsmen.striker.name;
-    }
-    return name;
-  }
-
   render() {
     const dismissal = this.describeDismissal(this.props.dismissal);
-    const name = this.getBatsmanName(this.props);
     const notOut = this.props.dismissal ? '' : '*';
 
     return (
         <TableRow>
-          <TableRowColumn className="cricd-battingCard-batsman">{name}</TableRowColumn>
+          <TableRowColumn className="cricd-battingCard-batsman">{this.props.batsman.name}</TableRowColumn>
           <TableRowColumn className="cricd-battingCard-dismissal">{dismissal}</TableRowColumn>
           <TableRowColumn className="cricd-battingCard-runs">{this.props.runs}{notOut}</TableRowColumn>
           <TableRowColumn className="cricd-battingCard-collapsible">{this.props.ballsFaced}</TableRowColumn>
@@ -112,4 +99,4 @@ describeDismissal(e) {
   }
 }
 
-export default BatsmansInnings;
+export default BattingCardItem;

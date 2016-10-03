@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './BattingCard.scss';
-import BatsmansInnings from '../BatsmansInnings/BatsmansInnings';
+import BattingCardItem from '../BattingCardItem/BattingCardItem';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 class BattingCard extends Component {
@@ -8,7 +8,7 @@ class BattingCard extends Component {
     render() {
         var batsmen = [];
         if(this.props.batsmen) this.props.batsmen.map((b, key) => {
-            return batsmen.push((<BatsmansInnings {...b} key={key} />));
+            return batsmen.push((<BattingCardItem {...b} key={key} />));
         });
 
         return (
