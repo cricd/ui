@@ -28,6 +28,7 @@
     "react-tap-event-plugin": "^1.0.0",
     "reflexbox": "^2.2.2",
     "socket.io": "^1.4.8",
+    "underscore": "^1.8.3",
     "webpack": "^1.13.2"
   },
   "scripts": {

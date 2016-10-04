@@ -7,7 +7,6 @@ import MenuItem from 'material-ui/MenuItem';
 import InningsDropdown from '../InningsDropdown/InningsDropdown';
 
 class MatchEventList extends Component {
-
     render() {
         var items;
         if(this.props.events) items = this.props.events.map((e, i) => {
@@ -16,7 +15,6 @@ class MatchEventList extends Component {
 
         return (
             <div className="cricd-matchEventList">
-                <InningsDropdown innings={this.props.innings} />
                 <ul>{items}</ul>
             </div>
         );

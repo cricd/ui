@@ -8,16 +8,24 @@ import MatchInfo from '../Shared/MatchInfo/MatchInfo';
 import MatchEventList from './components/MatchEventList/MatchEventList';
 import BattingCard from './components/BattingCard/BattingCard';
 import BowlingCard from './components/BowlingCard/BowlingCard';
+import InningsDropdown from './components/InningsDropdown/InningsDropdown';
 import Divider from 'material-ui/Divider';
 import { Flex } from 'reflexbox';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
+import _ from 'underscore';
 
 class ViewMatch extends Component {
     constructor() {
         super();
-        this.state = {};
+        this.state = { selectedInnings: 0 };
         this.onMatchEvent = this.onMatchEvent.bind(this);
+        this.handleInningsChange = this.handleInningsChange.bind(this);
+        this.getFilteredEvents = this.getFilteredEvents.bind(this);
+    }
+
+    handleInningsChange(event, key, value){
+        this.setState( { selectedInnings: value });
     }
 
     getScore() {
@@ -46,14 +54,23 @@ class ViewMatch extends Component {
         this.subscribeToMatchEvents();
     }
 
+    getFilteredEvents(selectedInnings) {
+        var filtered = _(this.state.matchEvents).filter(function(e){
+            if(e.ball && e.ball.innings == selectedInnings + 1) return true;
+            else return false;
+        });
+        return filtered;
+    }
+
     render() {
         var i = 1, innings = [];
         var numberOfInnings = this.state.innings ? this.state.innings.length : 0;
         for(var i = 0; i < numberOfInnings; i++) {
             innings.push((<InningsStats  sm={12} md={6} {...this.state.innings[i]} key={i} innings={i} />));
         }
-        var batsmen = this.state.innings ? this.state.innings[0].batting : [];
-        var bowlers = this.state.innings ? this.state.innings[0].bowling : [];
+        var events = this.state.matchEvents ? this.getFilteredEvents(this.state.selectedInnings) : [];
+        var batsmen = this.state.innings ? this.state.innings[this.state.selectedInnings].batting : [];
+        var bowlers = this.state.innings ? this.state.innings[this.state.selectedInnings].bowling : [];
 
         return (
             <div>
@@ -65,12 +82,15 @@ class ViewMatch extends Component {
                 <Paper zDepth={2} className="cricd-viewMatch-statsTab">
                     <Tabs>
                         <Tab label="Ball by ball">
-                            <MatchEventList events={this.state.matchEvents} innings={this.state.innings} />
+                            <InningsDropdown innings={this.state.innings} onChange={this.handleInningsChange} />
+                            <MatchEventList events={events} />
                         </Tab>
                         <Tab label="Batting">
+                            <InningsDropdown innings={this.state.innings} onChange={this.handleInningsChange} />
                             <BattingCard batsmen={batsmen} />
                         </Tab>
                         <Tab label="Bowling">
+                            <InningsDropdown innings={this.state.innings} onChange={this.handleInningsChange} />
                             <BowlingCard bowlers={bowlers} />
                         </Tab>
                     </Tabs>
