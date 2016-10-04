@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './ScoreMatch.scss';
 import Divider from 'material-ui/Divider';
-import MatchInfo from '../ViewMatch/components/MatchInfo/MatchInfo.js'
-import InningsStats from '../ViewMatch/components/InningsStats/InningsStats.js'
+import MatchInfo from '../Shared/MatchInfo/MatchInfo';
+import InningsStats from '../Shared/InningsStats/InningsStats';
 import io from 'socket.io-client';
 
 class ScoreMatch extends Component {
