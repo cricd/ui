@@ -9,6 +9,8 @@ import MatchEventList from './components/MatchEventList/MatchEventList';
 import BattingCard from './components/BattingCard/BattingCard';
 import BowlingCard from './components/BowlingCard/BowlingCard';
 import InningsDropdown from './components/InningsDropdown/InningsDropdown';
+import MatchEventNotify  from './components/MatchEventNotify/MatchEventNotify';
+import MatchEventNotifySettings  from './components/MatchEventNotifySettings/MatchEventNotifySettings';
 import Divider from 'material-ui/Divider';
 import { Flex } from 'reflexbox';
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -18,14 +20,19 @@ import _ from 'underscore';
 class ViewMatch extends Component {
     constructor() {
         super();
-        this.state = { selectedInnings: 0 };
+        this.state = { selectedInnings: 0, notify: false, notifySettings: [] };
         this.onMatchEvent = this.onMatchEvent.bind(this);
         this.handleInningsChange = this.handleInningsChange.bind(this);
+        this.handleNotifySettingsChange = this.handleNotifySettingsChange.bind(this);
         this.getFilteredEvents = this.getFilteredEvents.bind(this);
     }
 
-    handleInningsChange(event, key, value){
-        this.setState( { selectedInnings: value });
+    handleNotifySettingsChange(event, values) {
+        this.setState({ notifySettings: values });
+    }
+
+    handleInningsChange(event, key, value) {
+        this.setState({ selectedInnings: value });
     }
 
     getScore() {
@@ -44,9 +51,10 @@ class ViewMatch extends Component {
         socket.on('score-change', this.onMatchEvent);
     }
 
-    onMatchEvent(matchEvent) {
-        this.setState(newScore.score);
-        this.getBatsmenStats();
+    onMatchEvent(incoming) {
+        this.setState(incoming.score);
+        this.setState({ notify: true, newEvent: incoming.event });
+        this.setState({ notify: false });
     }
 
     componentDidMount() {
@@ -55,7 +63,7 @@ class ViewMatch extends Component {
     }
 
     getFilteredEvents(selectedInnings) {
-        var filtered = _(this.state.matchEvents).filter(function(e){
+        var filtered = _(this.state.matchEvents).filter(function(e) {
             if(e.ball && e.ball.innings == selectedInnings + 1) return true;
             else return false;
         });
@@ -74,6 +82,13 @@ class ViewMatch extends Component {
 
         return (
             <div>
+                <MatchEventNotify
+                    title="cricd"
+                    notify={this.state.notify}
+                    settings={this.state.notifySettings}
+                    newEvent={this.state.newEvent} 
+                    settings={this.state.notifySettings} />
+                <MatchEventNotifySettings onChange={this.handleNotifySettingsChange} />
                 <MatchInfo {...this.state.matchInfo} />
                 <Divider />
                 <MatchResult {...this.state.result} />
@@ -82,15 +97,24 @@ class ViewMatch extends Component {
                 <Paper zDepth={2} className="cricd-viewMatch-statsTab">
                     <Tabs>
                         <Tab label="Ball by ball">
-                            <InningsDropdown innings={this.state.innings} onChange={this.handleInningsChange} />
+                            <InningsDropdown
+                                selectedInnings={this.state.selectedInnings}
+                                innings={this.state.innings}
+                                onChange={this.handleInningsChange} />
                             <MatchEventList events={events} />
                         </Tab>
                         <Tab label="Batting">
-                            <InningsDropdown innings={this.state.innings} onChange={this.handleInningsChange} />
+                            <InningsDropdown
+                                selectedInnings={this.state.selectedInnings}
+                                innings={this.state.innings}
+                                onChange={this.handleInningsChange} />
                             <BattingCard batsmen={batsmen} />
                         </Tab>
                         <Tab label="Bowling">
-                            <InningsDropdown innings={this.state.innings} onChange={this.handleInningsChange} />
+                            <InningsDropdown
+                                selectedInnings={this.state.selectedInnings}
+                                innings={this.state.innings}
+                                onChange={this.handleInningsChange} />
                             <BowlingCard bowlers={bowlers} />
                         </Tab>
                     </Tabs>

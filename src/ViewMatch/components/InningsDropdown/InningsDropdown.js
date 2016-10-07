@@ -11,7 +11,6 @@ class InningsDropdown extends Component {
     }
 
     handleChange(event, index, value) { 
-        this.setState({ value }); 
         if(this.props.onChange) this.props.onChange(event, index, value);
     }
 
@@ -24,7 +23,7 @@ class InningsDropdown extends Component {
         }
 
         return (
-            <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+            <DropDownMenu value={this.props.selectedInnings} onChange={this.handleChange}>
                 {menuItems}
             </DropDownMenu>
         )
