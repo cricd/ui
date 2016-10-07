@@ -24,7 +24,6 @@ const scorePath = '/score/${matchId}'
 
 // TODO: 
 //  - Handle teams that don't exist
-//  - Redirect to score page on successful creation
 
 const teams = []
 
@@ -32,7 +31,7 @@ class CreateMatch extends Component {
     constructor(props) {
         super(props)
         console.log(props)
-        fetch("http://localhost:1337/teams")
+        fetch("http://" + __ENTITYSTORE_URL__  + "/teams")
             .then(function (response) {
                 if (!response.ok) {
                     console.log("Failed to get teams: " + response.statusText)
