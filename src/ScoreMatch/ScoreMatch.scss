@@ -1,8 +1,12 @@
 @import "../Shared/App/App.scss";
 
-.cricd-scoreMatch-runsContainer {
+.cricd-scoreMatch-scoreSentence {
     display:flex;
-    padding: 10px;
+    padding: 10px 15px 10px 15px;
     flex-direction: row
+}
 
+.cricd-scoreMatch-scoreSentenceItem {
+    margin: 10px 10px 10px 10px;
+    align-self: center;
 }

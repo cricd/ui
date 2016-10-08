@@ -1,44 +1,46 @@
 import React, { Component } from 'react';
 import './ScoreMatch.scss';
 import Divider from 'material-ui/Divider';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import MatchInfo from '../Shared/MatchInfo/MatchInfo';
 import InningsStats from '../Shared/InningsStats/InningsStats';
+import TeamSelectDialog from './components/TeamSelectDialog';
 import io from 'socket.io-client';
+import _ from 'underscore';
 
 class ScoreMatch extends Component {
     constructor(props) {
         super(props)
-        //Get the match ID
         this.state = {
             teams: [],
             battingTeam: {},
             bowlingTeam: {},
             currentInnings: 1,
-            striker: {},
-            nonStriker: {},
-            bowler: {},
+            striker: null,
+            nonStriker: null,
+            bowler: null,
             dialogOpen: false,
-            selectedTeam: 0,
+            selectedTeam: {},
+            batsmen: [],
+            bowlers: [],
+            ballType: "scored",
+            runsScored: 0,
+            howDismissed: "",
+            runType: "runs"
+        }
+
+        this.getBatsmen = this.getBatsmen.bind(this);
+        this.getBowlers = this.getBowlers.bind(this);
+        this.handleBattingTeamChange = this.handleBattingTeamChange.bind(this);
+        this.handleStrikerChange = this.handleStrikerChange.bind(this);
+        this.handleBallTypeChange = this.handleBallTypeChange.bind(this);
+        this.handleBattingTeamDialogClose = this.handleBattingTeamDialogClose.bind(this);
+        this.handleRunsScored = this.handleRunsScored.bind(this);
+        this.handleRunType = this.handleRunType.bind(this);
     }
-    this.handleBattingTeamChange = this.handleBattingTeamChange.bind(this);
-    this.handleDialogClose = this.handleDialogClose.bind(this);
-    }
-
-    handleDialogOpen() {
-        this.setState({ dialogOpen: true });
-    };
-
-    handleDialogClose() {
-        this.setState({ dialogOpen: false });
-    };
-
 
     getTeams() {
-        console.log(this.props)
         var matchId = this.props.params.matchId
         var entitiesUrl = 'http://' + __ENTITYSTORE_URL__
         fetch(entitiesUrl + '/matches/' + matchId)
@@ -52,9 +54,47 @@ class ScoreMatch extends Component {
             })
             .catch(error => { console.log(error); });
     }
+    getPlayers() {
+        this.getBatsmen();
+        this.getBowlers();
+    }
 
     getBatsmen() {
-        //  team/id/players/
+        console.log("calling getBatsmen")
+        var matchId = this.props.params.matchId
+        var entitiesUrl = 'http://' + __ENTITYSTORE_URL__
+        var battingTeamId = _.isEmpty(this.state.battingTeam) ? 0 : this.state.battingTeam.id
+        if (battingTeamId != 0) {
+            fetch(entitiesUrl + '/teams/' + battingTeamId + "/players/")
+                .then(response => { return response.json(); })
+                .then(json => {
+                    console.log(json)
+                    this.setState({
+                        batsmen: json,
+                        striker: json[0]
+                    })
+                })
+                .catch(error => { console.log(error); });
+        }
+    }
+
+    getBowlers() {
+        console.log("calling getBowlers")
+        var matchId = this.props.params.matchId
+        var entitiesUrl = 'http://' + __ENTITYSTORE_URL__
+        var bowlingTeamId = _.isEmpty(this.state.bowlingTeam) ? 0 : this.state.bowlingTeam.id
+        if (bowlingTeamId != 0) {
+            fetch(entitiesUrl + '/teams/' + bowlingTeamId + "/players/")
+                .then(response => { return response.json(); })
+                .then(json => {
+                    console.log(json)
+                    this.setState({
+                        bowlers: json
+                    })
+                })
+                .catch(error => { console.log(error); });
+        }
+
     }
 
     getScore() {
@@ -82,25 +122,56 @@ class ScoreMatch extends Component {
 
     componentDidMount() {
         this.getTeams();
+        //this.getBatsmen();
         //        this.getScore();
         //      this.subscribeToMatchEvents();
     }
 
-        handleBattingTeamChange(event, index, value) {
-            this.setState({selectedTeam: value});
-        }
+    handleBattingTeamChange(event, index, value) {
+        this.setState({
+            battingTeam: value,
+            bowlingTeam: _(this.state.teams).without(value)[0],
+            selectedTeam: value
+        }, this.getPlayers)
+    }
+
+    handleBattingTeamDialogClose() {
+        this.setState({
+            dialogOpen: false
+        })
+    }
+
+    handleStrikerChange(event, index, value) {
+        this.setState({
+            striker: value
+        })
+    }
+
+    handleBowlerChange(event, index, value) {
+        this.setState({
+            bowler: value
+        })
+    }
+
+    handleBallTypeChange(event, index, value) {
+        this.setState({
+            ballType: value
+        })
+    }
+
+    handleRunsScored(event, index, value) {
+        this.setState({
+            runsScored: value
+        })
+    }
+
+    handleRunType(event, index, value) {
+        this.setState({
+            runType: value
+        })
+    }
 
     render() {
-        const actions = [
-            <FlatButton
-                label="Ok"
-                primary={true}
-                keyboardFocused={true}
-                onTouchTap={this.handleDialogClose}
-                />,
-        ];
-        var menuItems = this.state.teams ? this.state.teams.map((team, key) => {return  <MenuItem value={team} primaryText={team.name} key={key}/>}) : [];
-
         // [Batsman] scored [0-9] [runs/leg byes/wides] off the bowling of [Bowler]
         // [Batsman] was dismissed by [run out/bowled/lbw...]  [by fielder] off the bowling of [Bowler]
         // var innings;
@@ -108,30 +179,58 @@ class ScoreMatch extends Component {
         //     var lastInnings  = this.state.innings.length
         //     innings =  <InningsStats  sm={12} md={6} {...this.state.innings[lastInnings - 1]} key={lastInnings} innings={lastInnings} />;
         // }
+
+
+        const styles = {
+            customWidth: {
+             width: 50,
+            },
+        };
+
+        const ballType = ["scored", "was dismissed"]
+        var ballTypeItems = ballType.map((ballType, key) => { return <MenuItem value={ballType} primaryText = {ballType} key={key} /> });
+
+        const runsScored = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        var runsScoredItems = runsScored.map((runs, key) => { return <MenuItem value={runs} primaryText = {runs} key={key} /> });
+
+        const runType = ["runs", "byes", "leg byes", "no balls"]
+        var runTypeItems = runType.map((runType, key) => { return <MenuItem value={runType} primaryText = {runType} key={key} /> });
+
+        var batsmanItems = _.isEmpty(this.state.batsmen) ? [] : this.state.batsmen.map((batsman, key) => { return <MenuItem value={batsman} primaryText={batsman.name} key={key} />})
+
+        var bowlerItems = _.isEmpty(this.state.bowlers) ?  [] : this.state.bowlers.map((bowler, key) => { return <MenuItem value={bowler} primaryText={bowler.name} key={key}/> }) ;
+
         return (
             <div>
-                <Dialog
+                <TeamSelectDialog
                     title="Select batting team"
                     open={this.state.dialogOpen}
-                    actions={actions}
-                    modal={false}
-                    >
-                    <SelectField value={this.state.selectedTeam} onChange={this.handleBattingTeamChange}>
-                        {menuItems}
-                    </SelectField>
-                </Dialog>
+                    update={this.handleBattingTeamChange}
+                    teams={this.state.teams}
+                    selectedTeam={this.state.selectedTeam}
+                    dialogClose={this.handleBattingTeamDialogClose}
+                    />
                 <MatchInfo  {...this.state.matchInfo} />
                 <Divider/>
-                <h3> Runs </h3>
-                <div className="cricd-scoreMatch-runsContainer">
+                <div className="cricd-scoreMatch-scoreSentence">
+                    <SelectField value={this.state.striker} onChange={this.handleStrikerChange} hintText={"Batsman"} className="cricd-scoreMatch-scoreSentenceItem">
+                        {batsmanItems}
+                    </SelectField>
+                    <SelectField value={this.state.ballType} onChange={this.handleBallTypeChange} className="cricd-scoreMatch-scoreSentenceItem" >
+                        {ballTypeItems}
+                    </SelectField>
+                    <SelectField value={this.state.runsScored} onChange={this.handleRunsScored} style={styles.customWidth} className="cricd-scoreMatch-scoreSentenceItem">
+                        {runsScoredItems}
+                    </SelectField>
+                    <SelectField value={this.state.runType} onChange={this.handleRunType} className="cricd-scoreMatch-scoreSentenceItem" >
+                        {runTypeItems}
+                    </SelectField>
+                    <p > the bowling of</p>
+                    <SelectField value={this.state.bowler} onChange={this.handleBowlerChange} hintText={"Bowler"} className="cricd-scoreMatch-scoreSentenceItem" >
+                        {bowlerItems}
+                    </SelectField>
                 </div>
-                <div className="cricd-scoreMatch-runsContainer">
-                </div>
-                <div>
-                    <h3> Dismissals </h3>
-                    <div className="cricd-scoreMatch-runsContainer">
-                    </div>
-                </div>
+
             </div>
         );
     }
