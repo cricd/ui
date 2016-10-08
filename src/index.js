@@ -15,7 +15,7 @@ render((
         <Route path="/" component={App}>
                 <Route path="/view/:matchId" component={ViewMatch} />
                 <Route path="/score/:matchId" component={ScoreMatch} />
-                <Route path="/create/" component={CreateMatch} />
+                <Route path="/create" component={CreateMatch} />
         </Route>
     </Router>
     </div>
