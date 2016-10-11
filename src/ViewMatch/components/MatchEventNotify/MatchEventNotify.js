@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Notification  from 'react-web-notification';
 import { describeEvent } from '../../../Shared/Helpers/describeEvent.js';
 
-class MatchEventNotify extends Notification {
+class MatchEventNotify extends Component {
     constructor(props) {
         super(props);
     }

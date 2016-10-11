@@ -83,9 +83,7 @@ class ViewMatch extends Component {
         return (
             <div>
                 <MatchEventNotify
-                    title="cricd"
                     notify={this.state.notify}
-                    settings={this.state.notifySettings}
                     newEvent={this.state.newEvent} 
                     settings={this.state.notifySettings} />
                 <MatchEventNotifySettings onChange={this.handleNotifySettingsChange} />
