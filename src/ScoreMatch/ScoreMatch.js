@@ -27,7 +27,9 @@ class ScoreMatch extends Component {
             ballType: "scored",
             runsScored: 0,
             howDismissed: "",
-            runType: "runs"
+            runType: "runs",
+            isDismissal: false,
+            dismissalType: "caught",
         }
 
         this.getBatsmen = this.getBatsmen.bind(this);
@@ -155,7 +157,8 @@ class ScoreMatch extends Component {
 
     handleBallTypeChange(event, index, value) {
         this.setState({
-            ballType: value
+            ballType: value,
+            isDismissal: (value === "was dismissed")
         })
     }
 
@@ -170,6 +173,12 @@ class ScoreMatch extends Component {
             runType: value
         })
     }
+    handleDismissalType(event, index, value) {
+        this.setState({
+            dismissalType: value
+        })
+    }
+
 
     render() {
         // [Batsman] scored [0-9] [runs/leg byes/wides] off the bowling of [Bowler]
@@ -196,6 +205,9 @@ class ScoreMatch extends Component {
         const runType = ["runs", "byes", "leg byes", "no balls"]
         var runTypeItems = runType.map((runType, key) => { return <MenuItem value={runType} primaryText = {runType} key={key} /> });
 
+        const dismissalType = ["caught", "bowled", "LBW", "caught and bowled", "stumped"]
+        var dismissalTypeItems = dismissalType.map((dismissalType, key) => { return <MenuItem value={dismissalType} primaryText = {dismissalType} key={key} /> });
+
         var batsmanItems = _.isEmpty(this.state.batsmen) ? [] : this.state.batsmen.map((batsman, key) => { return <MenuItem value={batsman} primaryText={batsman.name} key={key} />})
 
         var bowlerItems = _.isEmpty(this.state.bowlers) ?  [] : this.state.bowlers.map((bowler, key) => { return <MenuItem value={bowler} primaryText={bowler.name} key={key}/> }) ;
@@ -219,13 +231,19 @@ class ScoreMatch extends Component {
                     <SelectField value={this.state.ballType} onChange={this.handleBallTypeChange} className="cricd-scoreMatch-scoreSentenceItem" >
                         {ballTypeItems}
                     </SelectField>
-                    <SelectField value={this.state.runsScored} onChange={this.handleRunsScored} style={styles.customWidth} className="cricd-scoreMatch-scoreSentenceItem">
+                    {!this.state.isDismissal ?
+                    <SelectField  value={this.state.runsScored} onChange={this.handleRunsScored} style={styles.customWidth} className="cricd-scoreMatch-scoreSentenceItem">
                         {runsScoredItems}
-                    </SelectField>
+                    </SelectField> : null }
+                    {!this.state.isDismissal ?
                     <SelectField value={this.state.runType} onChange={this.handleRunType} className="cricd-scoreMatch-scoreSentenceItem" >
                         {runTypeItems}
-                    </SelectField>
-                    <p > the bowling of</p>
+                    </SelectField> : null }
+                    { this.state.isDismissal ? <p className="cricd-scoreMatch-scoreSentenceItem"> by being </p> : null }
+                    { this.state.isDismissal ? <SelectField value={this.state.dismissalType} onChange={this.handleDismissalType} className="cricd-scoreMatch-scoreSentenceItem" >
+                        {dismissalTypeItems}
+                    </SelectField> : null }
+                    <p className="cricd-scoreMatch-scoreSentenceItem"> off the bowling of</p>
                     <SelectField value={this.state.bowler} onChange={this.handleBowlerChange} hintText={"Bowler"} className="cricd-scoreMatch-scoreSentenceItem" >
                         {bowlerItems}
                     </SelectField>
