@@ -27,17 +27,17 @@ class MatchInfo extends Component {
     }
     */
     render() {
-        var typeOfMatch = "Twenty20";
+        var typeOfMatch = "A game of cricket";
         var numberOfInnings = this.props.numberOfInnings ? this.props.numberOfInnings : 1;
         var limitedOvers = this.props.limitedOvers ? this.props.limitedOvers : 20;
-        var homeTeamName = this.props.homeTeam ? this.props.homeTeam.name : 'New Zealand';
-        var awayTeamName = this.props.awayTeam ? this.props.awayTeam.name : 'Australia';
+        var homeTeamName = this.props.homeTeam ? this.props.homeTeam.name : 'Team A';
+        var awayTeamName = this.props.awayTeam ? this.props.awayTeam.name : 'Team B';
 
         if(numberOfInnings == 2 && !limitedOvers) typeOfMatch = "Test match";
         else if(numberOfInnings == 1 && limitedOvers == 50) typeOfMatch = "50 Over match";
         else if(numberOfInnings == 1 && limitedOvers == 20) typeOfMatch = "Twenty20";
         else if(!limitedOvers) typeOfMatch = numberOfInnings + " innings each side. Unlimited overs";
-        else typeOfMatch = numberOfInnings = " innings each side. Restricted to " + limitedOvers + " overs";
+        else typeOfMatch = numberOfInnings + " innings each side. Restricted to " + limitedOvers + " overs";
 
         return (
             <div className="matchInfo">
