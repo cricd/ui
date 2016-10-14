@@ -71,11 +71,10 @@ class ViewMatch extends Component {
     }
 
     render() {
-        var i = 1, innings = [];
-        var numberOfInnings = this.state.innings ? this.state.innings.length : 0;
-        for(var i = 0; i < numberOfInnings; i++) {
-            innings.push((<InningsStats  sm={12} md={6} {...this.state.innings[i]} key={i} innings={i} />));
-        }
+        var innings = [];
+        if(this.state.innings) this.state.innings.map((inning, index) => {
+            return innings.push((<InningsStats  sm={12} md={6} {...inning} key={index} innings={index} />));
+        });
         var events = this.state.matchEvents ? this.getFilteredEvents(this.state.selectedInnings) : [];
         var batsmen = this.state.innings ? this.state.innings[this.state.selectedInnings].batting : [];
         var bowlers = this.state.innings ? this.state.innings[this.state.selectedInnings].bowling : [];
