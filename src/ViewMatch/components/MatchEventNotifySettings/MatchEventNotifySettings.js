@@ -4,6 +4,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Subheader from 'material-ui/Subheader';
+import './MatchEventNotifySettings.scss';
 
 class MatchEventNotifySettings extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ class MatchEventNotifySettings extends Component {
 
     render() {
         return (
-            <div  className="cricd-alertPreferences">
+            <div  className="cricd-matchEventNotifySettings">
                 <IconMenu
                     iconButtonElement={
                         <FloatingActionButton mini={true} >
@@ -37,7 +38,7 @@ class MatchEventNotifySettings extends Component {
                     value={this.state.values}
                     multiple={true}
                     >
-                    <MenuItem disabled={true}>Notify me...</MenuItem>
+                    <MenuItem disabled={true}><span className="cricd-matchEventNotifySettings-notifyMe">Notify me...</span></MenuItem>
                     <MenuItem value="all" primaryText="about every ball" />
                     <MenuItem value="wickets" primaryText="when a wicket falls" />
                     <MenuItem value="boundary" primaryText="when a boundary is scored" />
