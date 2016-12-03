@@ -5,5 +5,6 @@ It is intended to provide a component to assist the [cricd](https://github.com/c
 ## Running the project 
 1. Clone this repo
 1. Run `npm install` to install dependencies
+1. Ensure cricd services are up and accessible
 1. Run `npm run dev` to start the web server
 1. The UI should be accessible at `http://localhost:8080`
