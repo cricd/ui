@@ -51,7 +51,7 @@ function MatchEvent(props) {
                     <span className="cricd-matchEvent-bowlerToBatsman">{props.bowler.name} to {props.batsmen.striker.name}</span>
                     <span className="cricd-matchEvent-commentary">{describeEvent(props)}</span>
                     <Flex flexColumn>
-                        <span className="cricd-matchEvent-innings">{props.ball.innings} innings</span>
+                        <span className="cricd-matchEvent-innings">{ordinal(props.ball.innings)} innings</span>
                     </Flex>
                 </Flex>
             </li>
