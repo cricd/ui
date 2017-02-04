@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Stat.scss';
 
 function Stat(props) {
@@ -8,6 +8,10 @@ function Stat(props) {
             <span className="cricd-stat-units">{props.units}</span>
         </span>
     );
+}
+
+Stat.propTypes = {
+    units: React.PropTypes.string
 }
 
 export default Stat;
