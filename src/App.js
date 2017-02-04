@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavBar from '../NavBar/NavBar.js';
+import NavBar from './components/NavBar/NavBar.js';
 import './App.scss';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 

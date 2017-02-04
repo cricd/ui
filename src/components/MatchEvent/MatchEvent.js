@@ -4,7 +4,7 @@ import ordinal from 'ordinal-number-suffix';
 import { Flex } from 'reflexbox';
 import { ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
-import { describeEvent } from '../../../Shared/Helpers/describeEvent.js';
+import { describeEvent } from '../../Shared/Helpers/describeEvent.js';
 
 /*
 {

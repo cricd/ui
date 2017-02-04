@@ -1,6 +1,6 @@
 import React from 'react';
 import Notification from 'react-web-notification';
-import { describeEvent } from '../../../Shared/Helpers/describeEvent.js';
+import { describeEvent } from '../../Shared/Helpers/describeEvent.js';
 
 function MatchEventNotify(props) {
     var commentary = describeEvent(props.matchEvent);
