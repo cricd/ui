@@ -9,25 +9,25 @@ import MatchEventList from './components/MatchEventList/MatchEventList';
 import BattingCard from './components/BattingCard/BattingCard';
 import BowlingCard from './components/BowlingCard/BowlingCard';
 import InningsDropdown from './components/InningsDropdown/InningsDropdown';
-import MatchEventNotify  from './components/MatchEventNotify/MatchEventNotify';
-import MatchEventNotifySettings  from './components/MatchEventNotifySettings/MatchEventNotifySettings';
+import MatchEventNotify from './components/MatchEventNotify/MatchEventNotify';
+import MatchEventNotifySettings from './components/MatchEventNotifySettings/MatchEventNotifySettings';
 import Divider from 'material-ui/Divider';
 import { Flex } from 'reflexbox';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
 import _ from 'underscore';
 
 class ViewMatch extends Component {
     constructor() {
         super();
-        this.state = { selectedInnings: 0, notify: false, notifySettings: [] };
+        this.state = { selectedInnings: 0, notify: false, notifySettings: { all: false, wickets: false, boundary: false } };
         this.onMatchEvent = this.onMatchEvent.bind(this);
         this.handleInningsChange = this.handleInningsChange.bind(this);
         this.handleNotifySettingsChange = this.handleNotifySettingsChange.bind(this);
         this.getFilteredEvents = this.getFilteredEvents.bind(this);
     }
 
-    handleNotifySettingsChange(event, values) {
+    handleNotifySettingsChange(values) {
         this.setState({ notifySettings: values });
     }
 
@@ -53,7 +53,7 @@ class ViewMatch extends Component {
 
     onMatchEvent(incoming) {
         this.setState(incoming.score);
-        this.setState({ notify: true, newEvent: incoming.event });
+        this.setState({ notify: true, matchEvent: incoming.event });
         this.setState({ notify: false });
     }
 
@@ -73,7 +73,7 @@ class ViewMatch extends Component {
     render() {
         var innings = [];
         if(this.state.innings) this.state.innings.map((inning, index) => {
-            return innings.push((<InningsStats  sm={12} md={6} {...inning} key={index} innings={index} />));
+            return innings.push((<InningsStats sm={12} md={6} {...inning} key={index} innings={index} />));
         });
         var events = this.state.matchEvents ? this.getFilteredEvents(this.state.selectedInnings) : [];
         var batsmen = this.state.innings ? this.state.innings[this.state.selectedInnings].batting : [];
@@ -83,9 +83,11 @@ class ViewMatch extends Component {
             <div>
                 <MatchEventNotify
                     notify={this.state.notify}
-                    newEvent={this.state.newEvent} 
+                    matchEvent={this.state.matchEvent}
                     settings={this.state.notifySettings} />
-                <MatchEventNotifySettings onChange={this.handleNotifySettingsChange} />
+                <MatchEventNotifySettings
+                    settings={this.state.notifySettings}
+                    onChange={this.handleNotifySettingsChange} />
                 <MatchInfo {...this.state.matchInfo} />
                 <Divider />
                 <MatchResult {...this.state.result} />

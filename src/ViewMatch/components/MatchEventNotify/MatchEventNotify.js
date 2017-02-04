@@ -3,21 +3,21 @@ import Notification from 'react-web-notification';
 import { describeEvent } from '../../../Shared/Helpers/describeEvent.js';
 
 function MatchEventNotify(props) {
-    var commentary = describeEvent(props.newEvent);
-    var teams = props.newEvent.ball.battingTeam.name + ' vs ' + props.newEvent.ball.fieldingTeam.name;
-    var over = props.newEvent.ball.over + '.' + props.newEvent.ball.ball;
+    var commentary = describeEvent(props.matchEvent);
+    var teams = props.matchEvent.ball.battingTeam.name + ' vs ' + props.matchEvent.ball.fieldingTeam.name;
+    var over = props.matchEvent.ball.over + '.' + props.matchEvent.ball.ball;
 
     // Determine whether to notify
     var ignore = true;
-    var isBoundary = props.newEvent.runs == 4 || props.newEvent.runs == 6;
-    var isWicket = (props.newEvent.eventType != "delivery"
-        && props.newEvent.eventType != "noBall"
-        && props.newEvent.eventType != "wide"
-        && props.newEvent.eventType != "bye"
-        && props.newEvent.eventType != "legBye");
-    if(props.settings.includes('all')) ignore = false;
-    else if(props.settings.includes('wickets') && isWicket) ignore = false;
-    else if(props.settings.includes('boundary') && isBoundary) ignore = false;
+    var isBoundary = props.matchEvent.runs == 4 || props.matchEvent.runs == 6;
+    var isWicket = (props.matchEvent.eventType != "delivery"
+        && props.matchEvent.eventType != "noBall"
+        && props.matchEvent.eventType != "wide"
+        && props.matchEvent.eventType != "bye"
+        && props.matchEvent.eventType != "legBye");
+    if(props.settings.all) ignore = false;
+    else if(props.settings.wickets && isWicket) ignore = false;
+    else if(props.settings.boundary && isBoundary) ignore = false;
 
     if(props.settings)
         var options = {
@@ -38,12 +38,12 @@ function MatchEventNotify(props) {
 }
 
 MatchEventNotify.propTypes = {
-    newEvent: React.PropTypes.object.isRequired, 
-    settings: React.PropTypes.array.isRequired
+    matchEvent: React.PropTypes.object.isRequired, 
+    settings: React.PropTypes.object.isRequired
 };
 
 MatchEventNotify.defaultProps = {
-    newEvent: {
+    matchEvent: {
         eventType: 'delivery',
         ball: {
             fieldingTeam: { name: 'Fielding team' },
@@ -53,7 +53,7 @@ MatchEventNotify.defaultProps = {
         },
         runs: 0
     },
-    settings: []
+    settings: { all: false, wickets: false, boundary: false }
 };
 
 export default MatchEventNotify;
