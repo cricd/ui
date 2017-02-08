@@ -11,3 +11,4 @@ build
 npm-debug.log
 jsconfig.json
 .eslintrc.json
+.vscode
