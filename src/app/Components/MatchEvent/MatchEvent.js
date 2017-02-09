@@ -42,16 +42,16 @@ import { observer } from 'mobx-react';
 }
 */
 
-const MatchEvent = observer( ({ ball, bowler, batsmen, eventType, runs }) => {
+const MatchEvent = observer( ({ matchEvent }) => {
     return (
         <div>
             <li className="cricd-matchEvent">
                 <Flex align="baseline">
-                    <span className="cricd-matchEvent-overAndBall">{ball.over}.{ball.ball}</span>
-                    <span className="cricd-matchEvent-bowlerToBatsman">{bowler.name} to {batsmen.striker.name}</span>
-                    <span className="cricd-matchEvent-commentary">{describeEvent({ ball, bowler, batsmen, eventType, runs })}</span>
+                    <span className="cricd-matchEvent-overAndBall">{matchEvent.ball.over}.{matchEvent.ball.ball}</span>
+                    <span className="cricd-matchEvent-bowlerToBatsman">{matchEvent.bowler.name} to {matchEvent.batsmen.striker.name}</span>
+                    <span className="cricd-matchEvent-commentary">{describeEvent(matchEvent)}</span>
                     <Flex flexColumn>
-                        <span className="cricd-matchEvent-innings">{ordinal(ball.innings)} innings</span>
+                        <span className="cricd-matchEvent-innings">{ordinal(matchEvent.ball.innings)} innings</span>
                     </Flex>
                 </Flex>
             </li>
@@ -107,19 +107,18 @@ function describeEvent(e) {
 };
 
 MatchEvent.propTypes = {
-    ball: React.PropTypes.object.isRequired,
-    eventType: React.PropTypes.string.isRequired,
-    bowler: React.PropTypes.object.isRequired, 
-    batsmen: React.PropTypes.object.isRequired,
+    matchEvent: React.PropTypes.object.isRequired
 };
 
 MatchEvent.defaultProps = {
-    ball: { over: 0, ball: 0, innings: 0 },
-    eventType: 'delivery',
-    bowler: { name: 'A. Bowler' },
-    batsmen: {
-        striker: { name: 'A. Striker' },
-        nonStriker: { name: 'I Nonstriker' }
+    matchEvent: {
+        ball: { over: 0, ball: 0, innings: 0 },
+        eventType: 'delivery',
+        bowler: { name: 'A. Bowler' },
+        batsmen: {
+            striker: { name: 'A. Striker' },
+            nonStriker: { name: 'I Nonstriker' }
+        }
     }
 };
 

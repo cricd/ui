@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 
 const MatchEventList = observer( ({ events }) => {
     let items = events.map((e, i) => {
-        return (<MatchEvent {...e} key={i} />);
+        return (<MatchEvent matchEvent={e} key={i} />);
     }).reverse();
 
     return (
