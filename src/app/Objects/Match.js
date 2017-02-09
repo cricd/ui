@@ -25,25 +25,6 @@ export default class Match {
         this.matchService = matchService;
     }
 
-    getInningsEvents(innings) {
-        if(!innings || !this.innings) return [];
-        let inningsEvents = _(this.matchEvents).filter(function(e) {
-            if(e.ball && e.ball.innings === innings) return true;
-            else return false;
-        });
-        return inningsEvents;
-    }
-
-    getInningsBatting(innings) {
-        if(!innings || !this.innings[innings - 1]) return [];
-        return this.innings[innings - 1].batting;
-    }
-
-    getInningsBowling(innings) {
-        if(!innings || !this.innings[innings - 1]) return [];
-        return this.innings[innings - 1].bowling;
-    }
-
     @action getScore(callback) {
         this.matchService.getScore(this.id, (error, score) => {
             if(error) callback(error);
