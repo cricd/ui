@@ -5,7 +5,6 @@ import ordinal from 'ordinal-number-suffix';
 import { inject, observer } from 'mobx-react';
 import { action } from 'mobx';
 
-
 @inject('uiStateStore')
 @observer class InningsDropdown extends Component {
 
@@ -31,14 +30,14 @@ import { action } from 'mobx';
             </DropDownMenu>
         )
     }
-};
+}
 
 InningsDropdown.propTypes = {
     innings: React.PropTypes.object.isRequired
-};
+}
 
 InningsDropdown.defaultProps = {
     innings: []
-};
+}
 
 export default InningsDropdown;

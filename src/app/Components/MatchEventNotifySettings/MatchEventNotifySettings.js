@@ -6,13 +6,13 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Checkbox from 'material-ui/Checkbox';
 import './MatchEventNotifySettings.scss';
 import { observer } from 'mobx-react';
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 
 @observer class MatchEventNotifySettings extends Component {
+    @observable open = false;
 
     constructor(props) {
         super(props);
-        this.state = { open: false };
         this.toggleSettingAll = this.toggleSettingAll.bind(this);
         this.toggleSettingBoundary = this.toggleSettingBoundary.bind(this);
         this.toggleSettingWickets = this.toggleSettingWickets.bind(this);
@@ -51,10 +51,10 @@ import { action } from 'mobx';
             this.props.settings.boundary = this.props.settings.boundary;
             this.props.settings.wickets = checked;
         }
-    };
+    }
 
-    handleOpen() { this.setState({ open: true }) };
-    handleClose() { this.setState({ open: false }) };
+    @action handleOpen() { this.open = true; }
+    @action handleClose() { this.open = false; }
 
     render() {
         return (
@@ -73,7 +73,7 @@ import { action } from 'mobx';
                         />
                     }
                     modal={false}
-                    open={this.state.open}
+                    open={this.open}
                     onRequestClose={this.handleClose}
                 >
                     <Checkbox

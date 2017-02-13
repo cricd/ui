@@ -41,12 +41,13 @@
     "react-router": "^2.7.0",
     "react-web-notification": "^0.2.3",
     "reflexbox": "^2.2.2",
+    "restful.js": "^0.9.6",
     "socket.io": "^1.4.8",
     "underscore": "^1.8.3"
   },
   "scripts": {
-    "start": "webpack-dev-server --host 0.0.0.0 --port 8080 --inline --colors --progress",
-    "build": "webpack --build --progress --colors --progress --watch",
+    "start": "webpack-dev-server --host 0.0.0.0 --port 8080 --inline --colors --progress --history-api-fallback",
+    "build": "webpack --build --progress --colors --progress --watch --history-api-fallback",
     "dev": "SCOREPROCESSOR_URL=localhost:3002 BATSMANCHANGEPROCESSOR_URL=localhost:3000 CHANGEPUBLISHER_URL=localhost:3100 ENTITYSTORE_URL=localhost:1337 npm start"
   }
 }

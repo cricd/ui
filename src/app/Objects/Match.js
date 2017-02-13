@@ -27,7 +27,8 @@ export default class Match {
 
     @action getScore(callback) {
         this.matchService.getScore(this.id, (error, score) => {
-            if(error) callback(error);
+            if(error) return callback(error);
+            else if(!score) return callback('No score exists for this match');
             this.updateScore({ score: score });
             return callback();
         });

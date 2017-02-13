@@ -34,6 +34,8 @@ module.exports = {
       '__CHANGEPUBLISHER_URL__': JSON.stringify(process.env.CHANGEPUBLISHER_URL) || JSON.stringify('change-publisher:3100'),
       '__ENTITYSTORE_URL__': JSON.stringify(process.env.ENTITYSTORE_URL) || JSON.stringify('entities:1337'),
     }),
+    // Enabled Superagent
+    new webpack.DefinePlugin({ "global.GENTLY": false }),
     //Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
     //Allows error warnings but does not stop compiling. Will remove when eslint is added

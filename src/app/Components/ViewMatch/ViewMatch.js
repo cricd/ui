@@ -26,7 +26,7 @@ import _ from 'underscore';
         this.props.matchStore.getOrFollowMatch(
             this.props.params.matchId,
             (err, match) => {
-                if(err) return console.error(err);
+                if(err) return this.props.uiStateStore.displayError(err);
                 this.changeSelectedMatch(match);
             });
     }
@@ -71,31 +71,35 @@ import _ from 'underscore';
                 <MatchEventNotifySettings settings={this.props.uiStateStore.notificationSettings} />
                 <MatchInfo {...this.props.uiStateStore.selectedMatch} />
                 <Divider />
-                <MatchResult {...this.props.uiStateStore.selectedMatch.result} />
+                {this.props.uiStateStore.selectedMatch.result && <MatchResult {...this.props.uiStateStore.selectedMatch.result} />}
                 <Flex wrap col={12}>{innings}</Flex>
-                <Divider />
-                <Paper zDepth={2} className="cricd-viewMatch-statsTab">
-                    <Tabs>
-                        <Tab label="Ball by ball">
-                            <InningsDropdown
-                                selectedInnings={this.props.uiStateStore.selectedInnings}
-                                innings={this.props.uiStateStore.selectedMatch.innings} />
-                            <MatchEventList events={filteredEvents} />
-                        </Tab>
-                        <Tab label="Batting">
-                            <InningsDropdown
-                                selectedInnings={this.props.uiStateStore.selectedInnings}
-                                innings={this.props.uiStateStore.selectedMatch.innings} />
-                            <BattingCard batsmen={batsmen} />
-                        </Tab>
-                        <Tab label="Bowling">
-                            <InningsDropdown
-                                selectedInnings={this.props.uiStateStore.selectedInnings}
-                                innings={this.props.uiStateStore.selectedMatch.innings} />
-                            <BowlingCard bowlers={bowlers} />
-                        </Tab>
-                    </Tabs>
-                </Paper>
+                {this.props.uiStateStore.selectedMatch.matchEvents && this.props.uiStateStore.selectedMatch.matchEvents.length > 0 &&
+                    <div>
+                        <Divider />
+                        <Paper zDepth={2} className="cricd-viewMatch-statsTab">
+                            <Tabs>
+                                <Tab label="Ball by ball">
+                                    <InningsDropdown
+                                        selectedInnings={this.props.uiStateStore.selectedInnings}
+                                        innings={this.props.uiStateStore.selectedMatch.innings} />
+                                    <MatchEventList events={filteredEvents} />
+                                </Tab>
+                                <Tab label="Batting">
+                                    <InningsDropdown
+                                        selectedInnings={this.props.uiStateStore.selectedInnings}
+                                        innings={this.props.uiStateStore.selectedMatch.innings} />
+                                    <BattingCard batsmen={batsmen} />
+                                </Tab>
+                                <Tab label="Bowling">
+                                    <InningsDropdown
+                                        selectedInnings={this.props.uiStateStore.selectedInnings}
+                                        innings={this.props.uiStateStore.selectedMatch.innings} />
+                                    <BowlingCard bowlers={bowlers} />
+                                </Tab>
+                            </Tabs>
+                        </Paper>
+                    </div>
+                }
             </div>
         );
     }

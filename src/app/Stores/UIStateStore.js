@@ -10,6 +10,11 @@ class UIStateStore {
     @observable notify = false; // Set true to popup a notification
     @observable notificationMatchEvent; 
     @observable notificationSettings = { all: false, wickets: false, boundary: false };
+
+    // Error snackbar
+    @observable error = '';
+    @computed get errorOpen() { return this.error.length > 0; }
+    @action displayError(error) { this.error = error; }
 }
 
 const uiStateStore = new UIStateStore();

@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import request from 'superagent';
 
 const entityStoreUrl = 'http://' + __ENTITYSTORE_URL__;
 const changePublisherUrl = 'http://' + __CHANGEPUBLISHER_URL__;
@@ -15,10 +16,13 @@ export default class MatchService {
             return callback(message);
         }
 
-        fetch(entityStoreUrl + '/matches/' + matchId)
-            .then(response => { return response.json(); })
-            .then(json => { callback(null, json) })
-            .catch(error => { callback(error); });
+        request
+            .get(entityStoreUrl + '/matches/' + matchId)
+            .end((err, res) => {
+                if(err) return callback(err);
+                else if(!res.ok) return callback(res.statusText);
+                callback(null, res.body);
+            });
     };
 
     subscribeToMatchEvents(matchId, handler, callback) {
@@ -40,9 +44,24 @@ export default class MatchService {
             return callback(message);
         }
 
-        fetch(scoreProcessorUrl + '?match=' + matchId)
-            .then(response => { return response.json(); })
-            .then(json => { callback(null, json) })
-            .catch(error => { callback(error); });
+        request
+            .get(scoreProcessorUrl)
+            .query({ match: matchId })
+            .end((err, res) => {
+                if(err) return callback(err);
+                else if(!res.ok) return callback(res.statusText);
+                callback(null, res.body);
+            });
     };
+
+    createMatch(match, callback) {
+        request
+            .post(entityStoreUrl + '/matches/')
+            .send(match)
+            .end((err, res) => {
+                if(err && err.response.body.originalError) return callback(err.response.body.originalError);
+                else if(err) return callback(err.message);
+                callback(null, res.body);
+            });
+    }
 }

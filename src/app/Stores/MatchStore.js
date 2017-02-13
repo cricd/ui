@@ -28,10 +28,18 @@ class MatchStore {
 
             let newMatch = new Match(match, this.matchService);
             this.matches.push(newMatch);
-            newMatch.subscribe((err) => console.error) 
-            newMatch.getScore((err) => console.error)
+            newMatch.subscribe((err) => { if(err) callback(err); }) 
+            newMatch.getScore((err) => { if(err) callback(err); })
             return callback(null, newMatch);
         });
+    }
+
+    createMatch(match, callback) {
+        this.matchService.createMatch(match, action((err, match) => {
+            if(err) return callback(err);
+            this.matches.push(match);
+            callback(null, match);
+        }));
     }
 }
 
