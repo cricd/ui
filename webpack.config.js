@@ -1,8 +1,8 @@
 const webpack = require('webpack');
-var path = require('path');
-var buildPath = path.resolve(__dirname, 'build');
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var TransferWebpackPlugin = require('transfer-webpack-plugin');
+const path = require('path');
+const buildPath = path.resolve(__dirname, 'build');
+const nodeModulesPath = path.resolve(__dirname, 'node_modules');
+const TransferWebpackPlugin = require('transfer-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -29,8 +29,8 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
+      '__NEXTBALLPROCESSOR_URL__': JSON.stringify(process.env.NEXTBALLPROCESSOR_URL) || JSON.stringify('next-ball-processor:3004'),
       '__SCOREPROCESSOR_URL__': JSON.stringify(process.env.SCOREPROCESSOR_URL) || JSON.stringify('score-processor:3002'),
-      '__BATSMANINNINGSPROCESSOR_URL__': JSON.stringify(process.env.BATSMANCHANGEPROCESSOR_URL) || JSON.stringify('batsman-innings-processor:3000'),
       '__CHANGEPUBLISHER_URL__': JSON.stringify(process.env.CHANGEPUBLISHER_URL) || JSON.stringify('change-publisher:3100'),
       '__ENTITYSTORE_URL__': JSON.stringify(process.env.ENTITYSTORE_URL) || JSON.stringify('entities:1337'),
     }),
