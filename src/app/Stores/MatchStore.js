@@ -24,12 +24,12 @@ class MatchStore {
 
     @action followMatch(matchId, callback) {
         this.matchService.getMatchInfo(matchId, (error, match) => {
-            if(error) callback(error);
+            if(error) return callback(error);
 
             let newMatch = new Match(match, this.matchService);
             this.matches.push(newMatch);
-            newMatch.subscribe((err) => { if(err) callback(err); }) 
-            newMatch.getScore((err) => { if(err) callback(err); })
+            newMatch.subscribe((err) => { if(err) return callback(err); }) 
+            newMatch.getScore((err) => { if(err) return callback(err); })
             return callback(null, newMatch);
         });
     }
