@@ -38,7 +38,6 @@ import teamStore from './Stores/TeamStore';
                             bodyStyle={{ backgroundColor: colors.redA700 }}
                             message={uiStateStore.error} 
                             open={uiStateStore.errorOpen} 
-                            autoHideDuration={5000}
                             onRequestClose={this.dismissError}
                         />
                     </div>
