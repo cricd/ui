@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import App from '../app/App';
 import ViewMatch from './Components/ViewMatch/ViewMatch';
 import CreateMatch from './Components/CreateMatch/CreateMatch';
+import ScoreMatch from './Components/ScoreMatch/ScoreMatch';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { useStrict } from 'mobx';
 
@@ -15,6 +16,7 @@ render((
     <div>
         <Router history={browserHistory}>
             <Route path="/" component={App}>
+                <Route path="/score/:matchId" component={ScoreMatch} />
                 <Route path="/view/:matchId" component={ViewMatch} />
                 <Route path="/create" component={CreateMatch} />
             </Route>

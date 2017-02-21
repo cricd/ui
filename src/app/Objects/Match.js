@@ -14,6 +14,7 @@ export default class Match {
     @observable innings = [];
     @observable result;
     @observable lastMatchEvent;
+    @observable nextMatchEvent;
 
     constructor(match, matchService) {
         this.id = match.id;
@@ -34,15 +35,25 @@ export default class Match {
         });
     }
 
+    getNextMatchEvent(callback) {
+        this.matchService.getNextMatchEvent(this.id, action((error, matchEvent) => {
+            if(error) return callback(error);
+            this.nextMatchEvent = matchEvent;
+            return callback();
+        }));
+    }
+
     subscribe(callback) {
         this.matchService.subscribeToMatchEvents(
             this.id,
             this.updateScore,
-            (err) => { callback(err); }
+            (err) => { return callback(err); }
         );
     }
 
     @action updateScore(newScore) {
+        console.debug('Score updated detected');
+        console.debug(newScore);
         this.lastMatchEvent = newScore.event;
         this.result = newScore.score.result;
         this.matchEvents = newScore.score.matchEvents;
