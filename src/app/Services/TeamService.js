@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import request from 'superagent';
 
 const entityStoreUrl = 'http://' + __ENTITYSTORE_URL__;
 
@@ -6,34 +7,27 @@ export default class TeamService {
     constructor() { }
 
     getTeams(callback) {
-        let isError = false;
-        fetch(entityStoreUrl + '/teams')
-            .then(response => { 
-                if(response.status !== 200) isError = true;
-                return response.json(); 
-            })
-            .then(json => { 
-                if(isError) return callback(json.message);
-                callback(null, json) 
-            })
-            .catch(error => { callback(error); });
+        request
+            .get(entityStoreUrl + '/teams')
+            .end((err, res) => {
+                if(err) {
+                    console.error(err);
+                    return callback('An error occurred trying to retrieve Teams');
+                }
+                callback(null, res.body);
+            });
     }
 
     createTeam(team, callback) {
-        let isError = false;
-        fetch(entityStoreUrl + '/teams', {
-            headers: { 'Content-Type': 'application/json' },
-            method: 'post',
-            body: JSON.stringify(team)
-        })
-            .then(response => {
-                if(response.status !== 202) isError = true;
-                return response.json(); 
-            })
-            .then(json => { 
-                if(isError) return callback(json.message);
-                callback(null, json) 
-            })
-            .catch(error => { callback(error); });
+        request
+            .post(entityStoreUrl + '/teams')
+            .send(team)
+            .end((err, res) => {
+                if(err) {
+                    console.error(err);
+                    return callback('An error occurred trying to create Team');
+                }
+                callback(null, res.body);
+            });
     }
 }
