@@ -90,7 +90,7 @@ import { action, observable } from 'mobx';
                         Who is playing at home?
                     </StepButton>
                     <StepContent>
-                        <TeamPicker hint="Search for team..." onTeamPicked={this.handleHomeTeamChange}/>
+                        <TeamPicker hint="Home team" onTeamPicked={this.handleHomeTeamChange}/>
                         <RaisedButton label="Next" primary={true} onTouchTap={this.handleNext}></RaisedButton>
                     </StepContent>
                 </Step>
