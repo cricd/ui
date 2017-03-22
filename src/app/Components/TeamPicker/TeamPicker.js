@@ -4,7 +4,6 @@ import FlatButton from 'material-ui/FlatButton';
 import AutoComplete from 'material-ui/AutoComplete';
 import moment from 'moment';
 import { inject, observer } from 'mobx-react';
-import { action } from 'mobx';
 
 @inject('teamStore')
 @observer class TeamPicker extends Component {
@@ -14,7 +13,7 @@ import { action } from 'mobx';
         this.onTeamChanged = this.onTeamChanged.bind(this);
     }
 
-    @action onTeamChanged = function(chosenTeam, index) {
+    onTeamChanged = function(chosenTeam, index) {
         if(index === -1) { // New team
             let newTeam = { name: chosenTeam };
             this.props.teamStore.createTeam(newTeam, (err, team) => {
