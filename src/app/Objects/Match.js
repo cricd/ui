@@ -53,7 +53,6 @@ export default class Match {
 
     @action updateScore(newScore) {
         console.debug('Score updated detected');
-        console.debug(newScore);
         this.lastMatchEvent = newScore.event;
         this.result = newScore.score.result;
         this.matchEvents = newScore.score.matchEvents;
