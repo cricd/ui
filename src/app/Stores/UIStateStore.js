@@ -9,7 +9,8 @@ class UIStateStore {
     // Notification properties
     @observable notify = false; // Set true to popup a notification
     @observable notificationMatchEvent; 
-    @observable notificationSettings = { all: false, wickets: false, boundary: false };
+    @observable notificationSettings = { all: false, wickets: false, boundary: false }
+    @action setNotificationSettings(settings) { this.notificationSettings = settings; }
 
     // Error snackbar
     @observable error = '';

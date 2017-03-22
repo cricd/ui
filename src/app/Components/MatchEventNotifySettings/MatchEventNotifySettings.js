@@ -5,9 +5,10 @@ import Dialog from 'material-ui/Dialog';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Checkbox from 'material-ui/Checkbox';
 import './MatchEventNotifySettings.scss';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 
+@inject('uiStateStore')
 @observer class MatchEventNotifySettings extends Component {
     @observable open = false;
 
@@ -20,37 +21,38 @@ import { action, observable } from 'mobx';
         this.handleClose = this.handleClose.bind(this);
     }
 
-    @action toggleSettingAll(object, checked) {
-        this.props.settings.all = true;
-        this.props.settings.wickets = false;
-        this.props.settings.boundary = false;
+    toggleSettingAll(object, checked) {
+        this.props.uiStateStore.setNotificationSettings({
+            all: true,
+            wickets: false,
+            boundary: false
+        });
     }
 
-    @action toggleSettingBoundary(object, checked) {
-        let settings;
-        if(this.props.settings.all) {
-            this.props.settings.all = false;
-            this.props.settings.boundary = true;
-            this.props.settings.wickets = false;
-        }
-        else {
-            this.props.settings.all = false;
-            this.props.settings.boundary = checked;
-            this.props.settings.wickets = this.props.settings.wickets;
-        }
+    toggleSettingBoundary(object, checked) {
+        if(this.props.settings.all) this.props.uiStateStore.setNotificationSettings({
+            all: false,
+            boundary: true,
+            wickets: false
+        });
+        else this.props.uiStateStore.setNotificationSettings({
+            all: false,
+            boundary: checked, 
+            wickets: this.props.settings.wickets
+        });
     }
 
-    @action toggleSettingWickets(object, checked) {
-        if(this.props.settings.all) {
-            this.props.settings.all = false;
-            this.props.settings.boundary = false;
-            this.props.settings.wickets = true;
-        }
-        else {
-            this.props.settings.all = false;
-            this.props.settings.boundary = this.props.settings.boundary;
-            this.props.settings.wickets = checked;
-        }
+    toggleSettingWickets(object, checked) {
+        if(this.props.settings.all) this.props.uiStateStore.setNotificationSettings({
+            all: false,
+            boundary: false,
+            wickets: true
+        });
+        else this.props.uiStateStore.setNotificationSettings({
+            all: false,
+            boundary: this.props.settings.boundary,
+            wickets: checked
+        });
     }
 
     @action handleOpen() { this.open = true; }
