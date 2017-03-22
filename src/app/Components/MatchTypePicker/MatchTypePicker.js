@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import { observer } from 'mobx-react';
-import { action } from 'mobx'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
 @observer class MatchTypePicker extends Component {
@@ -10,19 +9,10 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
         this.onChange = this.onChange.bind(this);
     }
 
-    @action onChange(e, value) {
-        if(value === "Test") {
-            this.props.match.numberOfInnings = 2;
-            this.props.match.limitedOvers = null;
-        } 
-        else if(value === "50") {
-            this.props.match.numberOfInnings = 1;    
-            this.props.match.limitedOvers = 50;
-        } 
-        else if(value === "20") {
-            this.props.match.numberOfInnings = 1;    
-            this.props.match.limitedOvers = 20;
-        } 
+    onChange(e, value) {
+        if(value === "Test") this.props.match.setMatchType(2, null);
+        else if(value === "50") this.props.match.setMatchType(1, 50);
+        else if(value === "20") this.props.match.setMatchType(1, 20);
     }
 
     render() {

@@ -10,17 +10,18 @@ import MatchTypePicker from '../MatchTypePicker/MatchTypePicker';
 import moment from 'moment';
 import { inject, observer } from 'mobx-react';
 import { action, observable } from 'mobx';
+import Match from '../../Objects/Match';
 
 @inject('teamStore', 'uiStateStore', 'matchStore')
 @observer class CreateMatch extends Component {
     @observable stepIndex = 0;
-    @observable newMatch = {
+    @observable newMatch = new Match({
         homeTeam: -1,
         awayTeam: -1, 
         startDate: new Date(),
         numberOfInnings: 1,
         limitedOvers: 20
-    };
+    }, this.props.matchStore.matchService);
 
     constructor(props) {
         super(props);

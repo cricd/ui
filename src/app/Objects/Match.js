@@ -26,6 +26,11 @@ export default class Match {
         this.matchService = matchService;
     }
 
+    @action setMatchType(numberOfInnings, limitedOvers) {
+        this.limitedOvers = limitedOvers;
+        this.numberOfInnings = numberOfInnings;
+    }
+
     @action getScore(callback) {
         this.matchService.getScore(this.id, (error, score) => {
             if(error) return callback(error);
