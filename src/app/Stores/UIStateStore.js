@@ -5,6 +5,7 @@ class UIStateStore {
     // View Match properties
     @observable selectedMatch;
     @observable selectedInnings = 1;
+    @action changeSelectedMatch(match) { this.selectedMatch = match; }
 
     // Notification properties
     @observable notify = false; // Set true to popup a notification

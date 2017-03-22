@@ -27,16 +27,9 @@ import _ from 'underscore';
             this.props.params.matchId,
             (err, match) => {
                 if(err) return this.props.uiStateStore.displayError(err);
-                this.changeSelectedMatch(match);
+                this.props.uiStateStore.changeSelectedMatch(match);
             });
     }
-
-    notify = autorun(() => {
-        if(this.props.uiStateStore.selectedMatch) this.props.uiStateStore.notificationMatchEvent = this.props.uiStateStore.selectedMatch.latestMatchEvent;
-        this.props.uiStateStore.notify = true;
-    });
-
-    @action changeSelectedMatch(match) { this.props.uiStateStore.selectedMatch = match; }
 
     render() {
         if(!this.props.uiStateStore.selectedMatch) { // If loading, show spinner
