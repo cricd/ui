@@ -6,6 +6,7 @@ class UIStateStore {
     @observable selectedMatch;
     @observable selectedInnings = 1;
     @action changeSelectedMatch(match) { this.selectedMatch = match; }
+    @action changeSelectedInnings(innings) { this.selectedInnings = innings; }
 
     // Notification properties
     @observable notify = false; // Set true to popup a notification

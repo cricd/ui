@@ -3,7 +3,6 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ordinal from 'ordinal-number-suffix';
 import { inject, observer } from 'mobx-react';
-import { action } from 'mobx';
 
 @inject('uiStateStore')
 @observer class InningsDropdown extends Component {
@@ -13,9 +12,7 @@ import { action } from 'mobx';
         this.handleChange = this.handleChange.bind(this);
     }
 
-    @action handleChange(event, key, value) {
-        this.props.uiStateStore.selectedInnings = value + 1;
-    }
+    handleChange(event, key, value) { this.props.uiStateStore.changeSelectedInnings(value + 1); }
 
     render() {
         let menuItems = this.props.innings.map((innings, i) => {
