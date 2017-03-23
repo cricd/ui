@@ -23,7 +23,7 @@ import _ from 'underscore';
 @observer class ViewMatch extends Component {
 
     componentDidMount() {
-        this.props.matchStore.getOrFollowMatch(
+        this.props.matchStore.getMatch(
             this.props.params.matchId,
             (err, match) => {
                 if(err) return this.props.uiStateStore.displayError(err);

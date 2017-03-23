@@ -11,18 +11,11 @@ class MatchStore {
         this.matchService = matchService;
     }
 
-    getOrFollowMatch(matchId, callback) {
-        let match = this.getMatch(matchId);
-        if(match) callback(null, match); 
-        else this.followMatch(matchId, callback);
-    }
-
-    getMatch(matchId) {
+    @action getMatch(matchId, callback) {
         if(!matchId) return;
-        return _(this.matches).find((m) => { return m.id === matchId; });
-    }
+        let match =  _(this.matches).find((m) => { return m.id === matchId; });
+        if(match) return callback(null, match); 
 
-    @action followMatch(matchId, callback) {
         this.matchService.getMatchInfo(matchId, (error, match) => {
             if(error) return callback(error);
 

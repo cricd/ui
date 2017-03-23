@@ -1,5 +1,5 @@
 import Team from './Team';
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import _ from 'underscore';
 
 export default class Match {
@@ -15,6 +15,24 @@ export default class Match {
     @observable result;
     @observable lastMatchEvent;
     @observable nextMatchEvent;
+
+    @computed get currentInnings() {
+        if(!this.nextMatchEvent || !this.innings) return null;
+        return this.innings[this.nextMatchEvent.ball.innings - 1];
+    }
+    @computed get batsmen() {
+        if(!this.nextMatchEvent || !this.currentInnings) return null;
+        let batsmen = this.nextMatchEvent.batsmen;
+        return {
+            striker: _(this.currentInnings.batting).find((b) => { return b.batsman.id === batsmen.striker.id; }),
+            nonStriker: _(this.currentInnings.batting).find((b) => { return b.batsman.id === batsmen.nonStriker.id; })
+        }
+    }
+    @computed get bowler() {
+        if(!this.nextMatchEvent || !this.currentInnings) return null;
+        let bowler = this.nextMatchEvent.bowler;
+        return _(this.currentInnings.bowling).find((b) => { return b.bowler.id === bowler.id; })
+    }
 
     constructor(match, matchService) {
         this.id = match.id;
@@ -33,8 +51,8 @@ export default class Match {
 
     @action getScore(callback) {
         this.matchService.getScore(this.id, (error, score) => {
-            if(error) return callback(error);
-            else if(!score) return callback('No score exists for this match');
+            if (error) return callback(error);
+            else if (!score) return callback('No score exists for this match');
             this.updateScore({ score: score });
             return callback();
         });
@@ -42,7 +60,7 @@ export default class Match {
 
     getNextMatchEvent(callback) {
         this.matchService.getNextMatchEvent(this.id, action((error, matchEvent) => {
-            if(error) return callback(error);
+            if (error) return callback(error);
             this.nextMatchEvent = matchEvent;
             return callback();
         }));
@@ -62,5 +80,7 @@ export default class Match {
         this.result = newScore.score.result;
         this.matchEvents = newScore.score.matchEvents;
         this.innings = newScore.score.innings;
+
+        this.getNextMatchEvent((err) => { if(err) console.error('Failed to get next match event'); });
     };
 }
