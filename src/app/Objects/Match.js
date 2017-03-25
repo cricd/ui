@@ -52,7 +52,7 @@ export default class Match {
     @action getScore(callback) {
         this.matchService.getScore(this.id, (error, score) => {
             if (error) return callback(error);
-            else if (!score) return callback('No score exists for this match');
+            else if (!score) return console.warn('No score exists for this match');
             this.updateScore({ score: score });
             return callback();
         });
@@ -61,6 +61,7 @@ export default class Match {
     getNextMatchEvent(callback) {
         this.matchService.getNextMatchEvent(this.id, action((error, matchEvent) => {
             if (error) return callback(error);
+            console.debug('New MatchEvent received');
             this.nextMatchEvent = matchEvent;
             return callback();
         }));
