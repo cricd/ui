@@ -12,24 +12,34 @@ class MatchStore {
     }
 
     @action getMatch(matchId, callback) {
-        if(!matchId) return;
-        let match =  _(this.matches).find((m) => { return m.id === matchId; });
-        if(match) return callback(null, match); 
+        if (!matchId) return;
+        let match = _(this.matches).find((m) => { return m.id === matchId; });
+        if (match) return callback(null, match);
 
-        this.matchService.getMatchInfo(matchId, (error, match) => {
-            if(error) return callback(error);
+        this.matchService.getMatch(matchId, (error, match) => {
+            if (error) return callback(error);
 
             let newMatch = new Match(match, this.matchService);
             this.matches.push(newMatch);
-            newMatch.subscribe((err) => { if(err) return callback(err); }) 
-            newMatch.getScore((err) => { if(err) return callback(err); })
+            newMatch.subscribe((err) => { if (err) return callback(err); })
+            newMatch.getScore((err) => { if (err) return callback(err); })
             return callback(null, newMatch);
         });
     }
 
-    createMatch(match, callback) {
-        this.matchService.createMatch(match, action((err, match) => {
-            if(err) return callback(err);
+    @action createMatch(match, callback) {
+      match.startDate = new Date(match.startDate.setHours(0, 0, 0)); // Remove time component
+
+       let newMatch = {
+           homeTeam: match.homeTeam.id, 
+           awayTeam: match.awayTeam.id, 
+           startDate:  new Date(match.startDate),
+           limitedOvers: match.limitedOvers,
+           numberOfInnings: match.numberOfInnings
+       };
+
+        this.matchService.createMatch(newMatch, action((err, match) => {
+            if (err) return callback(err);
             this.matches.push(match);
             callback(null, match);
         }));

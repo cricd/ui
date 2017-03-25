@@ -16,8 +16,8 @@ import Match from '../../Objects/Match';
 @observer class CreateMatch extends Component {
     @observable stepIndex = 0;
     @observable newMatch = new Match({
-        homeTeam: -1,
-        awayTeam: -1, 
+        homeTeam: null,
+        awayTeam: null, 
         startDate: new Date(),
         numberOfInnings: 1,
         limitedOvers: 20
@@ -35,33 +35,30 @@ import Match from '../../Objects/Match';
     }
 
     createMatch(){
-        if(this.newMatch.homeTeam === -1) {
+        if(!this.newMatch.homeTeam) {
             this.props.uiStateStore.displayError('Please select a home team');
             return this.setStepIndex(0);
         }
-        else if(this.newMatch.awayTeam === -1) {
+        else if(!this.newMatch.awayTeam) {
             this.props.uiStateStore.displayError('Please select an away team');
             return this.setStepIndex(1);
         } 
 
-        this.newMatch.startDate.setHours(0, 0, 0); // Remove time component
         this.props.matchStore.createMatch(this.newMatch, (err, match) => {
             if(err) return this.props.uiStateStore.displayError(err);
             console.info('Match created');
             console.debug(match);
-            browserHistory.push('/view/' + match.id); // TODO: Change to score
+            browserHistory.push('/score/' + match.id);
         })
     }
 
     @action handleHomeTeamChange(team) {
-        console.debug('Home team selected: ' + JSON.stringify(team));
-        this.newMatch.homeTeam = team.id;
+        this.newMatch.homeTeam = team;
         this.handleNext();
     }
 
     @action handleAwayTeamChange(team) {
-        console.debug('Away team selected: ' + JSON.stringify(team));
-        this.newMatch.awayTeam = team.id;
+        this.newMatch.awayTeam = team;
         this.handleNext();
     }
 
@@ -92,7 +89,9 @@ import Match from '../../Objects/Match';
                         Who is playing at home?
                     </StepButton>
                     <StepContent>
-                        <TeamPicker hint="Home team" onTeamPicked={this.handleHomeTeamChange}/>
+                        <TeamPicker
+                            hint="Home team"
+                            onTeamPicked={this.handleHomeTeamChange}/>
                         <RaisedButton label="Next" primary={true} onTouchTap={this.handleNext}></RaisedButton>
                     </StepContent>
                 </Step>

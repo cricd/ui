@@ -10,7 +10,7 @@ export default class MatchService {
 
     constructor() { }
 
-    getMatchInfo(matchId, callback) {
+    getMatch(matchId, callback) {
         if(!matchId) {
             let message = 'matchId is required to retrieve Match info';
             console.error(message);
