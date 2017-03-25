@@ -47,7 +47,8 @@ import Match from '../../Objects/Match';
         this.newMatch.startDate.setHours(0, 0, 0); // Remove time component
         this.props.matchStore.createMatch(this.newMatch, (err, match) => {
             if(err) return this.props.uiStateStore.displayError(err);
-            console.log(match);
+            console.info('Match created');
+            console.debug(match);
             browserHistory.push('/view/' + match.id); // TODO: Change to score
         })
     }
