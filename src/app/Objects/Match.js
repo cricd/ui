@@ -36,8 +36,8 @@ export default class Match {
 
     constructor(match, matchService) {
         this.id = match.id;
-        if(this.homeTeam) this.homeTeam = new Team(match.homeTeam);
-        if(this.awayTeam) this.awayTeam = new Team(match.awayTeam);
+        if(match.homeTeam) this.homeTeam = new Team(match.homeTeam);
+        if(match.awayTeam) this.awayTeam = new Team(match.awayTeam);
         this.startDate = match.startDate;
         this.limitedOvers = match.limitedOvers;
         this.numberOfInnings = match.numberOfInnings;
