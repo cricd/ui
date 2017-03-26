@@ -54,12 +54,12 @@ import Match from '../../Objects/Match';
 
     @action handleHomeTeamChange(team) {
         this.newMatch.homeTeam = team;
-        this.handleNext();
+        if(team) this.handleNext();
     }
 
     @action handleAwayTeamChange(team) {
         this.newMatch.awayTeam = team;
-        this.handleNext();
+        if(team) this.handleNext();
     }
 
     @action handleNext() { if(this.stepIndex < 3) this.stepIndex += 1; }
@@ -91,6 +91,7 @@ import Match from '../../Objects/Match';
                     <StepContent>
                         <TeamPicker
                             hint="Home team"
+                            selectedTeam={this.newMatch.homeTeam}
                             onTeamPicked={this.handleHomeTeamChange}/>
                         <RaisedButton label="Next" primary={true} onTouchTap={this.handleNext}></RaisedButton>
                     </StepContent>
@@ -100,7 +101,10 @@ import Match from '../../Objects/Match';
                         Who is playing away?
                     </StepButton>
                     <StepContent>
-                        <TeamPicker hint="Away team" onTeamPicked={this.handleAwayTeamChange} />
+                        <TeamPicker 
+                            hint="Away team" 
+                            selectedTeam={this.newMatch.awayTeam}
+                            onTeamPicked={this.handleAwayTeamChange} />
                         <FlatButton label="Back" style={{ marginRight: 12 }} onTouchTap={this.handlePrev}></FlatButton>
                         <RaisedButton label="Next" primary={true} onTouchTap={this.handleNext}></RaisedButton>
                     </StepContent>
