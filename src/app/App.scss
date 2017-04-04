@@ -1,8 +1,43 @@
-* { box-sizing: border-box}
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900');
+
+* {
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif !important;
+   box-sizing: border-box !important
+}
+
+@keyframes shimmer {
+            0% {
+                background-position: -450px 0
+            }
+            100% {
+                background-position: 450px 0
+            }
+        }
+
+@keyframes pulse {
+              0% {
+                background-color: lightgrey;
+                color: lightgrey;
+                opacity: 0;
+            }
+            100% {
+                background-color: lightgrey;
+                opacity: 1;
+            }
+}
+
+.loading {
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+            animation-name: pulse;
+            animation-timing-function: linear;
+            animation-direction: alternate;
+            animation-duration: 1s;
+}
+
 
 body {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.5;
   color: #111;
   background-color: #fff;
