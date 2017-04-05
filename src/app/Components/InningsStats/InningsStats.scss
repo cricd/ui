@@ -10,9 +10,29 @@
 .cricd-inningsStats-teamName {
     font-weight: bold;
     font-size: 1.5em;
+     &.loading {
+            width: 250px;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+            animation-name: pulse;
+            animation-timing-function: linear;
+            animation-direction: alternate;
+            animation-duration: 1s;
+            margin: 5px 0px;
+        }
 }
 
 .cricd-inningsStats-label {
     margin-top: -10px;
+     &.loading {
+            width: 100px;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+            animation-name: pulse;
+            animation-timing-function: linear;
+            animation-direction: alternate;
+            animation-duration: 1s;
+            margin: 0px;
+        }
 }
 

@@ -1,9 +1,19 @@
 .cricd-matchResult {
-  margin: 5px;
-  font-weight: bold;
-  font-size: 1.1em;
+    margin: 5px;
+    font-weight: bold;
+    font-size: 1.1em;
+    &.loading {
+        width: 250px;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+        animation-name: pulse;
+        animation-timing-function: linear;
+        animation-direction: alternate;
+        animation-duration: 1s;
+        margin: 5px;
+    }
 }
 
 .cricd-matchResult-teamName {
-  margin-right: 5px
+    margin-right: 5px
 }

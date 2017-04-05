@@ -1,6 +1,7 @@
 import React from 'react';
 import './MatchResult.scss';
 import { observer } from 'mobx-react';
+import classNames from 'classnames';
 
 /*
 {
@@ -38,9 +39,11 @@ import { observer } from 'mobx-react';
 */
 
 const MatchResult = observer( ({ team, result }) => {
+  let ld = true
+
   return (
-    <div className="cricd-matchResult">
-      <span className="cricd-matchResult-teamName">{team.name}</span>
+    <div className={classNames("cricd-matchResult", {'loading': ld})}>
+      <span className={classNames("cricd-matchResult-teamName", {'loading': ld})}>{team.name}</span>
       <span>{result}</span>
     </div>
   );
@@ -48,12 +51,14 @@ const MatchResult = observer( ({ team, result }) => {
 
 MatchResult.propTypes = {
   team: React.PropTypes.object.isRequired,
-  result: React.PropTypes.string.isRequired
+  result: React.PropTypes.string.isRequired,
+  loading: React.PropTypes.bool
 };
 
 MatchResult.defaultProps = {
   team: { name: 'Match result' },
-  result: 'is being calculated...'
+  result: 'is being calculated...',
+  loading: true
 };
 
 export default MatchResult;

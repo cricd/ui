@@ -6,11 +6,31 @@
 .cricd-stat-value {
     font-weight: bold;
     font-size: 3em;
+     &.loading {
+            width: 50px;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+            animation-name: pulse;
+            animation-timing-function: linear;
+            animation-direction: alternate;
+            animation-duration: 1s;
+            margin: 0px;
+        }
 
 }
 
 .cricd-stat-units {
     margin-left: 2px;
     font-size: 1.2em;
+     &.loading {
+            width: 100px;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+            animation-name: pulse;
+            animation-timing-function: linear;
+            animation-direction: alternate;
+            animation-duration: 1s;
+            margin: 0px 5px;
+        }
 
 }

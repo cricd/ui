@@ -35,7 +35,8 @@ class MatchStore {
            awayTeam: match.awayTeam.id, 
            startDate:  new Date(match.startDate),
            limitedOvers: match.limitedOvers,
-           numberOfInnings: match.numberOfInnings
+           numberOfInnings: match.numberOfInnings,
+           loading: true
        };
 
         this.matchService.createMatch(newMatch, action((err, match) => {

@@ -28,7 +28,7 @@ import classNames from 'classnames';
 }
 */
  
- const MatchInfo = observer( ({ limitedOvers, numberOfInnings, homeTeam, awayTeam, startDate }) => {
+ const MatchInfo = observer( ({ limitedOvers, numberOfInnings, homeTeam, awayTeam, startDate, loading }) => {
     let typeOfMatch;
     if(numberOfInnings === 2 && !limitedOvers) typeOfMatch = "Test match";
     else if(numberOfInnings === 1 && limitedOvers === 50) typeOfMatch = "50 Over match";
@@ -36,17 +36,19 @@ import classNames from 'classnames';
     else if(!limitedOvers) typeOfMatch = numberOfInnings + " innings each side. Unlimited overs";
     else typeOfMatch = numberOfInnings + " innings each side. Restricted to " + limitedOvers + " overs";
 
+    let ld =  true
+
     return (
-        <div className="matchInfo">
-            <h1 className="teamNames">
-                <div className="teamContainer">
+        <div className={classNames("matchInfo")}>
+            <h1 className={classNames("teamNames", {'loading': ld})}>
+                <div className={classNames("teamContainer", {'loading': ld})}>
                     <span>{homeTeam.name}</span>
                     <span className="vs">vs</span>
                     <span>{awayTeam.name}</span>
                 </div>
             </h1>
-            <div className="typeOfMatch">{typeOfMatch}</div>
-            <div className="matchDate">{moment(startDate).format("dddd, MMMM Do YYYY")}</div>
+            <div className={classNames("typeOfMatch", {'loading': ld})}>{typeOfMatch}</div>
+            <div className={classNames("matchDate", {'loading': ld})}>{moment(startDate).format("dddd, MMMM Do YYYY")}</div>
         </div>
     );
 });
@@ -56,7 +58,8 @@ MatchInfo.propTypes = {
     limitedOvers: React.PropTypes.number,
     homeTeam: React.PropTypes.object.isRequired,
     awayTeam: React.PropTypes.object.isRequired,
-    startDate: React.PropTypes.string.isRequired
+    startDate: React.PropTypes.string.isRequired,
+    loading: React.PropTypes.bool
 };
 
 MatchInfo.defaultProps = {
@@ -64,6 +67,7 @@ MatchInfo.defaultProps = {
     limitedOvers: 20,
     homeTeam: { name: 'Team A' },
     awayTeam: { name: 'Team B' },
-    startDate: new Date()
+    startDate: new Date(),
+    loading: true
 }
 export default MatchInfo;
