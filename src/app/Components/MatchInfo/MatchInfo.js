@@ -36,19 +36,17 @@ import classNames from 'classnames';
     else if(!limitedOvers) typeOfMatch = numberOfInnings + " innings each side. Unlimited overs";
     else typeOfMatch = numberOfInnings + " innings each side. Restricted to " + limitedOvers + " overs";
 
-    let ld =  true
-
     return (
         <div className={classNames("matchInfo")}>
-            <h1 className={classNames("teamNames", {'loading': ld})}>
-                <div className={classNames("teamContainer", {'loading': ld})}>
+            <h1 className={classNames("teamNames", {'loading': loading})}>
+                <div className={classNames("teamContainer", {'loading': loading})}>
                     <span>{homeTeam.name}</span>
                     <span className="vs">vs</span>
                     <span>{awayTeam.name}</span>
                 </div>
             </h1>
-            <div className={classNames("typeOfMatch", {'loading': ld})}>{typeOfMatch}</div>
-            <div className={classNames("matchDate", {'loading': ld})}>{moment(startDate).format("dddd, MMMM Do YYYY")}</div>
+            <div className={classNames("typeOfMatch", {'loading': loading})}>{typeOfMatch}</div>
+            <div className={classNames("matchDate", {'loading': loading})}>{moment(startDate).format("dddd, MMMM Do YYYY")}</div>
         </div>
     );
 });

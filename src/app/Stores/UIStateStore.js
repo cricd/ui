@@ -18,6 +18,8 @@ class UIStateStore {
     @observable error = '';
     @computed get errorOpen() { return this.error.length > 0; }
     @action displayError(error) { this.error = error; }
+
+    @observable loading = true;
 }
 
 const uiStateStore = new UIStateStore();

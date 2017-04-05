@@ -62,7 +62,7 @@ import _ from 'underscore';
                     matchEvent={this.props.uiStateStore.notificationMatchEvent}
                     settings={this.props.uiStateStore.notifySettings} />
                 <MatchEventNotifySettings settings={this.props.uiStateStore.notificationSettings} />
-                <MatchInfo {...this.props.uiStateStore.selectedMatch} />
+                <MatchInfo {...this.props.uiStateStore.selectedMatch} loading={this.props.uiStateStore.loading} />
                 <Divider />
                 {this.props.uiStateStore.selectedMatch.result && <MatchResult {...this.props.uiStateStore.selectedMatch.result} />}
                 <Flex wrap col={12}>{innings}</Flex>
