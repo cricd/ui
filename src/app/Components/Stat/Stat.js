@@ -4,11 +4,10 @@ import { observer } from 'mobx-react';
 import classNames from 'classnames'
 
 const Stat = observer( ({ children, units, loading }) => {
-    let ld = true
     return (
         <span className="cricd-stat">
-            <span className={classNames("cricd-stat-value", {'loading': ld})}>{children}</span>
-            <span className={classNames("cricd-stat-units", {'loading': ld})}>{units}</span>
+            <span className={classNames("cricd-stat-value", {'loading': loading})}>{children}</span>
+            <span className={classNames("cricd-stat-units", {'loading': loading})}>{units}</span>
         </span>
     );
 });
@@ -16,6 +15,10 @@ const Stat = observer( ({ children, units, loading }) => {
 Stat.propTypes = {
     units: React.PropTypes.string,
     loading: React.PropTypes.bool
+}
+
+Stat.defaultProps = {
+    loading: false
 }
 
 export default Stat;

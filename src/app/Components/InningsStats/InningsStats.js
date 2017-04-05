@@ -20,16 +20,15 @@ import classNames from 'classnames'
 */
 const InningsStats = observer( ({ innings, battingTeam, runs, wickets, over, ball, loading }) => {
     let inningsOrdinal = ordinal(innings + 1);
-    let ld = true
     return (
 
         <div className={classNames("cricd-inningsStats")}>
-            <div className={classNames("cricd-inningsStats-teamName", {'loading': ld})}>{battingTeam.name}</div>
-            <div className={classNames("cricd-inningsStats-label", {'loading': ld})}>{inningsOrdinal} innings</div>
+            <div className={classNames("cricd-inningsStats-teamName", {'loading': loading})}>{battingTeam.name}</div>
+            <div className={classNames("cricd-inningsStats-label", {'loading': loading})}>{inningsOrdinal} innings</div>
             <Flex wrap>
-                <Stat units="runs">{runs}</Stat>
-                <Stat units="wickets">{wickets}</Stat>
-                <Stat units="overs">{over + '.' + ball}</Stat>
+                <Stat units="runs" loading={loading}>{runs}</Stat>
+                <Stat units="wickets" loading={loading}>{wickets}</Stat>
+                <Stat units="overs" loading={loading}>{over + '.' + ball}</Stat>
             </Flex>
         </div>
     );
@@ -52,7 +51,7 @@ InningsStats.defaultProps = {
     wickets: 0, 
     over: 0, 
     ball: 0,
-    loading: true
+    loading: false
 };
 
 export default InningsStats;

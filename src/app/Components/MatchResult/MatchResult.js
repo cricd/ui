@@ -38,12 +38,10 @@ import classNames from 'classnames';
 }
 */
 
-const MatchResult = observer( ({ team, result }) => {
-  let ld = true
-
+const MatchResult = observer( ({ team, result, loading }) => {
   return (
-    <div className={classNames("cricd-matchResult", {'loading': ld})}>
-      <span className={classNames("cricd-matchResult-teamName", {'loading': ld})}>{team.name}</span>
+    <div className={classNames("cricd-matchResult", {'loading': loading})}>
+      <span className={classNames("cricd-matchResult-teamName", {'loading': loading})}>{team.name}</span>
       <span>{result}</span>
     </div>
   );
@@ -58,7 +56,7 @@ MatchResult.propTypes = {
 MatchResult.defaultProps = {
   team: { name: 'Match result' },
   result: 'is being calculated...',
-  loading: true
+  loading: false
 };
 
 export default MatchResult;

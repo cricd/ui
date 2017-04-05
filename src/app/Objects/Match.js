@@ -15,6 +15,7 @@ export default class Match {
     @observable result;
     @observable lastMatchEvent;
     @observable nextMatchEvent;
+    @observable loadingScore = true;
 
     @computed get currentInnings() {
         if(!this.nextMatchEvent || !this.innings) return null;
@@ -50,12 +51,14 @@ export default class Match {
     }
 
     @action getScore(callback) {
-        this.matchService.getScore(this.id, (error, score) => {
+        this.loadingScore = true;
+        this.matchService.getScore(this.id, action((error, score) => {
             if (error) return callback(error);
             else if (!score) return console.warn('No score exists for this match');
             this.updateScore({ score: score });
+            this.loadingScore = false;
             return callback();
-        });
+        }));
     }
 
     getNextMatchEvent(callback) {

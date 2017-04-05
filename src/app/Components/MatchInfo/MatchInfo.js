@@ -66,6 +66,6 @@ MatchInfo.defaultProps = {
     homeTeam: { name: 'Team A' },
     awayTeam: { name: 'Team B' },
     startDate: new Date(),
-    loading: true
+    loading: false
 }
 export default MatchInfo;
