@@ -3,6 +3,7 @@ import './MatchInfo.scss';
 import moment from 'moment';
 import { Flex } from 'reflexbox';
 import { observer } from 'mobx-react';
+import classNames from 'classnames';
 
 /*
 "matchInfo": {
@@ -38,14 +39,14 @@ import { observer } from 'mobx-react';
     return (
         <div className="matchInfo">
             <h1 className="teamNames">
-                <Flex wrap>
+                <div className="teamContainer">
                     <span>{homeTeam.name}</span>
                     <span className="vs">vs</span>
                     <span>{awayTeam.name}</span>
-                </Flex>
+                </div>
             </h1>
             <div className="typeOfMatch">{typeOfMatch}</div>
-            <div>{moment(startDate).format("dddd, MMMM Do YYYY")}</div>
+            <div className="matchDate">{moment(startDate).format("dddd, MMMM Do YYYY")}</div>
         </div>
     );
 });

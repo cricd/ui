@@ -1,17 +1,49 @@
 .matchInfo {
-  margin: 5px;
-  
-  .teamNames {
-    margin: 0px;
-  }
+    margin: 5px;
+    .teamNames {
+        margin: 0px;
+        &.loading {
+            width: 450px;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+            animation-name: pulse;
+            animation-timing-function: linear;
+            animation-direction: alternate;
+            animation-duration: 1s;
+        }
+    }
+    .vs {
+        margin-left: 7px;
+        margin-right: 7px;
+    }
+    .typeOfMatch {
+        font-size: 1.5em;
+         &.loading {
+            width: 120px;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+            animation-name: pulse;
+            animation-timing-function: linear;
+            animation-direction: alternate;
+            animation-duration: 1s;
+            margin: 5px 0px;
+        }
+    }
+    .teamContainer {
+        display: flex;
+        flex-direction: row;
+    }
 
-  .vs {
-    margin-left: 7px;
-    margin-right: 7px;
-  }
-
-  .typeOfMatch {
-    font-size: 1.5em;
-    margin-top: -10px;
-  }
+    .matchDate {
+         &.loading {
+            width: 200px;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+            animation-name: pulse;
+            animation-timing-function: linear;
+            animation-direction: alternate;
+            animation-duration: 1s;
+            margin: 5px 0px;
+        }
+    }
 }
