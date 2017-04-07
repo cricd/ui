@@ -30,16 +30,6 @@
             }
 }
 
-.loading {
-            animation-fill-mode: forwards;
-            animation-iteration-count: infinite;
-            animation-name: pulse;
-            animation-timing-function: linear;
-            animation-direction: alternate;
-            animation-duration: 1s;
-}
-
-
 body {
   line-height: 1.5;
   color: #111;
