@@ -33,7 +33,7 @@ import './TeamPicker.scss';
 
     render() {
         if (this.props.selectedTeam) return (
-            <div className="cricd-teamPicker-selectedTeam">
+            <div className="team-picker">
                 <ListItem
                     onTouchTap={this.onSelectedTeamTap}
                     rightIcon={<ClearIcon />}>
@@ -45,7 +45,7 @@ import './TeamPicker.scss';
 
         let teams = this.props.teamStore.teams.toJS(); // Autocomplete can recognise array type
         return (
-            <div>
+            <div className="team-picker">
                 <AutoComplete
                     hintText={this.props.hint}
                     dataSource={teams}
