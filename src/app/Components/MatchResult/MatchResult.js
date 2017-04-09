@@ -38,24 +38,19 @@ import classNames from 'classnames';
 }
 */
 
-const MatchResult = observer( ({ team, result, loading }) => {
+const MatchResult = observer( ({ text, loading }) => {
   return (
-    <div className={classNames("cricd-matchResult", {'loading': loading})}>
-      <span className={classNames("cricd-matchResult-teamName", {'loading': loading})}>{team.name}</span>
-      <span>{result}</span>
+    <div className={classNames("matchResult", {'loading': loading})}>
+      <span>{text}</span>
     </div>
   );
 });
 
 MatchResult.propTypes = {
-  team: React.PropTypes.object.isRequired,
-  result: React.PropTypes.string.isRequired,
   loading: React.PropTypes.bool
 };
 
 MatchResult.defaultProps = {
-  team: { name: 'Match result' },
-  result: 'is being calculated...',
   loading: false
 };
 

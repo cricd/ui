@@ -1,4 +1,4 @@
-.cricd-matchResult {
+.matchResult {
     margin: 5px;
     font-weight: bold;
     font-size: 1.1em;
@@ -10,10 +10,6 @@
         animation-timing-function: linear;
         animation-direction: alternate;
         animation-duration: 1s;
-        margin: 5px;
+        margin: 10px;
     }
-}
-
-.cricd-matchResult-teamName {
-    margin-right: 5px
 }
