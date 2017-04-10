@@ -1,4 +1,5 @@
 import { observable } from 'mobx';
+import Player from './Player';
 
 export default class Team {
     id;
@@ -8,6 +9,8 @@ export default class Team {
     constructor(newTeam) {
         this.id = newTeam.id;
         this.name = newTeam.name;
-        this.players = newTeam.players;
+        if(newTeam.players) this.players = newTeam.players.map((p) => {
+            return new Player(p);
+        });
     }
 }

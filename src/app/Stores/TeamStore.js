@@ -1,27 +1,38 @@
 import Team from '../Objects/Team';
 import { observable, action } from 'mobx';
 import _ from 'underscore';
-import TeamService from '../Services/TeamService';
+import * as TeamService from '../Services/TeamService';
 
 class TeamStore {
-    teamService;
     @observable teams = [];
 
-    constructor(teamService) {
-        this.teamService = teamService;
+    constructor() {
         this.getTeams((err) => { if(err) return console.error(err); });
     }
 
+    getTeam(teamId, callback) {
+        if(!teamId) return;
+        let team =  _(this.teams).find((t) => { return t.id === teamId; });
+        if(team) return callback(null, team); 
+
+        TeamService.getTeam(teamId, (error, team) => {
+            if(error) return callback(error);
+            this.teams.push(new Team(team));
+            return callback(null, newTeam);
+        });
+    }
+
     getTeams(callback) {
-        this.teamService.getTeams(action((error, teams) => {
+        TeamService.getTeams(action((error, teams) => {
             if(error) callback(error);
             this.teams = teams;
+            console.log(teams);
             return callback(null, teams);
         }));
     }
 
     createTeam(team, callback) {
-        this.teamService.createTeam(team, action((err, team) => {
+        TeamService.createTeam(team, action((err, team) => {
             if(err) return callback(err);
             this.teams.push(team);
             callback(null, team);
@@ -29,6 +40,5 @@ class TeamStore {
     }
 }
 
-const teamService = new TeamService();
-const teamStore = new TeamStore(teamService);
+const teamStore = new TeamStore();
 export default teamStore;
