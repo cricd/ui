@@ -42,15 +42,12 @@ import teamStore from './Stores/TeamStore';
     }
     @action dismissError(reason) { uiStateStore.error = ''; }
 
-
-
     render() {
         return (
             <Provider 
                 matchStore={matchStore} 
                 uiStateStore={uiStateStore}
-                teamStore={teamStore}
-            >
+                teamStore={teamStore} >
                 <MuiThemeProvider>
                     <div>
                         <NavBar />
