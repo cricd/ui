@@ -21,7 +21,6 @@ import _ from 'underscore';
 
 @inject('matchStore', 'uiStateStore')
 @observer class ViewMatch extends Component {
-    @observable loadingMatch = true;
 
     componentDidMount() {
         this.props.matchStore.getMatch(
@@ -29,12 +28,11 @@ import _ from 'underscore';
             action((err, match) => {
                 if (err) return this.props.uiStateStore.displayError(err);
                 this.props.uiStateStore.changeSelectedMatch(match);
-                this.loadingMatch = false;
             }));
     }
 
     render() {
-        if (this.loadingMatch) return <CircularProgress size={100} thickness={10} className="cricd-viewMatch-spinner" />
+        if (!this.props.uiStateStore.selectedMatch) return <CircularProgress size={100} thickness={10} className="cricd-viewMatch-spinner" />
 
         let innings = []; // Innings controls
         let batsmen = []; // Batsmen during selected innings
@@ -65,7 +63,7 @@ import _ from 'underscore';
                 <MatchEventNotifySettings settings={this.props.uiStateStore.notificationSettings} />
                 <MatchInfo {...this.props.uiStateStore.selectedMatch} loading={this.loadingMatch} />
                 <Divider />
-                <MatchResult {...this.props.uiStateStore.selectedMatch.result} />
+                <MatchResult {...this.props.uiStateStore.selectedMatch.result} loading={this.props.uiStateStore.selectedMatch.loadingScore} />
                 <Flex wrap col={12}>{innings}</Flex>
                 <div>
                     <Divider />
