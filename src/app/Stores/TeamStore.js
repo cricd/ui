@@ -26,7 +26,6 @@ class TeamStore {
         TeamService.getTeams(action((error, teams) => {
             if(error) callback(error);
             this.teams = teams;
-            console.log(teams);
             return callback(null, teams);
         }));
     }
