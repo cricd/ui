@@ -7,6 +7,7 @@ class PlayerPicker extends Component {
 
     constructor(props) {
         super(props);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(event, index, value) { this.props.onChange(value); }
@@ -14,15 +15,17 @@ class PlayerPicker extends Component {
     render() {
         let players = [];
         if(this.props.suggestedPlayers.length > 0) { 
-            players.push(<Subheader>Suggested players</Subheader>)
-            players.push(this.props.suggestedPlayers.map((p, i) => { return <MenuItem value={p} primaryText={p.name}/> }));
-            players.push(<Subheader>All players</Subheader>)
+            players.push(<Subheader key={'Suggested'}>Suggested players</Subheader>)
+            players.push(this.props.suggestedPlayers.map((p, i) => { return <MenuItem value={p} primaryText={p.name} key={p.id}/> }));
+            players.push(<Subheader key={'All'}>All players</Subheader>)
         }
-        players.push(this.props.players.map((p, i) => { return <MenuItem value={p} primaryText={p.name}/> }));
+        players.push(this.props.players.map((p, i) => { return <MenuItem value={p} primaryText={p.name} key={p.id} /> }));
 
         return (
             <div>
                 <SelectField
+                    autoWidth={true}
+                    maxHeight={200}
                     floatingLabelText={this.props.label}
                     floatingLabelFixed={true}
                     value={this.props.selectedPlayer}
@@ -36,7 +39,7 @@ class PlayerPicker extends Component {
 
 PlayerPicker.propTypes = {
     label: React.PropTypes.string,
-    players: React.PropTypes.array.isRequired, 
+    players: React.PropTypes.object.isRequired, 
     suggestedPlayers: React.PropTypes.array,
     selectedPlayer: React.PropTypes.object,
     onChange: React.PropTypes.func.isRequired
