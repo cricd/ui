@@ -1,0 +1,111 @@
+        @keyframes extend-1 {
+            from {
+                transform: translate(0px, 0px);
+            }
+            to {
+                transform: translate(0px, -20px);
+            }
+        }
+        
+        @keyframes extend-2 {
+            from {
+                transform: translate(0px, 0px);
+            }
+            to {
+                transform: translate(20px, 20px);
+            }
+        }
+        
+        @keyframes extend-3 {
+            from {
+                transform: translate(0px, 0px);
+            }
+            to {
+                transform: translate(-20px, 20px);
+            }
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(720deg);
+            }
+        }
+        
+        body {
+            box-sizing: border-box
+        }
+        
+        .spinner-1 {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background-color: #00BCD4;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 1;
+            animation-name: extend-1;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in;
+            animation-duration: 1.2s;
+            animation-direction: alternate;
+        }
+        
+        .spinner-2 {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background-color: #00bcd4;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 1;
+            animation-name: extend-2;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in;
+            animation-duration: 1.2s;
+            animation-direction: alternate;
+        }
+        
+        .spinner-3 {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background-color: #00bcd4;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 1;
+            animation-name: extend-3;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in;
+            animation-duration: 1.2s;
+            animation-direction: alternate;
+        }
+        
+        .spinners {
+            height: 200px;
+            width: 200px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            animation-name: rotate;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            animation-duration: 2.4s;
+        }
