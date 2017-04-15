@@ -8,10 +8,10 @@ import MatchEventList from '../MatchEventList/MatchEventList';
 import BattingCard from '../BattingCard/BattingCard';
 import BowlingCard from '../BowlingCard/BowlingCard';
 import InningsDropdown from '../InningsDropdown/InningsDropdown';
+import Spinner from '../Spinner/Spinner';
 import MatchEventNotify from '../MatchEventNotify/MatchEventNotify';
 import MatchEventNotifySettings from '../MatchEventNotifySettings/MatchEventNotifySettings';
 import Divider from 'material-ui/Divider';
-import CircularProgress from 'material-ui/CircularProgress';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
 import { Flex } from 'reflexbox';
@@ -32,7 +32,7 @@ import _ from 'underscore';
     }
 
     render() {
-        if (!this.props.uiStateStore.selectedMatch) return <CircularProgress size={100} thickness={10} className="cricd-viewMatch-spinner" />
+        if (!this.props.uiStateStore.selectedMatch) return <Spinner />
 
         let innings = []; // Innings controls
         let batsmen = []; // Batsmen during selected innings
@@ -70,7 +70,7 @@ import _ from 'underscore';
                     <Paper zDepth={2} className="cricd-viewMatch-statsTab">
                         <Tabs>
                             <Tab label="Ball by ball">
-                                {this.props.uiStateStore.selectedMatch.loadingScore && <CircularProgress size={100} thickness={10} className="cricd-viewMatch-spinner" />}
+                                {this.props.uiStateStore.selectedMatch.loadingScore && <Spinner />}
                                 <InningsDropdown
                                     selectedInnings={this.props.uiStateStore.selectedInnings}
                                     innings={this.props.uiStateStore.selectedMatch.innings} />

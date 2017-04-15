@@ -3,7 +3,6 @@ import { inject, observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 import { Flex } from 'reflexbox';
 import Divider from 'material-ui/Divider';
-import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
 import MatchResult from '../MatchResult/MatchResult';
 import MatchInfo from '../MatchInfo/MatchInfo';
@@ -11,6 +10,7 @@ import InningsStats from '../InningsStats/InningsStats';
 import BowlingCard from '../BowlingCard/BowlingCard';
 import BattingCard from '../BattingCard/BattingCard';
 import PlayerPicker from '../PlayerPicker/PlayerPicker';
+import Spinner from '../Spinner/Spinner';
 
 @inject('matchStore', 'uiStateStore')
 @observer class ScoreMatch extends Component {
@@ -25,7 +25,7 @@ import PlayerPicker from '../PlayerPicker/PlayerPicker';
     }
 
     render() {
-        if (!this.props.uiStateStore.selectedMatch) return <CircularProgress size={100} thickness={10} className="cricd-viewMatch-spinner" />
+        if (!this.props.uiStateStore.selectedMatch) return <Spinner />
 
         let innings = []; // Innings controls
         this.props.uiStateStore.selectedMatch.innings.map((inning, index) => {
