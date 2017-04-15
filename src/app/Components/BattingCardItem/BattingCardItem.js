@@ -60,7 +60,7 @@ const BattingCardItem = observer( ({ batsman, dismissal, runs, ballsFaced, scori
       <TableRowColumn className="cricd-battingCard-collapsible">{ballsFaced}</TableRowColumn>
       <TableRowColumn className="cricd-battingCard-collapsible">{scoring[4]}</TableRowColumn>
       <TableRowColumn className="cricd-battingCard-collapsible">{scoring[6]}</TableRowColumn>
-      <TableRowColumn className="cricd-battingCard-collapsible">{strikeRate.toPrecision(3)}</TableRowColumn>
+      <TableRowColumn className="cricd-battingCard-collapsible">{strikeRate ? strikeRate.toPrecision(3) : 0.0}</TableRowColumn>
     </TableRow>
   )
 });
@@ -71,7 +71,7 @@ BattingCardItem.propTypes = {
   runs: React.PropTypes.number.isRequired,
   ballsFaced: React.PropTypes.number.isRequired,
   scoring: React.PropTypes.object.isRequired,
-  strikeRate: React.PropTypes.number.isRequired
+  strikeRate: React.PropTypes.number
 };
 
 BattingCardItem.defaultProps = {

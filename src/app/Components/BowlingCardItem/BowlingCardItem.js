@@ -50,7 +50,7 @@ BowlingCardItem.propTypes = {
   wickets: React.PropTypes.any.isRequired,
   economyRate: React.PropTypes.number.isRequired,
   scoring: React.PropTypes.object.isRequired,
-  strikeRate: React.PropTypes.number.isRequired,
+  strikeRate: React.PropTypes.number,
   legalBallsBowled: React.PropTypes.number.isRequired
 };
 
