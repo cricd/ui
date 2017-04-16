@@ -18,24 +18,6 @@ export default class Match {
     @observable nextMatchEvent;
     @observable loadingScore = true;
 
-    @computed get currentInnings() {
-        if(!this.nextMatchEvent || !this.innings) return null;
-        return this.innings[this.nextMatchEvent.ball.innings - 1];
-    }
-    @computed get batsmen() {
-        if(!this.nextMatchEvent || !this.currentInnings) return null;
-        let batsmen = this.nextMatchEvent.batsmen;
-        return {
-            striker: _(this.currentInnings.batting).find((b) => { return b.batsman.id === batsmen.striker.id; }),
-            nonStriker: _(this.currentInnings.batting).find((b) => { return b.batsman.id === batsmen.nonStriker.id; })
-        }
-    }
-    @computed get bowler() {
-        if(!this.nextMatchEvent || !this.currentInnings) return null;
-        let bowler = this.nextMatchEvent.bowler;
-        return _(this.currentInnings.bowling).find((b) => { return b.bowler.id === bowler.id; })
-    }
-
     constructor(match, matchService) {
         this.id = match.id;
         this.startDate = match.startDate;
@@ -51,6 +33,37 @@ export default class Match {
             this.awayTeam = team;
         });
     }
+    
+    @computed get currentInnings() {
+        if(!this.nextMatchEvent || !this.innings) return null;
+        return this.innings[this.nextMatchEvent.ball.innings - 1];
+    }
+    @computed get fieldingTeam() {
+        if(!this.currentInnings) return null;
+        let battingTeamId = this.currentInnings.battingTeam.id;
+        if(battingTeamId === this.homeTeam.id) return this.awayTeam;
+        else return this.homeTeam;
+    }
+    @computed get battingTeam() {
+        if(!this.currentInnings) return null;
+        let battingTeamId = this.currentInnings.battingTeam.id;
+        if(battingTeamId === this.homeTeam.id) return this.homeTeam;
+        else return this.awayTeam;
+    }
+    @computed get batsmen() {
+        if(!this.nextMatchEvent || !this.currentInnings) return null;
+        let batsmen = this.nextMatchEvent.batsmen;
+        return {
+            striker: _(this.currentInnings.batting).find((b) => { return b.batsman.id === batsmen.striker.id; }),
+            nonStriker: _(this.currentInnings.batting).find((b) => { return b.batsman.id === batsmen.nonStriker.id; })
+        }
+    }
+    @computed get bowler() {
+        if(!this.nextMatchEvent || !this.currentInnings) return null;
+        let bowler = this.nextMatchEvent.bowler;
+        return _(this.currentInnings.bowling).find((b) => { return b.bowler.id === bowler.id; })
+    }
+
 
     @action setMatchType(numberOfInnings, limitedOvers) {
         this.limitedOvers = limitedOvers;

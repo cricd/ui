@@ -25,19 +25,22 @@ import Spinner from '../Spinner/Spinner';
     }
 
     render() {
-        if (!this.props.uiStateStore.selectedMatch) return <Spinner />
+        let selectedMatch = this.props.uiStateStore.selectedMatch;
+        if (!selectedMatch) return <Spinner />
 
         let innings = []; // Innings controls
-        this.props.uiStateStore.selectedMatch.innings.map((inning, index) => {
-            return innings.push((<InningsStats sm={12} md={6} {...inning} key={index} innings={index} loading={this.props.uiStateStore.selectedMatch.loadingScore} />));
+        selectedMatch.innings.map((inning, index) => {
+            return innings.push((<InningsStats sm={12} md={6} {...inning} key={index} innings={index} loading={selectedMatch.loadingScore} />));
         });
 
-        let batting = this.props.uiStateStore.selectedMatch.batsmen;
-        let striker; 
-        let battingList = [];
-        if (batting && batting.striker) battingList.push(batting.striker.batsman);
-        if (batting && batting.nonStriker) battingList.push(batting.nonStriker.batsman);
-        if(batting) striker = batting.striker;
+        // Suggested bowlers and strikers
+        let fieldingPlayers = selectedMatch.fieldingTeam ? selectedMatch.fieldingTeam.players.toJS() : [];
+        let suggestedBowler = selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.bowler : null;
+        let suggestedStrikers = [];
+        if(selectedMatch.batsmen) {
+            if(selectedMatch.batsmen.striker) suggestedStrikers.push(selectedMatch.batsmen.striker.batsman);
+            if(selectedMatch.batsmen.nonStriker) suggestedStrikers.push(selectedMatch.batsmen.nonStriker.batsman);
+        }
 
         return (
             <div>
@@ -46,20 +49,19 @@ import Spinner from '../Spinner/Spinner';
                 {this.props.uiStateStore.selectedMatch.result && <MatchResult {...this.props.uiStateStore.selectedMatch.result} />}
                 <Flex wrap col={12}>{innings}</Flex>
                 <Divider />
-                <PlayerPicker 
-                    label="Striker"
-                    value={striker}
-                    suggestedPlayers={battingList}
-                    players={this.props.uiStateStore.selectedMatch.homeTeam.players}
-                    isRequired={()=> {console.log('Player select')}}
+                <PlayerPicker
+                    label="Bowler"
+                    selectedPlayer={suggestedBowler}
+                    players={fieldingPlayers}
+                    onChange={(player) => { console.log(player) }}
                 />
-                {JSON.stringify(battingList)}
-                <Paper zDepth={1}>
-                    <BattingCard batsmen={battingList} />
-                </Paper>
-                <Paper zDepth={1}>
-                    <BowlingCard bowlers={[this.props.uiStateStore.selectedMatch.bowler]} />
-                </Paper>
+                <PlayerPicker
+                    label="Striker"
+                    selectedPlayer={selectedMatch.batsmen ? selectedMatch.batsmen.striker.batsman : null}
+                    players={suggestedStrikers}
+                    onChange={(player) => { console.log(player) }}
+                />
+                {JSON.stringify()}
             </div>
         )
     }
