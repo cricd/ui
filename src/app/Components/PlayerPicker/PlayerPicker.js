@@ -3,8 +3,9 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Subheader from 'material-ui/Subheader';
 import _ from 'underscore';
+import { inject, observer } from 'mobx-react';
 
-class PlayerPicker extends Component {
+@observer class PlayerPicker extends Component {
 
     constructor(props) {
         super(props);
@@ -31,7 +32,7 @@ class PlayerPicker extends Component {
         let otherPlayers = _(allPlayers).difference(suggestedPlayers);
         otherPlayers = otherPlayers.map(id => { return this.props.players.find(p => { return p.id === id }) });
 
-        menuItems.push(<Subheader key='all'>All players</Subheader>);
+        if(this.props.suggestedPlayers.length > 0) menuItems.push(<Subheader key='all'>All players</Subheader>);
         menuItems.push(otherPlayers.map((p, i) => { return <MenuItem value={p.id} primaryText={p.name} key={p.id} /> }));
 
         let selectedId = this.props.selectedPlayer ? this.props.selectedPlayer.id : -1;
