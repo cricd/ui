@@ -64,7 +64,6 @@ export default class Match {
         return _(this.currentInnings.bowling).find((b) => { return b.bowler.id === bowler.id; })
     }
 
-
     @action setMatchType(numberOfInnings, limitedOvers) {
         this.limitedOvers = limitedOvers;
         this.numberOfInnings = numberOfInnings;
