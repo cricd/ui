@@ -18,29 +18,41 @@ import MenuItem from 'material-ui/MenuItem';
 import Subheader from 'material-ui/Subheader';
 import ordinal from 'ordinal-number-suffix';
 import Stat from '../Stat/Stat';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 
 @inject('matchStore', 'uiStateStore')
 @observer class ScoreMatch extends Component {
+    constructor(props) {
+        super(props);
+        this.changeBowler = this.changeBowler.bind(this);
+        this.changeStriker = this.changeStriker.bind(this);
+        this.changeEventType = this.changeEventType.bind(this);
+        this.changeFielder = this.changeFielder.bind(this);
+        this.changeBatsman = this.changeBatsman.bind(this);
+        this.changeRuns = this.changeRuns.bind(this);
+    }
 
+    @observable displayFilter = { runs: true };
     displayRules = { // Determines which UI components to display
-        delivery: { runs: true, wickets: false },
-        noBall: { runs: true, wickets: true, wicketsFilter: ['runOut', 'obstruction', 'doubleHit', 'handledBall'] },
-        wide: { runs: true, wickets: true, wicketsFilter: ['runOut', 'stumped', 'handledBall', 'hitWicket', 'obstruction'] },
-        bye: { runs: true, wickets: true, wicketsFilter: ['runOut', 'handledBall', 'obstruction'] },
-        legBye: { runs: true, wickets: true, wicketsFilter: ['runOut', 'handledBall', 'obstruction'] },
-        bowled: { runs: false, wickets: true },
-        timedOut: { runs: false, wickets: true },
-        caught: { runs: false, wickets: true, fielder: true },
-        handledBall: { runs: true, wickets: true },
-        doubleHit: { runs: false, wickets: true },
-        hitWicket: { runs: false, wickets: true },
-        lbw: { runs: false, wickets: true },
-        obstruction: { runs: true, wickets: true },
-        runOut: { runs: false, wickets: true, fielder: true, batsman: true },
-        stumped: { runs: false, wickets: true, fielder: true }
+        delivery: { runs: true },
+        noBall: { runs: true, wicketsFilter: ['runOut', 'obstruction', 'doubleHit', 'handledBall'] },
+        wide: { runs: true, wicketsFilter: ['runOut', 'stumped', 'handledBall', 'hitWicket', 'obstruction'] },
+        bye: { runs: true, wicketsFilter: ['runOut', 'handledBall', 'obstruction'] },
+        legBye: { runs: true, wicketsFilter: ['runOut', 'handledBall', 'obstruction'] },
+        bowled: { runs: false },
+        timedOut: { runs: false },
+        caught: { runs: false, fielder: true },
+        handledBall: { runs: true },
+        doubleHit: { runs: false },
+        hitWicket: { runs: false },
+        lbw: { runs: false },
+        obstruction: { runs: true },
+        runOut: { runs: true, fielder: true, batsman: true },
+        stumped: { runs: false, fielder: true }
     };
 
-    componentDidMount() {
+    componentDidMount() { // Retrieve match info on load
         this.props.matchStore.getMatch(
             this.props.params.matchId,
             (err, match) => {
@@ -48,6 +60,30 @@ import Stat from '../Stat/Stat';
                 this.props.uiStateStore.changeSelectedMatch(match);
             });
     }
+
+    @action changeEventType(event, key, eventType) {
+        this.displayFilter = this.displayRules[eventType];
+        this.props.uiStateStore.selectedMatch.changeNextBallEvent('eventType', eventType);
+        this.props.uiStateStore.selectedMatch.changeNextBallEvent('fielder', null);
+        this.props.uiStateStore.selectedMatch.changeNextBallEvent('batsman', null);
+        this.props.uiStateStore.selectedMatch.changeNextBallEvent('runs', null);
+    }
+    changeBowler(player) { this.props.uiStateStore.selectedMatch.changeNextBallEvent('bowler', player); }
+    changeStriker(player) {
+        let oldStriker = { ...this.props.uiStateStore.selectedMatch.batsmen.striker.batsman };
+        if (oldStriker.id === player.id) return; // No change
+
+        // This is currently only a swap
+        let oldNonStriker = { ...this.props.uiStateStore.selectedMatch.batsmen.nonStriker.batsman };
+        let batsmen = {
+            striker: player,
+            nonStriker: oldStriker
+        }
+        this.props.uiStateStore.selectedMatch.changeNextBallEvent('batsmen', batsmen);
+    }
+    changeFielder(player) { this.props.uiStateStore.selectedMatch.changeNextBallEvent('fielder', player); }
+    changeBatsman(player) { this.props.uiStateStore.selectedMatch.changeNextBallEvent('batsman', player); }
+    changeRuns(event, key, runs) {  this.props.uiStateStore.selectedMatch.changeNextBallEvent('runs', runs); }
 
     render() {
         let selectedMatch = this.props.uiStateStore.selectedMatch;
@@ -72,47 +108,49 @@ import Stat from '../Stat/Stat';
                 <MatchInfo {...this.props.uiStateStore.selectedMatch} />
                 <Divider />
                 {this.props.uiStateStore.selectedMatch.result && <MatchResult {...this.props.uiStateStore.selectedMatch.result} />}
-                <Flex wrap col={12}>{innings}</Flex>
-                <Divider />
+                <div className="scoreMatch-inningsStats">
+                    <Flex wrap col={12}>{innings}</Flex>
+                </div>
                 <div className="scoreMatch">
-                    <div className="cricd-inningsStats-teamName">{selectedMatch.battingTeam ? selectedMatch.battingTeam.name : null}</div>
-                    <div className="cricd-inningsStats-label">{selectedMatch.nextMatchEvent ? ordinal(selectedMatch.nextMatchEvent.ball.innings) : null} innings</div>
                     <Flex wrap>
-                        <Stat units="innings">{selectedMatch.nextMatchEvent ? ordinal(selectedMatch.nextMatchEvent.ball.innings) : null}</Stat>
-                        <Stat units="over">{selectedMatch.nextMatchEvent ? ordinal(selectedMatch.nextMatchEvent.ball.over) : null}</Stat>
-                        <Stat units="ball">{selectedMatch.nextMatchEvent ? ordinal(selectedMatch.nextMatchEvent.ball.ball) : null}</Stat>
+                        <div className="scoreMatch-ball">
+                            <div className="cricd-inningsStats-teamName">{selectedMatch.battingTeam ? selectedMatch.battingTeam.name : null}</div>
+                            <div className="cricd-inningsStats-label">{selectedMatch.nextMatchEvent ? ordinal(selectedMatch.nextMatchEvent.ball.innings) : null} innings</div>
+                        </div>
+                        <div>
+                            <Stat units="over">{selectedMatch.nextMatchEvent ? ordinal(selectedMatch.nextMatchEvent.ball.over) : null}</Stat>
+                            <Stat units="ball">{selectedMatch.nextMatchEvent ? ordinal(selectedMatch.nextMatchEvent.ball.ball) : null}</Stat>
+                        </div>
                     </Flex>
+                    <Divider />
                     <Flex wrap>
                         <PlayerPicker
                             label="Bowler"
                             selectedPlayer={suggestedBowler}
                             players={_(fieldingPlayers).sortBy('name')}
-                            onChange={(player) => { console.log(player) }}
+                            onChange={this.changeBowler}
                         />
                         <PlayerPicker
                             label="Striker"
                             selectedPlayer={selectedMatch.batsmen ? selectedMatch.batsmen.striker.batsman : null}
                             players={suggestedStrikers}
-                            onChange={(player) => { console.log(player) }}
+                            onChange={this.changeStriker}
                         />
                     </Flex>
                     <Flex wrap>
                         <SelectField
-                            floatingLabelText="Extras"
-                            onChange={(delivery) => { console.log(delivery) }}
+                            floatingLabelText="What happened?"
+                            floatingLabelFixed={true}
+                            onChange={this.changeEventType}
+                            value={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.eventType : null}
                         >
-                            <MenuItem value="delivery" primaryText="No extras" />
+                            <MenuItem value="delivery" primaryText="Legal delivery" />
                             <Subheader>Extras</Subheader>
                             <MenuItem value="noBall" primaryText="No ball" />
                             <MenuItem value="wide" primaryText="Wide" />
                             <MenuItem value="bye" primaryText="Bye" />
                             <MenuItem value="legBye" primaryText="Leg Bye" />
-                        </SelectField>
-                        <SelectField
-                            floatingLabelText="Dismissal"
-                            onChange={(wicket) => { console.log(wicket) }}
-                        >
-                            <MenuItem value="delivery" primaryText="No dismissal" />
+                            <Subheader>Dismissal</Subheader>
                             <MenuItem value="bowled" primaryText="Bowled" />
                             <MenuItem value="caught" primaryText="Caught" />
                             <MenuItem value="lbw" primaryText="LBW" />
@@ -124,30 +162,36 @@ import Stat from '../Stat/Stat';
                             <MenuItem value="handledBall" primaryText="Handled ball" />
                             <MenuItem value="doubleHit" primaryText="Double hit" />
                         </SelectField>
-                        <SelectField
+                        {this.displayFilter.runs && <SelectField
                             floatingLabelText="Runs"
-                            onChange={(runs) => { console.log(runs) }}
+                            floatingLabelFixed={true}
+                            onChange={this.changeRuns}
+                            value={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.runs : null}
                         >
                             <MenuItem value={0} primaryText="Dot ball" />
-                            <MenuItem value={1} primaryText="One run" />
-                            <MenuItem value={2} primaryText="Two runs" />
-                            <MenuItem value={3} primaryText="Three runs" />
-                            <MenuItem value={4} primaryText="Four runs" />
-                            <MenuItem value={6} primaryText="Six runs" />
-                        </SelectField>
-                        <PlayerPicker
+                            <MenuItem value={1} primaryText="1 run" />
+                            <MenuItem value={2} primaryText="2 runs" />
+                            <MenuItem value={3} primaryText="3 runs" />
+                            <MenuItem value={4} primaryText="4 runs" />
+                            <MenuItem value={6} primaryText="6 runs" />
+                        </SelectField>}
+                        {this.displayFilter.fielder && <PlayerPicker
                             label="Fielder"
-                            selectedPlayer={null}
+                            selectedPlayer={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.fielder : null}
                             players={_(fieldingPlayers).sortBy('name')}
-                            onChange={(player) => { console.log(player) }}
-                        />
-                        <PlayerPicker
+                            onChange={this.changeFielder}
+                        />}
+                        {this.displayFilter.batsman && <PlayerPicker
                             label="Batsman"
                             selectedPlayer={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.batsman : null}
                             players={suggestedStrikers}
-                            onChange={(player) => { console.log(player) }}
-                        />
+                            onChange={this.changeBatsman}
+                        />}
                     </Flex>
+                    <div style={{ padding: 10 }}>
+                        <FlatButton label="Clear" style={{ marginRight: 12 }}></FlatButton>
+                        <RaisedButton label="Score" primary={true}></RaisedButton>
+                    </div>
                 </div>
                 {JSON.stringify(selectedMatch.nextMatchEvent)}
             </div>

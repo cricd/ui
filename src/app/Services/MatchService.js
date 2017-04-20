@@ -5,6 +5,7 @@ const entityStoreUrl = 'http://' + __ENTITYSTORE_URL__;
 const changePublisherUrl = 'http://' + __CHANGEPUBLISHER_URL__;
 const scoreProcessorUrl = 'http://' + __SCOREPROCESSOR_URL__;
 const nextBallProcessorUrl = 'http://' + __NEXTBALLPROCESSOR_URL__;
+const eventApiUrl = 'http://' + __EVENTAPI_URL__;
 
 export function getMatch(matchId, callback) {
     if (!matchId) {
@@ -89,6 +90,19 @@ export function createMatch(match, callback) {
             if (err) {
                 console.error(err);
                 return callback('An error occurred trying to create Match');
+            }
+            callback(null, res.body);
+        });
+}
+
+export function createMatchEvent(matchEvent, callback) {
+    request
+        .post(eventApiUrl)
+        .send(matchEvent)
+        .end((err, res) => {
+            if (err) {
+                console.error(err);
+                return callback('An error occurred trying to create MatchEvent');
             }
             callback(null, res.body);
         });

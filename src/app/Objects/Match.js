@@ -64,6 +64,13 @@ export default class Match {
         return _(this.currentInnings.bowling).find((b) => { return b.bowler.id === bowler.id; })
     }
 
+    @action changeNextBallEvent(property, change) { 
+        let newEvent = { ...this.nextMatchEvent };
+        if(change == null) delete newEvent[property]; // Remove any redundant properties
+        else newEvent[property] = change;
+        this.nextMatchEvent = newEvent; 
+    }
+
     @action setMatchType(numberOfInnings, limitedOvers) {
         this.limitedOvers = limitedOvers;
         this.numberOfInnings = numberOfInnings;

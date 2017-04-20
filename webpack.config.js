@@ -33,6 +33,7 @@ module.exports = {
       '__SCOREPROCESSOR_URL__': JSON.stringify(process.env.SCOREPROCESSOR_URL) || JSON.stringify('score-processor:3002'),
       '__CHANGEPUBLISHER_URL__': JSON.stringify(process.env.CHANGEPUBLISHER_URL) || JSON.stringify('change-publisher:3100'),
       '__ENTITYSTORE_URL__': JSON.stringify(process.env.ENTITYSTORE_URL) || JSON.stringify('entities:1337'),
+      '__EVENTAPI_URL__': JSON.stringify(process.env.EVENTAPI_URL) || JSON.stringify('event-api:4567'),
     }),
     // Enabled Superagent
     new webpack.DefinePlugin({ "global.GENTLY": false }),
