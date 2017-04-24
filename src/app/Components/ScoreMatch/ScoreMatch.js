@@ -62,7 +62,7 @@ import FlatButton from 'material-ui/FlatButton';
             });
     }
 
-    @action changeEventType(event, key, eventType) {
+    @action changeEventType(eventType) {
         this.displayFilter = this.displayRules[eventType];
         this.props.uiStateStore.selectedMatch.changeNextBallEvent('eventType', eventType);
         this.props.uiStateStore.selectedMatch.changeNextBallEvent('fielder', null);
@@ -84,7 +84,7 @@ import FlatButton from 'material-ui/FlatButton';
     }
     changeFielder(player) { this.props.uiStateStore.selectedMatch.changeNextBallEvent('fielder', player); }
     changeBatsman(player) { this.props.uiStateStore.selectedMatch.changeNextBallEvent('batsman', player); }
-    changeRuns(event, key, runs) { this.props.uiStateStore.selectedMatch.changeNextBallEvent('runs', runs); }
+    changeRuns(runs) { this.props.uiStateStore.selectedMatch.changeNextBallEvent('runs', runs); }
 
     render() {
         let selectedMatch = this.props.uiStateStore.selectedMatch;
@@ -151,7 +151,7 @@ import FlatButton from 'material-ui/FlatButton';
                         <SelectField
                             floatingLabelText="What happened?"
                             floatingLabelFixed={true}
-                            onChange={this.changeEventType}
+                            onChange={(e, k, eventType) => this.changeEventType(eventType)}
                             value={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.eventType : null}
                         >
                             <MenuItem value="delivery" primaryText="Legal delivery" />
@@ -195,8 +195,8 @@ import FlatButton from 'material-ui/FlatButton';
                             label="Reset"
                             style={{ marginRight: 12 }}
                             onTouchTap={() => { 
-                                this.changeEventType(null, null, 'delivery');
-                                this.changeRuns(null, null, 0);
+                                this.changeEventType('delivery');
+                                this.changeRuns(0);
                             }} />
                         <RaisedButton
                             label="Save score"
@@ -208,7 +208,7 @@ import FlatButton from 'material-ui/FlatButton';
                     </div>
                 </div>
                 <div>
-                    <h3>Debug data</h3>
+                    <div><strong>Debug data</strong></div>
                     {JSON.stringify(selectedMatch.nextMatchEvent)}
                 </div>
             </div>

@@ -8,7 +8,7 @@ const RunsPicker = observer(({ onChange, runs }) => {
         <SelectField
             floatingLabelText="Runs"
             floatingLabelFixed={true}
-            onChange={onChange}
+            onChange={(e, k, runs) => onChange(runs)}
             value={runs}
             errorText={runs == null && 'How many runs were taken?'}
         >
@@ -28,7 +28,7 @@ RunsPicker.propTypes = {
 };
 
 RunsPicker.defaultProps = {
-    onChange: () => console.log('Runs changed: ' + runs),
+    onChange: (runs) => console.log('Runs changed: ' + runs),
 };
 
 export default RunsPicker;
