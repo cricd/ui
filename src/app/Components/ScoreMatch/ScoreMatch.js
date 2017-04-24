@@ -129,12 +129,14 @@ import FlatButton from 'material-ui/FlatButton';
                             selectedPlayer={suggestedBowler}
                             players={_(fieldingPlayers).sortBy('name')}
                             onChange={this.changeBowler}
+                            isRequiredError="Who is bowling?"
                         />
                         <PlayerPicker
                             label="Striker"
                             selectedPlayer={selectedMatch.batsmen ? selectedMatch.batsmen.striker.batsman : null}
                             players={suggestedStrikers}
                             onChange={this.changeStriker}
+                            isRequiredError="Who is the batsman on strike?"
                         />
                     </Flex>
                     <Flex wrap>
@@ -169,24 +171,26 @@ import FlatButton from 'material-ui/FlatButton';
                             value={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.runs : null}
                             errorText={selectedMatch.nextMatchEvent && selectedMatch.nextMatchEvent.runs == null && 'How many runs were taken?'}
                         >
-                            <MenuItem value={0} primaryText="Dot ball" />
+                            <MenuItem value={0} primaryText="No runs" />
                             <MenuItem value={1} primaryText="1 run" />
                             <MenuItem value={2} primaryText="2 runs" />
                             <MenuItem value={3} primaryText="3 runs" />
                             <MenuItem value={4} primaryText="4 runs" />
                             <MenuItem value={6} primaryText="6 runs" />
                         </SelectField>}
-                        {this.displayFilter.fielder && <PlayerPicker
-                            label="Fielder"
-                            selectedPlayer={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.fielder : null}
-                            players={_(fieldingPlayers).sortBy('name')}
-                            onChange={this.changeFielder}
-                        />}
                         {this.displayFilter.batsman && <PlayerPicker
                             label="Batsman"
                             selectedPlayer={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.batsman : null}
                             players={suggestedStrikers}
                             onChange={this.changeBatsman}
+                            isRequiredError="Which batsman?"
+                        />}
+                        {this.displayFilter.fielder && <PlayerPicker
+                            label="Fielder"
+                            selectedPlayer={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.fielder : null}
+                            players={_(fieldingPlayers).sortBy('name')}
+                            onChange={this.changeFielder}
+                            isRequiredError="Who was the fielder?"
                         />}
                     </Flex>
                     <div style={{ padding: 10 }}>
