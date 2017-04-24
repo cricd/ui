@@ -10,6 +10,7 @@ import InningsStats from '../InningsStats/InningsStats';
 import BowlingCard from '../BowlingCard/BowlingCard';
 import BattingCard from '../BattingCard/BattingCard';
 import PlayerPicker from '../PlayerPicker/PlayerPicker';
+import RunsPicker from '../RunsPicker/RunsPicker';
 import Spinner from '../Spinner/Spinner';
 import './ScoreMatch.scss';
 import _ from 'underscore';
@@ -47,7 +48,7 @@ import FlatButton from 'material-ui/FlatButton';
         doubleHit: { runs: false },
         hitWicket: { runs: false },
         lbw: { runs: false },
-        obstruction: { runs: true },
+        obstruction: { runs: true, batsman: true },
         runOut: { runs: true, fielder: true, batsman: true },
         stumped: { runs: false, fielder: true }
     };
@@ -56,7 +57,7 @@ import FlatButton from 'material-ui/FlatButton';
         this.props.matchStore.getMatch(
             this.props.params.matchId,
             (err, match) => {
-                if (err) return this.props.uiStateStore.displayError(err);
+                if(err) return this.props.uiStateStore.displayError(err);
                 this.props.uiStateStore.changeSelectedMatch(match);
             });
     }
@@ -71,7 +72,7 @@ import FlatButton from 'material-ui/FlatButton';
     changeBowler(player) { this.props.uiStateStore.selectedMatch.changeNextBallEvent('bowler', player); }
     changeStriker(player) {
         let oldStriker = { ...this.props.uiStateStore.selectedMatch.batsmen.striker.batsman };
-        if (oldStriker.id === player.id) return; // No change
+        if(oldStriker.id === player.id) return; // No change
 
         // This is currently only a swap
         let oldNonStriker = { ...this.props.uiStateStore.selectedMatch.batsmen.nonStriker.batsman };
@@ -83,11 +84,11 @@ import FlatButton from 'material-ui/FlatButton';
     }
     changeFielder(player) { this.props.uiStateStore.selectedMatch.changeNextBallEvent('fielder', player); }
     changeBatsman(player) { this.props.uiStateStore.selectedMatch.changeNextBallEvent('batsman', player); }
-    changeRuns(event, key, runs) {  this.props.uiStateStore.selectedMatch.changeNextBallEvent('runs', runs); }
+    changeRuns(event, key, runs) { this.props.uiStateStore.selectedMatch.changeNextBallEvent('runs', runs); }
 
     render() {
         let selectedMatch = this.props.uiStateStore.selectedMatch;
-        if (!selectedMatch) return <Spinner />
+        if(!selectedMatch) return <Spinner />
 
         let innings = []; // Innings controls
         selectedMatch.innings.map((inning, index) => {
@@ -98,10 +99,17 @@ import FlatButton from 'material-ui/FlatButton';
         let fieldingPlayers = selectedMatch.fieldingTeam ? selectedMatch.fieldingTeam.players.toJS() : [];
         let suggestedBowler = selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.bowler : null;
         let suggestedStrikers = [];
-        if (selectedMatch.batsmen) {
-            if (selectedMatch.batsmen.striker) suggestedStrikers.push(selectedMatch.batsmen.striker.batsman);
-            if (selectedMatch.batsmen.nonStriker) suggestedStrikers.push(selectedMatch.batsmen.nonStriker.batsman);
+        if(selectedMatch.batsmen) {
+            if(selectedMatch.batsmen.striker) suggestedStrikers.push(selectedMatch.batsmen.striker.batsman);
+            if(selectedMatch.batsmen.nonStriker) suggestedStrikers.push(selectedMatch.batsmen.nonStriker.batsman);
         }
+
+        // Whether or not to enable the Score button
+        let isValidScore = selectedMatch && selectedMatch.batsmen && selectedMatch.batsmen.striker; // Must be a striker
+        isValidScore = isValidScore && selectedMatch.batsmen.nonStriker; // And a non-striker
+        isValidScore = isValidScore && selectedMatch.bowler; // And a bowler
+        isValidScore = isValidScore && (this.displayFilter.runs ? selectedMatch.nextMatchEvent.runs != null : true); // Runs are specified when needed
+        isValidScore = isValidScore && (this.displayFilter.batsman ? !selectedMatch.nextMatchEvent.batsman != null : true); // Batsman is specified if required
 
         return (
             <div>
@@ -164,20 +172,10 @@ import FlatButton from 'material-ui/FlatButton';
                             <MenuItem value="handledBall" primaryText="Handled ball" />
                             <MenuItem value="doubleHit" primaryText="Double hit" />
                         </SelectField>
-                        {this.displayFilter.runs && <SelectField
-                            floatingLabelText="Runs"
-                            floatingLabelFixed={true}
+                        {this.displayFilter.runs && <RunsPicker
                             onChange={this.changeRuns}
-                            value={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.runs : null}
-                            errorText={selectedMatch.nextMatchEvent && selectedMatch.nextMatchEvent.runs == null && 'How many runs were taken?'}
-                        >
-                            <MenuItem value={0} primaryText="No runs" />
-                            <MenuItem value={1} primaryText="1 run" />
-                            <MenuItem value={2} primaryText="2 runs" />
-                            <MenuItem value={3} primaryText="3 runs" />
-                            <MenuItem value={4} primaryText="4 runs" />
-                            <MenuItem value={6} primaryText="6 runs" />
-                        </SelectField>}
+                            runs={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.runs : null}
+                        />}
                         {this.displayFilter.batsman && <PlayerPicker
                             label="Batsman"
                             selectedPlayer={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.batsman : null}
@@ -190,21 +188,29 @@ import FlatButton from 'material-ui/FlatButton';
                             selectedPlayer={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.fielder : null}
                             players={_(fieldingPlayers).sortBy('name')}
                             onChange={this.changeFielder}
-                            isRequiredError="Who was the fielder?"
                         />}
                     </Flex>
                     <div style={{ padding: 10 }}>
-                        {/*<FlatButton label="Clear" style={{ marginRight: 12 }}></FlatButton>*/}
-                        <RaisedButton 
-                            label="Confirm" 
+                        <FlatButton
+                            label="Reset"
+                            style={{ marginRight: 12 }}
+                            onTouchTap={() => { 
+                                this.changeEventType(null, null, 'delivery');
+                                this.changeRuns(null, null, 0);
+                            }} />
+                        <RaisedButton
+                            label="Save score"
                             primary={true}
+                            disabled={!isValidScore}
                             onTouchTap={() => {
-                                selectedMatch.scoreNextMatchEvent((err) => console.log(err) )
-                            }}
-                        ></RaisedButton>
+                                selectedMatch.scoreNextMatchEvent((err) => console.log(err))
+                            }} />
                     </div>
                 </div>
-                {JSON.stringify(selectedMatch.nextMatchEvent)}
+                <div>
+                    <h3>Debug data</h3>
+                    {JSON.stringify(selectedMatch.nextMatchEvent)}
+                </div>
             </div>
         )
     }
