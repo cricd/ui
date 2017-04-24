@@ -66,8 +66,7 @@ PlayerPicker.defaultProps = {
     label: 'Player',
     players: [],
     suggestedPlayers: [],
-    onChange: () => { console.log('Player picked'); },
-    isRequiredError: 'You need to pick a player'
+    onChange: () => { console.log('Player picked'); }
 }
 
 export default PlayerPicker;
