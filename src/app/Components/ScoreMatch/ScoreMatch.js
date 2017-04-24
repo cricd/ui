@@ -167,6 +167,7 @@ import FlatButton from 'material-ui/FlatButton';
                             floatingLabelFixed={true}
                             onChange={this.changeRuns}
                             value={selectedMatch.nextMatchEvent ? selectedMatch.nextMatchEvent.runs : null}
+                            errorText={selectedMatch.nextMatchEvent && selectedMatch.nextMatchEvent.runs == null && 'How many runs were taken?'}
                         >
                             <MenuItem value={0} primaryText="Dot ball" />
                             <MenuItem value={1} primaryText="1 run" />
@@ -189,8 +190,14 @@ import FlatButton from 'material-ui/FlatButton';
                         />}
                     </Flex>
                     <div style={{ padding: 10 }}>
-                        <FlatButton label="Clear" style={{ marginRight: 12 }}></FlatButton>
-                        <RaisedButton label="Score" primary={true}></RaisedButton>
+                        {/*<FlatButton label="Clear" style={{ marginRight: 12 }}></FlatButton>*/}
+                        <RaisedButton 
+                            label="Confirm" 
+                            primary={true}
+                            onTouchTap={() => {
+                                selectedMatch.scoreNextMatchEvent((err) => console.log(err) )
+                            }}
+                        ></RaisedButton>
                     </div>
                 </div>
                 {JSON.stringify(selectedMatch.nextMatchEvent)}

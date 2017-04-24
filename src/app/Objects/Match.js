@@ -96,6 +96,15 @@ export default class Match {
         }));
     }
 
+    scoreNextMatchEvent(callback) {
+        MatchService.createMatchEvent(this.nextMatchEvent, action((error, nextMatchEvent) => {
+            if(error) return callback(error);
+            console.debug('Ball scored successfully');
+            this.nextMatchEvent = nextMatchEvent;
+            return callback();
+        }));
+    }
+
     subscribe(callback) {
         MatchService.subscribeToMatchEvents(
             this.id,
