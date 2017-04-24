@@ -44,7 +44,8 @@ import { inject, observer } from 'mobx-react';
                     floatingLabelText={this.props.label}
                     floatingLabelFixed={true}
                     value={selectedId}
-                    onChange={this.handleChange} >
+                    onChange={this.handleChange} 
+                    errorText={selectedId === -1 && this.props.isRequiredError} >
                     {menuItems}
                 </SelectField>
             </div>
@@ -57,14 +58,16 @@ PlayerPicker.propTypes = {
     players: React.PropTypes.array.isRequired, 
     suggestedPlayers: React.PropTypes.array,
     selectedPlayer: React.PropTypes.object,
-    onChange: React.PropTypes.func.isRequired
+    onChange: React.PropTypes.func.isRequired,
+    isRequiredError: React.PropTypes.string
 }
 
 PlayerPicker.defaultProps = {
     label: 'Player',
     players: [],
     suggestedPlayers: [],
-    onChange: () => { console.log('Player picked'); }
+    onChange: () => { console.log('Player picked'); },
+    isRequiredError: 'You need to pick a player'
 }
 
 export default PlayerPicker;
