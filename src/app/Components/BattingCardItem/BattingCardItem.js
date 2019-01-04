@@ -103,7 +103,7 @@ function describeDismissal(e) {
       return 'Obstruction';
     case "caught":
       if(e.fielder) return 'c ' + e.fielder.name + ' b ' + e.bowler.name;
-      else return 'Caught b' + e.bowler.name;
+      else return 'Caught b ' + e.bowler.name;
     case "runOut":
       if(e.fielder) return 'Run out (' + e.fielder.name + ')';
       else return 'Run out';

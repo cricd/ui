@@ -9,7 +9,7 @@ export default class Match {
     @observable homeTeam;
     @observable awayTeam;
     @observable startDate;
-    @observable limitedOvers;
+    @observable numberOfOvers;
     @observable numberOfInnings;
     @observable matchEvents = [];
     @observable innings = [];
@@ -21,7 +21,7 @@ export default class Match {
     constructor(match, matchService) {
         this.id = match.id;
         this.startDate = match.startDate;
-        this.limitedOvers = match.limitedOvers;
+        this.numberOfOvers = match.numberOfOvers;
         this.numberOfInnings = match.numberOfInnings;
 
         if(match.homeTeam) teamStore.getTeam(match.homeTeam.id, (err, team) => {
@@ -71,8 +71,8 @@ export default class Match {
         this.nextMatchEvent = newEvent; 
     }
 
-    @action setMatchType(numberOfInnings, limitedOvers) {
-        this.limitedOvers = limitedOvers;
+    @action setMatchType(numberOfInnings, numberOfOvers) {
+        this.numberOfOvers = numberOfOvers;
         this.numberOfInnings = numberOfInnings;
     }
 

@@ -18,7 +18,7 @@ class TeamStore {
         TeamService.getTeam(teamId, (error, team) => {
             if(error) return callback(error);
             this.teams.push(new Team(team));
-            return callback(null, newTeam);
+            return callback(null, team);
         });
     }
 

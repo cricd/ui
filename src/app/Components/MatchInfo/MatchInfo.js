@@ -21,20 +21,20 @@ import classNames from 'classnames';
     },
     "startDate": "2009-06-16T00:00:00.000Z",
     "numberOfInnings": 1,
-    "limitedOvers": 20,
+    "numberOfOvers": 20,
     "id": 4,
     "createdAt": "2016-09-12T09:10:48.000Z",
     "updatedAt": "2016-09-12T09:10:48.000Z"
 }
 */
  
- const MatchInfo = observer( ({ limitedOvers, numberOfInnings, homeTeam, awayTeam, startDate, loading }) => {
+ const MatchInfo = observer( ({ numberOfOvers, numberOfInnings, homeTeam, awayTeam, startDate, loading }) => {
     let typeOfMatch;
-    if(numberOfInnings === 2 && !limitedOvers) typeOfMatch = "Test match";
-    else if(numberOfInnings === 1 && limitedOvers === 50) typeOfMatch = "50 Over match";
-    else if(numberOfInnings === 1 && limitedOvers === 20) typeOfMatch = "Twenty20";
-    else if(!limitedOvers) typeOfMatch = numberOfInnings + " innings each side. Unlimited overs";
-    else typeOfMatch = numberOfInnings + " innings each side. Restricted to " + limitedOvers + " overs";
+    if(numberOfInnings === 2 && !numberOfOvers) typeOfMatch = "Test match";
+    else if(numberOfInnings === 1 && numberOfOvers === 50) typeOfMatch = "50 Over match";
+    else if(numberOfInnings === 1 && numberOfOvers === 20) typeOfMatch = "Twenty20";
+    else if(!numberOfOvers) typeOfMatch = numberOfInnings + " innings each side. Unlimited overs";
+    else typeOfMatch = numberOfInnings + " innings each side. Restricted to " + numberOfOvers + " overs";
 
     return (
         <div className={classNames("matchInfo")}>
@@ -53,7 +53,7 @@ import classNames from 'classnames';
 
 MatchInfo.propTypes = {
     numberOfInnings: React.PropTypes.number.isRequired,
-    limitedOvers: React.PropTypes.number,
+    numberOfOvers: React.PropTypes.number,
     homeTeam: React.PropTypes.object.isRequired,
     awayTeam: React.PropTypes.object.isRequired,
     startDate: React.PropTypes.string.isRequired,
@@ -62,7 +62,7 @@ MatchInfo.propTypes = {
 
 MatchInfo.defaultProps = {
     numberOfInnings: 1, 
-    limitedOvers: 20,
+    numberOfOvers: 20,
     homeTeam: { name: 'Team A' },
     awayTeam: { name: 'Team B' },
     startDate: new Date(),

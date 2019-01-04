@@ -50,7 +50,6 @@
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --port 8080 --inline --colors --progress --history-api-fallback",
     "build": "webpack --build --progress --colors --progress --watch --history-api-fallback",
-    "dev": "SCOREPROCESSOR_URL=localhost:3002 NEXTBALLPROCESSOR_URL=localhost:3004 CHANGEPUBLISHER_URL=localhost:3100 ENTITYSTORE_URL=localhost:1337 EVENTAPI_URL=localhost:4567 npm start",
-    "dev-windows": "SET SCOREPROCESSOR_URL=localhost:3002&& SET NEXTBALLPROCESSOR_URL=localhost:3004&& SET CHANGEPUBLISHER_URL=localhost:3100&& SET ENTITYSTORE_URL=localhost:1337&& Set EVENTAPI_URL=localhost:4567&& npm start"
+    "dev": "WRITEAPI_URL=localhost:3001 READAPI_URL=localhost:3000 npm start"
   }
 }

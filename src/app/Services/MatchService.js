@@ -1,11 +1,8 @@
 import io from 'socket.io-client';
 import request from 'superagent';
 
-const entityStoreUrl = 'http://' + __ENTITYSTORE_URL__;
-const changePublisherUrl = 'http://' + __CHANGEPUBLISHER_URL__;
-const scoreProcessorUrl = 'http://' + __SCOREPROCESSOR_URL__;
-const nextBallProcessorUrl = 'http://' + __NEXTBALLPROCESSOR_URL__;
-const eventApiUrl = 'http://' + __EVENTAPI_URL__;
+const writeApiUrl = 'http://' + __WRITEAPI_URL__;
+const readApiUrl = 'http://' + __READAPI_URL__;
 
 export function getMatch(matchId, callback) {
     if (!matchId) {
@@ -15,7 +12,7 @@ export function getMatch(matchId, callback) {
     }
 
     request
-        .get(entityStoreUrl + '/matches/' + matchId)
+        .get(writeApiUrl + '/matches/' + matchId)
         .end((err, res) => {
             if (err && err.status === 404) return callback('No match with this id exists');
             else if (err) {
@@ -33,9 +30,10 @@ export function subscribeToMatchEvents(matchId, handler, callback) {
         return callback(message);
     }
 
-    let socket = io.connect(changePublisherUrl + '?match=' + matchId);
-    socket.on('score-change', handler);
-    console.debug('Subscription to match ' + matchId + ' successful');
+    // TODO: Implement this
+    // let socket = io.connect(changePublisherUrl + '?match=' + matchId);
+    // socket.on('score-change', handler);
+    // console.debug('Subscription to match ' + matchId + ' successful');
     callback();
 };
 
@@ -47,8 +45,7 @@ export function getScore(matchId, callback) {
     }
 
     request
-        .get(scoreProcessorUrl)
-        .query({ match: matchId })
+        .get(readApiUrl + '/matches/' + matchId + '/score')
         .end((err, res) => {
             if (err && err.status === 404) return callback('No score associated with this matchId');
             else if (err) {
@@ -67,8 +64,7 @@ export function getNextMatchEvent(matchId, callback) {
     }
 
     request
-        .get(nextBallProcessorUrl)
-        .query({ match: matchId })
+        .get(readApiUrl + '/matches/' + matchId + '/nextBall')
         .end((err, res) => {
             if (err && err.status === 404) {
                 console.debug('No matchEvents associated with this matchId');
@@ -84,7 +80,7 @@ export function getNextMatchEvent(matchId, callback) {
 
 export function createMatch(match, callback) {
     request
-        .post(entityStoreUrl + '/matches/')
+        .post(writeApiUrl + '/matches/')
         .send(match)
         .end((err, res) => {
             if (err) {
@@ -97,7 +93,7 @@ export function createMatch(match, callback) {
 
 export function createMatchEvent(matchEvent, callback) {
     request
-        .post(eventApiUrl)
+        .post(writeApiUrl + '/matchEvents')
         .send(matchEvent)
         .end((err, res) => {
             if (err) {

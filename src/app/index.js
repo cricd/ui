@@ -8,8 +8,7 @@ import ScoreMatch from './Components/ScoreMatch/ScoreMatch';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { useStrict } from 'mobx';
 
-
-useStrict(true);
+useStrict(false);
 injectTapEventPlugin();
 
 render((

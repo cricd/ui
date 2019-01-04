@@ -17,8 +17,8 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
     render() {
         let matchType = "Test";
-        if(this.props.match.limitedOvers === 50) matchType = "50";
-        else if(this.props.match.limitedOvers === 20) matchType = "20";
+        if(this.props.match.numberOfOvers === 50) matchType = "50";
+        else if(this.props.match.numberOfOvers === 20) matchType = "20";
 
         return (
             <RadioButtonGroup name="type" defaultSelected={matchType} onChange={this.onChange}>
@@ -47,7 +47,7 @@ MatchTypePicker.propTypes = {
 }
 
 MatchTypePicker.defaultProps = {
-    match: { limitedOvers: 20, numberOfInnings: 1 }
+    match: { numberOfOvers: 20, numberOfInnings: 1 }
 }
 
 export default MatchTypePicker;

@@ -20,7 +20,7 @@ import Match from '../../Objects/Match';
         awayTeam: null, 
         startDate: new Date(),
         numberOfInnings: 1,
-        limitedOvers: 20
+        numberOfOvers: 20
     }, this.props.matchStore.matchService);
 
     constructor(props) {

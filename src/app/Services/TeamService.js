@@ -1,10 +1,10 @@
 import io from 'socket.io-client';
 import request from 'superagent';
-const entityStoreUrl = 'http://' + __ENTITYSTORE_URL__;
+const writeApiUrl = 'http://' + __WRITEAPI_URL__;
 
 export function getTeams(callback) {
     request
-        .get(entityStoreUrl + '/teams')
+        .get(writeApiUrl + '/teams')
         .end((err, res) => {
             if (err) {
                 console.error(err);
@@ -22,7 +22,7 @@ export function getTeam(teamId, callback) {
     }
 
     request
-        .get(entityStoreUrl + '/teams/' + teamId)
+        .get(writeApiUrl + '/teams/' + teamId)
         .end((err, res) => {
             if (err) {
                 console.error(err);
@@ -34,7 +34,7 @@ export function getTeam(teamId, callback) {
 
 export function createTeam(team, callback) {
     request
-        .post(entityStoreUrl + '/teams')
+        .post(writeApiUrl + '/teams')
         .send(team)
         .end((err, res) => {
             if (err) {

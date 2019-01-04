@@ -29,7 +29,7 @@ class MatchStore {
            homeTeam: match.homeTeam.id, 
            awayTeam: match.awayTeam.id, 
            startDate:  new Date(match.startDate),
-           limitedOvers: match.limitedOvers,
+           numberOfOvers: match.numberOfOvers,
            numberOfInnings: match.numberOfInnings,
            loading: true
        };
